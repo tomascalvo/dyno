@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DevPath.Models;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DevPath.Controllers
 {
     public class HomeController : Controller
     {
+
+        private ApplicationDbContext _context = new ApplicationDbContext();
+
         public ActionResult Index()
         {
-            return View();
+            return View(_context.Users.Count());
         }
 
         public ActionResult About()

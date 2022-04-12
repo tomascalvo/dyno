@@ -1,10 +1,12 @@
-﻿@{
+﻿@model int
+@{
     ViewBag.Title = "Home";
 }
 
 <div class="jumbotron">
     <h1>DevPath</h1>
     <p class="lead">DevPath is an ASP.NET web app for tracking your coding projects, certifications, and skills.</p>
+    <p>DevPath currently has @Model users.</p>
     <p><a href="home/about" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
