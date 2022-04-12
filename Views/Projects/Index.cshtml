@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DevPath.Models.Project>
+@{
+    ViewBag.Title = "Projects";
+}
+
+<h2>Projects</h2>
+
+<p>DevPath has @Model.Count() projects.</p>
+
+<p>@Html.ActionLink("New Project", "New", "Projects", new { @class = "btn btn-primary"})</p>
+
+<ul>
+    @foreach(DevPath.Models.Project project in @Model)
+            {
+                <li>@project.Title</li>
+            }
+</ul>
+

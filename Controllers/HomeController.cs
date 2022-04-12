@@ -9,6 +9,17 @@ namespace DevPath.Controllers
 
         private ApplicationDbContext _context = new ApplicationDbContext();
 
+        public HomeController()
+        {
+            // the context is a disposable object that must be properly disposed of
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         public ActionResult Index()
         {
             return View(_context.Users.Count());
