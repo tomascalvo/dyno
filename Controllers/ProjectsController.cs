@@ -69,5 +69,25 @@ namespace DevPath.Controllers
             var projects = _context.Projects;
             return View(projects);
         }
+
+        public ActionResult Details(int id)
+        {
+            var project = _context.Projects.SingleOrDefault(p => p.Id == id);
+            return View(project);
+        }
+
+        // DELETE: Projects
+
+        public ActionResult Delete(int? id)
+        {
+            var projectInDb = _context.Projects.SingleOrDefault(p => p.Id == id);
+            if (projectInDb == null)
+            {
+                return RedirectToAction("Index");
+            }
+            _context.Projects.Remove(projectInDb);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
