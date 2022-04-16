@@ -6,12 +6,13 @@ namespace DevPath.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
-        public DbSet<Project> Projects { get; set; }
-
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
         }
+
+        public DbSet<Project> Projects { get; set; }
 
         public static ApplicationDbContext Create()
         {

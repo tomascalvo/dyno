@@ -7,12 +7,21 @@
 
 <p>DevPath has @Model.Count() projects.</p>
 
-<p>@Html.ActionLink("New Project", "New", "Projects", new { @class = "btn btn-primary"})</p>
+<p>@Html.ActionLink("New Project", "New", "Projects", new { @class = "btn btn-primary" })</p>
 
-<ul>
-    @foreach(DevPath.Models.Project project in @Model)
-            {
-                <li>@project.Title</li>
-            }
+<ul style="padding:0; list-style-type:none;" >
+    @foreach (DevPath.Models.Project project in @Model)
+    {
+        <li>
+            <dev>
+                <p>
+                    @project.Title - @project.Id
+                </p>
+                <p>
+                    @project.Description
+                </p>
+            </dev>
+        </li>
+    }
 </ul>
 
