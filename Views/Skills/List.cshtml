@@ -1,0 +1,32 @@
+﻿@model IEnumerable<DevPath.Models.Skill>
+@{
+    ViewBag.Title = "Skills";
+}
+
+<h2>Skills</h2>
+
+<p>DevPath currently has @Model.Count() skills.</p>
+
+<p>@Html.ActionLink("New Skill", "New", "Skills", new { @class = "btn btn-primary" })</p>
+
+<ul style="padding:0; list-style-type:none;">
+    @foreach (DevPath.Models.Skill skill in @Model)
+    {
+        <li>
+            <div>
+                <a href=@($"/Skills/Details/{skill.Id}")>
+                    @skill.Title - @skill.Id
+                </a>
+                <div style="display:flex; justify-content:space-between;">
+                    <p>
+                        @skill.Description
+                    </p>
+                    <p>
+                        @Html.ActionLink("Delete Skill", "Delete", "Skills", new { id = skill.Id }, new { @class = "btn btn-danger", @style = "margin-left:20px" })
+                    </p>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+

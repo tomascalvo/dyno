@@ -5,7 +5,7 @@
 
 <h2>Projects</h2>
 
-<p>DevPath has @Model.Count() projects.</p>
+<p>DevPath currently has @Model.Count() projects.</p>
 
 <p>@Html.ActionLink("New Project", "New", "Projects", new { @class = "btn btn-primary" })</p>
 
@@ -21,7 +21,7 @@
                     <p>
                         @project.Description
                     </p>
-                    <p>@Html.ActionLink("Delete Project", "Delete", "Projects", new { id = project.Id }, new { @class = "btn btn-danger", @style = "margin-left:20px"})</p>
+                    <p>@Html.ActionLink("Delete Project", "Delete", "Projects", new { id = project.Id }, new { @class = "btn btn-danger", @style = "margin-left:20px" })</p>
                 </div>
 
             </div>

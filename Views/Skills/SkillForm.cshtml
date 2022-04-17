@@ -1,0 +1,37 @@
+﻿@model DevPath.ViewModels.Skills.SkillFormViewModel
+@{
+    ViewBag.Title = Model.ViewTitle;
+}
+
+<h2>@Model.ViewTitle</h2>
+
+@using (Html.BeginForm("Save", "Skills"))
+{
+    <div class="form-group">
+        @Html.LabelFor(s => s.Title)
+        @Html.TextBoxFor(s => s.Title, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Icon)
+        @Html.TextBoxFor(s => s.Icon, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Description)
+        @Html.TextBoxFor(s => s.Description, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.ReleaseDate)
+        @Html.TextBoxFor(s => s.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Repository)
+        @Html.TextBoxFor(s => s.Repository, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Documentation)
+        @Html.TextBoxFor(s => s.Documentation, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(s => s.Id)
+    @Html.HiddenFor(s => s.DateAdded)
+    <button type="submit" class="btn btn-primary">Save</button>
+}

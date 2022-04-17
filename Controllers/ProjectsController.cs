@@ -78,7 +78,7 @@ namespace DevPath.Controllers
 
         // DELETE: Projects
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             var projectInDb = _context.Projects.SingleOrDefault(p => p.Id == id);
             if (projectInDb == null)
