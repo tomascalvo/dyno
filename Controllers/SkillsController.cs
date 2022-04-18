@@ -66,6 +66,12 @@ namespace DevPath.Controllers
             return View("List", skills);
         }
 
+        public ActionResult Details(int id)
+        {
+            var skillInDb = _context.Skills.FirstOrDefault(s => s.Id == id);
+            return View(skillInDb);
+        }
+
         public ActionResult Delete(int id)
         {
             var skillInDb = _context.Skills.SingleOrDefault(s => s.Id == id);

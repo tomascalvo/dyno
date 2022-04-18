@@ -67,7 +67,7 @@ namespace DevPath.Controllers
         {
             //int projectsCount = _context.Projects.Count();
             var projects = _context.Projects;
-            return View(projects);
+            return View("List", projects);
         }
 
         public ActionResult Details(int id)
