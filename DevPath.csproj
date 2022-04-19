@@ -180,6 +180,10 @@
     <Compile Include="Migrations\202204182222544_init.designer.cs">
       <DependentUpon>202204182222544_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204190321316_RenamedSkillProperties.cs" />
+    <Compile Include="Migrations\202204190321316_RenamedSkillProperties.designer.cs">
+      <DependentUpon>202204190321316_RenamedSkillProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -266,7 +270,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="fonts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
@@ -278,6 +281,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202204182222544_init.resx">
       <DependentUpon>202204182222544_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204190321316_RenamedSkillProperties.resx">
+      <DependentUpon>202204190321316_RenamedSkillProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -90,7 +90,7 @@
                     RepositoryUrl = "https://github.com/mochajs/mocha",
                     DateAdded = DateTime.Parse("2022-02-08"),
                     DocumentationUrl = "https://mochajs.org",
-                    Icon = "~/Content/images/mocha.svg",
+                    Icon = "https://camo.githubusercontent.com/58045a79a69afea4cab1cea6def6d911fba3956cf5fd683addf41c032aa64088/68747470733a2f2f636c6475702e636f6d2f78465646784f696f41552e737667",
                 },
                 new Skill
                 {
@@ -102,20 +102,22 @@
                     ReleaseDate = DateTime.Parse("2013-03-20"),
                     RepositoryUrl = "github.com/moby/moby",
                     DocumentationUrl = "https://docs.docker.com/",
-                    Icon = "~/Content/images/docker.png",
+                    Icon = "https://www.pngfind.com/pngs/m/255-2553250_icon-docker-notext-color-docker-icon-png-transparent.png",
                 },
                 new Skill
                 {
+                    Id = 4,
                     Title = "ASP.NET",
                     Description = "ASP.NET extends the .NET developer platform with tools and libraries specifically for building web apps. .NET is a developer platform made up of tools, programming languages, and libraries for building many different types of applications.",
                     Developer = "Microsoft",
                     //ReleaseDate = new DateTime(2002, 1, 5),
                     ReleaseDate = DateTime.Parse("2002-01-05"),
                     DocumentationUrl = "https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-6.0",
-                    Icon = "~/Content/images/aspdotnet.png",
+                    Icon = "https://e7.pngegg.com/pngimages/534/663/png-clipart-net-framework-software-framework-c-microsoft-asp-net-microsoft-blue-angle.png",
                 },
                 new Skill
                 {
+                    Id = 5,
                     Title = "Entity Framework",
                     Description = "Entity Framework is an open-source ORM framework for .NET applications supported by Microsoft. It enables developers to work with data using objects of domain specific classes without focusing on the underlying database tables and columns where this data is stored. With the Entity Framework, developers can work at a higher level of abstraction when they deal with data, and can create and maintain data-oriented applications with less code compared with traditional applications.",
                     Developer = "Microsoft",
@@ -123,40 +125,44 @@
                     ReleaseDate = DateTime.Parse("2008-08-11"),
                     RepositoryUrl = "https://github.com/dotnet/ef6",
                     DocumentationUrl = "https://docs.microsoft.com/en-us/ef/",
-                    Icon = "~/Content/images/aspdotnet.png",
+                    Icon = "https://static.javatpoint.com/tutorial/entity-framework/images/entity-framework-tutorial.png",
                 },
                 new Skill
                 {
+                    Id = 6,
                     Title = "Microsoft Visual Studio",
                     Description = "Microsoft Visual Studio is an integrated development environment (IDE) from Microsoft. It is used to develop computer programs, as well as websites, web apps, web services and mobile apps.",
                     Developer = "Microsoft",
                     //ReleaseDate = new DateTime(1997, 3, 19),
                     ReleaseDate = DateTime.Parse("1997-03-19"),
                     DocumentationUrl = "https://docs.microsoft.com/en-us/visualstudio/windows/?view=vs-2022",
-                    Icon = "~/Content/images/visual-studio.svg",
+                    Icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Visual_Studio_Icon_2019.svg/512px-Visual_Studio_Icon_2019.svg.png?20210214224138",
                 },
                 new Skill
                 {
+                    Id = 7,
                     Title = "SQL Server",
                     Description = "Microsoft SQL Server is a relational database management system developed by Microsoft.",
                     Developer = "Microsoft",
                     //ReleaseDate = new DateTime(1989, 4, 24),
                     ReleaseDate = DateTime.Parse("1989-04-24"),
                     DocumentationUrl = "https://docs.microsoft.com/en-us/sql/sql-server/?view=sql-server-ver15",
-                    Icon = "~/Content/images/sql-server.png",
+                    Icon = "https://img.icons8.com/color/480/microsoft-sql-server.png",
                 },
                 new Skill
                 {
+                    Id = 8,
                     Title = "Git",
                     Description = "Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.",
                     Developer = "Junio Hamano and others",
                     //ReleaseDate = new DateTime(2005, 4, 7),
                     ReleaseDate = DateTime.Parse("2005-04-07"),
                     DocumentationUrl = "https://git-scm.com/doc",
-                    Icon = "~/Content/images/git.png",
+                    Icon = "https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png",
                 },
                 new Skill
                 {
+                    Id = 9,
                     Title = "Bootstrap",
                     Description = "Bootstrap is the most popular CSS Framework for developing responsive and mobile-first websites.",
                     Developer = "Mark Otto, Jacob Thornton, Boostrap Core Team",
@@ -164,40 +170,45 @@
                     ReleaseDate = DateTime.Parse("2011-08-19"),
                     RepositoryUrl = "https://github.com/twbs/bootstrap",
                     DocumentationUrl = "https://getbootstrap.com/docs/4.1/getting-started/introduction/",
-                    Icon = "~/Content/images/bootstrap.png",
+                    Icon = "https://camo.githubusercontent.com/bec2c92468d081617cb3145a8f3d8103e268bca400f6169c3a68dc66e05c971e/68747470733a2f2f76352e676574626f6f7473747261702e636f6d2f646f63732f352e302f6173736574732f6272616e642f626f6f7473747261702d6c6f676f2d736861646f772e706e67",
                 },
                 new Skill
                 {
-                    Title = "HTML",
+                    Id = 10,
+                    Title = "HTML5",
                     Developer = "Tim Berners-Lee, WHATWG",
                     //ReleaseDate = new DateTime(1993, 1, 1),
                     ReleaseDate = DateTime.Parse("1993-01-01"),
                     Description = "HTML is the standard markup language for documents designed to be displayed in a web browser.",
-                    Icon = "~/Content/images/html.png",
+                    Icon = "https://www.wired.com/images_blogs/business/2011/08/HTML5_Logo_512.png",
                     DocumentationUrl = "https://developer.mozilla.org/en-US/docs/Web/HTML",
                 },
                 new Skill
                 {
-                    Title = "CSS",
-                    Description = "CSS is a stylesheet language used for describing the presentation of a document written in a markup language such as HTML.",
+                    Id = 11,
+                    Title = "CSS3",
+                    Description = "CSS3 is the latest version of the CSS specification. CSS is a stylesheet language used for describing the presentation of a document written in a markup language such as HTML.",
                     //ReleaseDate = new DateTime(1996, 12, 17),
                     ReleaseDate = DateTime.Parse("1996-12-17"),
                     Developer = "W3C",
                     DocumentationUrl = "https://developer.mozilla.org/en-US/docs/Web/CSS",
-                    Icon = "~/Content/images/html.png",
+                    Icon = "https://cdn.iconscout.com/icon/free/png-256/css-37-226088.png",
 
                 },
                 new Skill
                 {
+                    Id = 12,
                     Title = "Wordpress",
                     Description = "WordPress is a free and open-source content management system written in PHP and paired with a MySQL or MariaDB database. Features include a plugin architecture and a template system, referred to within WordPress as Themes.",
-                    Icon = "~/Content/images/wordpress.png",
+                    Icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/1024px-WordPress_blue_logo.svg.png",
                     ReleaseDate = DateTime.Parse("2003-05-27"),
                     Developer = "WordPress Foundation",
                     DocumentationUrl = "https://developer.wordpress.com/docs/",
                 },
                 new Skill
                 {
+                    Id = 13,
+                    Icon = "https://images-platform.99static.com//y50FdI4Or7filffZ5qSXAn5YMTI=/0x0:2000x2000/fit-in/500x500/projects-files/71/7131/713106/ec5bd3a0-f210-4729-ae13-51241c5657eb.jpg",
                     Title = "Digital Marketing",
                     Description = "Digital marketing is the component of marketing that uses internet and online based digital technologies such as desktop computers, mobile phones and other digital media and platforms to promote products and services.",
                 }
