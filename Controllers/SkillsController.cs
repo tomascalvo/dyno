@@ -51,8 +51,8 @@ namespace DevPath.Controllers
                 skillInDb.Description = skill.Description;
                 skillInDb.ReleaseDate = skill.ReleaseDate;
                 skillInDb.DateAdded = skill.DateAdded;
-                skillInDb.Repository = skill.Repository;
-                skillInDb.Documentation = skill.Documentation;
+                skillInDb.RepositoryUrl = skill.RepositoryUrl;
+                skillInDb.DocumentationUrl = skill.DocumentationUrl;
             }
 
             _context.SaveChanges();

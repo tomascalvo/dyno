@@ -20,16 +20,20 @@
         @Html.TextBoxFor(s => s.Description, new { @class = "form-control" })
     </div>
     <div class="form-group">
+        @Html.LabelFor(s => s.Developer)
+        @Html.TextBoxFor(s => s.Developer, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
         @Html.LabelFor(s => s.ReleaseDate)
         @Html.TextBoxFor(s => s.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(s => s.Repository)
-        @Html.TextBoxFor(s => s.Repository, new { @class = "form-control" })
+        @Html.LabelFor(s => s.RepositoryUrl)
+        @Html.TextBoxFor(s => s.RepositoryUrl, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(s => s.Documentation)
-        @Html.TextBoxFor(s => s.Documentation, new { @class = "form-control" })
+        @Html.LabelFor(s => s.DocumentationUrl)
+        @Html.TextBoxFor(s => s.DocumentationUrl, new { @class = "form-control" })
     </div>
     @Html.HiddenFor(s => s.Id)
     @Html.HiddenFor(s => s.DateAdded)

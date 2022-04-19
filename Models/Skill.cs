@@ -13,8 +13,8 @@ namespace DevPath.Models
         public string Title { get; set; }
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-        //[StringLength(250, ErrorMessage = "Developer property cannot be longer than 250 characters.")]
-        //public string Developer { get; set; }
+        [StringLength(250, ErrorMessage = "Developer property cannot be longer than 250 characters.")]
+        public string Developer { get; set; }
         //public int? CompanyID { get; set; }
         //public virtual Company Company { get; set; }
         [DataType(DataType.Date)]
@@ -27,9 +27,9 @@ namespace DevPath.Models
 
         public DateTime? DateAdded { get; set; } = DateTime.Now;
         [DataType(DataType.Url)]
-        public string Repository { get; set; }
+        public string RepositoryUrl { get; set; }
         [DataType(DataType.Url)]
-        public string Documentation { get; set; }
+        public string DocumentationUrl { get; set; }
         //public virtual ICollection<Course> Courses { get; set; }
         //public virtual ICollection<DocCompletion> DocCompletions { get; set; }
         //public virtual ICollection<Flashcard> Flashcards { get; set; }

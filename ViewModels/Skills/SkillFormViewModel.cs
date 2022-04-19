@@ -14,6 +14,8 @@ namespace DevPath.ViewModels.Skills
         [StringLength(1000, ErrorMessage = "Skill description cannot exceed 1000 characters in length.")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        [StringLength(250, ErrorMessage = "Developer property cannot be longer than 250 characters.")]
+        public string Developer { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Release Date")]
@@ -23,9 +25,9 @@ namespace DevPath.ViewModels.Skills
 
         public DateTime? DateAdded { get; set; } = DateTime.Now;
         [DataType(DataType.Url)]
-        public string Repository { get; set; }
+        public string RepositoryUrl { get; set; }
         [DataType(DataType.Url)]
-        public string Documentation { get; set; }
+        public string DocumentationUrl { get; set; }
 
         public string ViewTitle
         {
@@ -55,8 +57,8 @@ namespace DevPath.ViewModels.Skills
             Description = skill.Description;
             ReleaseDate = skill.ReleaseDate;
             DateAdded = skill.DateAdded;
-            Repository = skill.Repository;
-            Documentation = skill.Documentation;
+            RepositoryUrl = skill.RepositoryUrl;
+            DocumentationUrl = skill.DocumentationUrl;
         }
     }
 }
