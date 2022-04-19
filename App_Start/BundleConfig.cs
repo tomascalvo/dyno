@@ -18,14 +18,14 @@ namespace DevPath
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                    //"~/Content/bootstrap-DevPath.css",
-                    "~/Content/bootstrap-slate.css",
-                    //"~/Content/bootstrap.css",
-                    "~/Content/site.css"));
+                    //"~/Content/bootstrap-slate.css",
+                    "~/Content/site.css",
+                    "~/Content/bootstrap.css"
+                    ));
         }
     }
 }

@@ -7,13 +7,13 @@ namespace DevPath.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddedSkillDomainModel : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedSkillDomainModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "202204171708363_AddedSkillDomainModel"; }
+            get { return "202204182222544_init"; }
         }
         
         string IMigrationMetadata.Source

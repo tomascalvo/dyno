@@ -9,23 +9,72 @@
 
 <p>@Html.ActionLink("New Project", "New", "Projects", new { @class = "btn btn-primary" })</p>
 
-<ul style="padding:0; list-style-type:none;">
-    @foreach (DevPath.Models.Project project in @Model)
-    {
-        <li>
-            <div>
-                <a href=@($"/Projects/Details/{project.Id}")>
-                    @project.Title - @project.Id
-                </a>
-                <div style="display:flex; justify-content:space-between;">
-                    <p>
-                        @project.Description
-                    </p>
-                    <p>@Html.ActionLink("Delete Project", "Delete", "Projects", new { id = project.Id }, new { @class = "btn btn-danger", @style = "margin-left:20px" })</p>
-                </div>
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover"
+           @*style="table-layout:fixed;"*@>
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Description</th>
+                <th class="d-none d-lg-table-cell" style="width:150px;">Repo</th>
+                <th class="d-none d-lg-table-cell" style="width:150px;">Deployment</th>
+                <th class="d-none d-lg-table-cell">Date Added</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model)
+            {
 
-            </div>
-        </li>
-    }
-</ul>
+                <tr>
+                    <td>
+                        <p>
+                            @Html.ActionLink(project.Title, "Details", "Project", new { id = project.Id }, new { style = "text-decoration: none;"})
+                        </p>
+                        @if (project.Icon != null)
+                        {
+                            <a href="@Url.Action("Details", "Project", new { id = project.Id })" title=@($"{project.Title} Details") style="display: flex; width: 100%;">
+                                <img src="@Url.Content(project.Icon)" alt=@($"{project.Title} Icon") class="rounded-circle" style="max-width: 100px; margin: 0 auto; filter: grayscale(100%);" />
+                            </a>
+                        }
+                    </td>
+                    <td>@project.Description</td>
+                    <td class="d-none d-lg-table-cell" style="width:150px; word-wrap: break-word;">
+                        <a href=@project.RepositoryUrl title=@($"{project.Title} Repo")>
+                            @project.RepositoryUrl
+                        </a>
+                    </td>
+                    <td class="d-none d-lg-table-cell" style="width:150px; word-wrap: break-word;">
+                        <a href=@project.DeploymentUrl title=@($"{project.Title} Deployment")>
+                            @project.DeploymentUrl
+                        </a>
+                    </td>
+                    <td class="d-none d-lg-table-cell" style="white-space: nowrap;">@project.DateAdded.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <div class="d-grid gap-2">
+                            @if (@project.RepositoryUrl.Length > 0)
+                            {
+                                <a href=@project.RepositoryUrl class="btn btn-primary">Repo</a>
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Add Repo", "Edit", "Projects", new { id = project.Id }, new { @class = "btn btn-outline-primary" })
+                            }
+                            @if (project.DeploymentUrl.Length > 0)
+                            {
+                                <a href=@project.DeploymentUrl class="btn btn-primary">Site</a>
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Add Site", "Edit", "Projects", new { id = project.Id }, new { @class = "btn btn-outline-primary" })
+                            }
+                            @Html.ActionLink("Delete", "Delete", "Projects", new { id = project.Id }, new { @class = "btn btn-danger" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 

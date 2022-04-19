@@ -3,10 +3,24 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Projects",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(nullable: false, maxLength: 50),
+                        Description = c.String(),
+                        Icon = c.String(),
+                        RepositoryUrl = c.String(),
+                        DeploymentUrl = c.String(),
+                        DateAdded = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.AspNetRoles",
                 c => new
@@ -29,6 +43,21 @@
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.Skills",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Icon = c.String(),
+                        Title = c.String(nullable: false, maxLength: 50),
+                        Description = c.String(),
+                        ReleaseDate = c.DateTime(),
+                        DateAdded = c.DateTime(),
+                        Repository = c.String(),
+                        Documentation = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -92,8 +121,10 @@
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.Skills");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Projects");
         }
     }
 }

@@ -44,7 +44,7 @@ namespace DevPath.Controllers
 
             if (project.Id == 0)
             {
-                project.Added = DateTime.Now;
+                project.DateAdded = DateTime.Now;
                 _context.Projects.Add(project);
             }
             else
@@ -55,7 +55,7 @@ namespace DevPath.Controllers
                 projectInDb.Icon = project.Icon;
                 projectInDb.RepositoryUrl = project.RepositoryUrl;
                 projectInDb.DeploymentUrl = project.DeploymentUrl;
-                projectInDb.Added = project.Added;
+                projectInDb.DateAdded = project.DateAdded;
             }
             _context.SaveChanges();
             return RedirectToAction("Index", "Projects");
@@ -73,7 +73,24 @@ namespace DevPath.Controllers
         public ActionResult Details(int id)
         {
             var project = _context.Projects.SingleOrDefault(p => p.Id == id);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
             return View(project);
+        }
+
+        // PUT: Projects
+
+        public ActionResult Edit(int id)
+        {
+            var projectInDb = _context.Projects.SingleOrDefault(p => p.Id == id);
+            if (projectInDb == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModel = new ProjectFormViewModel(projectInDb);
+            return View("ProjectForm", viewModel);
         }
 
         // DELETE: Projects

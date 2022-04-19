@@ -53,7 +53,7 @@ namespace DevPath.ViewModels.Projects
             Icon = project.Icon;
             RepositoryUrl = project.RepositoryUrl;
             DeploymentUrl = project.DeploymentUrl;
-            Added = project.Added;
+            Added = project.DateAdded;
         }
     }
 }

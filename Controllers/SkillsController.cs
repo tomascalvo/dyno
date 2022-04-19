@@ -69,6 +69,10 @@ namespace DevPath.Controllers
         public ActionResult Details(int id)
         {
             var skillInDb = _context.Skills.FirstOrDefault(s => s.Id == id);
+            if (skillInDb == null)
+            {
+                return HttpNotFound();
+            }
             return View(skillInDb);
         }
 

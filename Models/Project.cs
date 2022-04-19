@@ -19,8 +19,19 @@ namespace DevPath.Models
         [Display(Name = "Deployment Url")]
         [DataType(DataType.Url)]
         public string DeploymentUrl { get; set; }
-        [Display(Name = "Date Created")]
-        public DateTime? Added { get; set; }
+        [Display(Name = "Date Added")]
+        [DataType(DataType.DateTime)]
+
+        public DateTime DateAdded
+        {
+            get
+            {
+                return this.dateAdded ?? DateTime.Now;
+            }
+
+            set { this.dateAdded = value; }
+        }
+        private DateTime? dateAdded = null;
 
         //public int? OwnerID { get; set; }
         //public virtual ApplicationUser Owner { get; set; }
