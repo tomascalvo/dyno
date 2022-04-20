@@ -9,24 +9,78 @@
 
 <p>@Html.ActionLink("New Skill", "New", "Skills", new { @class = "btn btn-primary" })</p>
 
-<ul style="padding:0; list-style-type:none;">
-    @foreach (DevPath.Models.Skill skill in @Model)
-    {
-        <li>
-            <div>
-                <a href=@($"/Skills/Details/{skill.Id}")>
-                    @skill.Title - @skill.Id
-                </a>
-                <div style="display:flex; justify-content:space-between;">
-                    <p>
-                        @skill.Description
-                    </p>
-                    <p>
-                        @Html.ActionLink("Delete Skill", "Delete", "Skills", new { id = skill.Id }, new { @class = "btn btn-danger", @style = "margin-left:20px" })
-                    </p>
-                </div>
-            </div>
-        </li>
-    }
-</ul>
+@if (Model.Any())
+{
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Skill</th>
+                <th>Description</th>
+                <th class="d-none d-lg-table-cell" style="width:150px;">Developer</th>
+                <th class="d-none d-lg-table-cell" style="width:150px;">Release</th>
+                <th class="d-none d-lg-table-cell" style="width:150px;">Repo</th>
+                <th class="d-none d-lg-table-cell" style="width:150px;">Documentation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var skill in Model)
+            {
+                <tr>
+                    <td>
+                        <p>
+                            @Html.ActionLink(skill.Title, "Details", "Skills", new { id = skill.Id }, new { style = "text-decoration: none;" })
+                        </p>
+                        @if (skill.Icon != null)
+                        {
+                            <a href="@Url.Action("Details", "Projects", new { id = skill.Id })" title=@($"{skill.Title} Details") style="display: flex; width: 100%;">
+                                <img src="@Url.Content(skill.Icon)" alt=@($"{skill.Title} Icon") class="rounded-circle" style="width: 150px; height: 150px; margin: 0 auto; object-fit: cover;" />
+                            </a>
+                        }
+                    </td>
+                    <td>@skill.Description</td>
+                    <td class="d-none d-lg-table-cell" style="width:150px; word-wrap: break-word;">
+                        <p>@skill.Developer</p>
+                    </td>
+                    <td class="d-none d-lg-table-cell" style="width:150px; word-wrap: break-word;">
+                        <p>@(skill.ReleaseDate.HasValue ? skill.ReleaseDate.Value.Date.ToString("dd MMM yyyy") : "")</p>
+                    </td>
+                    <td class="d-none d-lg-table-cell" style="width:150px; word-wrap: break-word;">
+                        <a href=@skill.RepositoryUrl title=@($"{skill.Title} Repo")>
+                            @skill.RepositoryUrl
+                        </a>
+                    </td>
+                    <td class="d-none d-lg-table-cell" style="width:150px; word-wrap: break-word;">
+                        <a href=@skill.DocumentationUrl title=@($"{skill.Title} Documentation")>
+                            @skill.DocumentationUrl
+                        </a>
+                    </td>
+                    <td>
+                        <div class="d-grid gap-2">
+                            @if (skill.RepositoryUrl != null && skill.RepositoryUrl.Length > 0)
+                            {
+                                <a href=@skill.RepositoryUrl class="btn btn-primary">Repo</a>
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Add Repo", "Edit", "Skills", new { id = skill.Id }, new { @class = "btn btn-outline-primary" })
+                            }
+                            @if (skill.DocumentationUrl != null)
+                            {
+                                <a href=@skill.DocumentationUrl class="btn btn-primary">Docs</a>
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Add Docs", "Edit", "Skills", new { id = skill.Id }, new { @class = "btn btn-outline-primary" })
+                            }
+                            @Html.ActionLink("Delete", "Delete", "Skills", new { id = skill.Id }, new { @class = "btn btn-danger" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 

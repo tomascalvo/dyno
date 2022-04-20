@@ -283,6 +283,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202204182222544_init.resx">
       <DependentUpon>202204182222544_init.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204190321316_RenamedSkillProperties.resx">
       <DependentUpon>202204190321316_RenamedSkillProperties.cs</DependentUpon>
