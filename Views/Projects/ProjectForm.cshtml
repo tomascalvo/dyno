@@ -7,28 +7,28 @@
 
 @using (Html.BeginForm("Save", "Projects"))
 {
-    <div class="form-group">
+    <div class="mb-3">
         @Html.LabelFor(p => p.Title)
         @Html.TextBoxFor(p => p.Title, new { @class = "form-control" })
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         @Html.LabelFor(p => p.Description)
         @Html.TextAreaFor(p => p.Description, new { @class = "form-control" })
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         @Html.LabelFor(p => p.Icon)
         @Html.TextBoxFor(p => p.Icon, new { @class = "form-control" })
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         @Html.LabelFor(p => p.RepositoryUrl)
         @Html.TextBoxFor(p => p.RepositoryUrl, new { @class = "form-control" })
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         @Html.LabelFor(p => p.DeploymentUrl)
         @Html.TextBoxFor(p => p.DeploymentUrl, new { @class = "form-control" })
     </div>
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(p => p.DateAdded)
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary btn-block">Save</button>
 }
 
