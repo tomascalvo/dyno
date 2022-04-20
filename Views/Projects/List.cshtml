@@ -35,7 +35,7 @@
                         @if (project.Icon != null)
                         {
                             <a href="@Url.Action("Details", "Projects", new { id = project.Id })" title=@($"{project.Title} Details") style="display: flex; width: 100%;">
-                                <img src="@Url.Content(project.Icon)" alt=@($"{project.Title} Icon") class="rounded-circle" style="max-width: 100px; margin: 0 auto; filter: grayscale(100%);" />
+                                <img src="@Url.Content(project.Icon)" alt=@($"{project.Title} Icon") class="rounded-circle" style="width: 150px; height: 150px; margin: 0 auto; object-fit: cover;" />
                             </a>
                         }
                     </td>
