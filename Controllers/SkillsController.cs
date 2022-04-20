@@ -76,6 +76,17 @@ namespace DevPath.Controllers
             return View(skillInDb);
         }
 
+        public ActionResult Edit(int id)
+        {
+            var skillInDb = _context.Skills.SingleOrDefault(s => s.Id == id);
+            if (skillInDb == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModel = new SkillFormViewModel(skillInDb);
+            return View("SkillForm", viewModel);
+        }
+
         public ActionResult Delete(int id)
         {
             var skillInDb = _context.Skills.SingleOrDefault(s => s.Id == id);
