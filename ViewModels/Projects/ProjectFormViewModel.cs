@@ -22,7 +22,7 @@ namespace DevPath.ViewModels.Projects
         public string DeploymentUrl { get; set; }
         [Display(Name = "Date Created")]
 
-        public DateTime? Added { get; set; }
+        public DateTime? DateAdded { get; set; }
 
         public string PageTitle
         {
@@ -42,7 +42,7 @@ namespace DevPath.ViewModels.Projects
         public ProjectFormViewModel()
         {
             Id = 0;
-            Added = DateTime.Now;
+            DateAdded = DateTime.Now;
         }
 
         public ProjectFormViewModel(Project project)
@@ -53,7 +53,7 @@ namespace DevPath.ViewModels.Projects
             Icon = project.Icon;
             RepositoryUrl = project.RepositoryUrl;
             DeploymentUrl = project.DeploymentUrl;
-            Added = project.DateAdded;
+            DateAdded = project.DateAdded;
         }
     }
 }
