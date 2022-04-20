@@ -30,11 +30,11 @@
                 <tr>
                     <td>
                         <p>
-                            @Html.ActionLink(project.Title, "Details", "Project", new { id = project.Id }, new { style = "text-decoration: none;"})
+                            @Html.ActionLink(project.Title, "Details", "Projects", new { id = project.Id }, new { style = "text-decoration: none;" })
                         </p>
                         @if (project.Icon != null)
                         {
-                            <a href="@Url.Action("Details", "Project", new { id = project.Id })" title=@($"{project.Title} Details") style="display: flex; width: 100%;">
+                            <a href="@Url.Action("Details", "Projects", new { id = project.Id })" title=@($"{project.Title} Details") style="display: flex; width: 100%;">
                                 <img src="@Url.Content(project.Icon)" alt=@($"{project.Title} Icon") class="rounded-circle" style="max-width: 100px; margin: 0 auto; filter: grayscale(100%);" />
                             </a>
                         }
