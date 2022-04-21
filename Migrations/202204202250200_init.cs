@@ -22,6 +22,22 @@
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Skills",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Icon = c.String(),
+                        Title = c.String(nullable: false, maxLength: 50),
+                        Description = c.String(),
+                        Developer = c.String(maxLength: 250),
+                        ReleaseDate = c.DateTime(),
+                        DateAdded = c.DateTime(),
+                        RepositoryUrl = c.String(),
+                        DocumentationUrl = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -43,21 +59,6 @@
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
-            
-            CreateTable(
-                "dbo.Skills",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Icon = c.String(),
-                        Title = c.String(nullable: false, maxLength: 50),
-                        Description = c.String(),
-                        ReleaseDate = c.DateTime(),
-                        DateAdded = c.DateTime(),
-                        Repository = c.String(),
-                        Documentation = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -104,6 +105,19 @@
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.ProjectSkills",
+                c => new
+                    {
+                        ProjectId = c.Int(nullable: false),
+                        SkillId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.ProjectId, t.SkillId })
+                .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)
+                .ForeignKey("dbo.Skills", t => t.SkillId, cascadeDelete: true)
+                .Index(t => t.ProjectId)
+                .Index(t => t.SkillId);
+            
         }
         
         public override void Down()
@@ -112,18 +126,23 @@
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.ProjectSkills", "SkillId", "dbo.Skills");
+            DropForeignKey("dbo.ProjectSkills", "ProjectId", "dbo.Projects");
+            DropIndex("dbo.ProjectSkills", new[] { "SkillId" });
+            DropIndex("dbo.ProjectSkills", new[] { "ProjectId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.ProjectSkills");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Skills");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Skills");
             DropTable("dbo.Projects");
         }
     }

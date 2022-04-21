@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DevPath.Models
@@ -12,6 +13,7 @@ namespace DevPath.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string Icon { get; set; }
+        public List<ProjectSkill> ProjectSkills { get; set; }
         [Display(Name = "Repo Url")]
 
         [DataType(DataType.Url)]

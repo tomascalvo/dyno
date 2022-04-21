@@ -15,10 +15,17 @@
         @Html.LabelFor(p => p.Description)
         @Html.TextAreaFor(p => p.Description, new { @class = "form-control" })
     </div>
-    <img src="@Url.Content(Model.Icon)" alt=@($"{Model.Title} Icon") class="rounded-circle mb-3" style="width: 150px; height: 150px; margin: 0 auto; object-fit: cover;" />
+    if (Model.Icon != null)
+    {
+        <img src="@Url.Content(Model.Icon)" alt=@($"{Model.Title} Icon") class="rounded-circle mb-3" style="width: 150px; height: 150px; margin: 0 auto; object-fit: cover;" />
+    }
     <div class="mb-3">
         @Html.LabelFor(p => p.Icon)
         @Html.TextBoxFor(p => p.Icon, new { @class = "form-control" })
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(p => p.SelectedSkillIds)
+        @Html.ListBoxFor(p => p.SelectedSkillIds, Model.SkillOptions, new { @class = "form-control" })
     </div>
     <div class="mb-3">
         @Html.LabelFor(p => p.RepositoryUrl)

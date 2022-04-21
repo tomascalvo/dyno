@@ -7,13 +7,13 @@ namespace DevPath.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class RenamedSkillProperties : IMigrationMetadata
+    public sealed partial class RefactoredProjectSkillRelationship : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RenamedSkillProperties));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RefactoredProjectSkillRelationship));
         
         string IMigrationMetadata.Id
         {
-            get { return "202204190321316_RenamedSkillProperties"; }
+            get { return "202204210118172_RefactoredProjectSkillRelationship"; }
         }
         
         string IMigrationMetadata.Source

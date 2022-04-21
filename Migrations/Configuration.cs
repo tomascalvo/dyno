@@ -216,5 +216,7 @@
             skills.ForEach(skill => context.Skills.AddOrUpdate(s => s.Id, skill));
             context.SaveChanges();
         }
+
+
     }
 }

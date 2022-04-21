@@ -1,12 +1,14 @@
 ﻿using DevPath.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace DevPath.ViewModels.Projects
 {
     public class ProjectFormViewModel
     {
-
+        // Project Model Properties
         public int? Id { get; set; }
         [StringLength(50, ErrorMessage = "Project title must be 1 to 50 characters in length.")]
         public string Title { get; set; }
@@ -14,15 +16,17 @@ namespace DevPath.ViewModels.Projects
         public string Icon { get; set; }
         [Display(Name = "Repo Url")]
         [DataType(DataType.Url)]
-
         public string RepositoryUrl { get; set; }
         [Display(Name = "Deployment Url")]
-
         [DataType(DataType.Url)]
         public string DeploymentUrl { get; set; }
         [Display(Name = "Date Created")]
+        public DateTime DateAdded { get; set; }
+        [Display(Name = "Skills")]
 
-        public DateTime? DateAdded { get; set; }
+        // Skill Options
+        public IEnumerable<SelectListItem> SkillOptions { get; set; }
+        public List<int> SelectedSkillIds { get; set; }
 
         public string PageTitle
         {

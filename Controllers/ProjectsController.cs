@@ -1,6 +1,7 @@
 ﻿using DevPath.Models;
 using DevPath.ViewModels.Projects;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -25,7 +26,11 @@ namespace DevPath.Controllers
         {
             var viewModel = new ProjectFormViewModel()
             {
-
+                SkillOptions = _context.Skills.ToList().Select(skillOption => new SelectListItem
+                {
+                    Text = skillOption.Title,
+                    Value = skillOption.Id.ToString()
+                })
             };
             return View("ProjectForm", viewModel);
         }
@@ -34,28 +39,60 @@ namespace DevPath.Controllers
 
         [HttpPost]
 
-        public ActionResult Save(Project project)
+        public ActionResult Save(ProjectFormViewModel formData)
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new ProjectFormViewModel(project);
-                return View("ProjectForm", viewModel);
+                return View("ProjectForm", formData);
             }
 
-            if (project.Id == 0)
+            if (formData.Id == 0)
             {
-                project.DateAdded = DateTime.Now;
-                _context.Projects.Add(project);
+                formData.DateAdded = DateTime.Now;
+                var newProject = new Project
+                {
+                    Title = formData.Title,
+                    Description = formData.Description,
+                    Icon = formData.Icon,
+                    RepositoryUrl = formData.RepositoryUrl,
+                    DeploymentUrl = formData.DeploymentUrl,
+                };
+                _context.Projects.Add(newProject);
+                _context.SaveChanges();
+                // ADDING NEW ProjectSkills TO REPRESENT THE MANY TO MANY RELATIONSHIP BETWEEN PROJECTS AND SKILLS
+                foreach (int skillId in formData.SelectedSkillIds)
+                {
+                    ProjectSkill newProjectSkill = new ProjectSkill
+                    {
+                        ProjectId = newProject.Id,
+                        SkillId = skillId
+                    };
+                    _context.ProjectSkills.Add(newProjectSkill);
+                }
             }
             else
             {
-                var projectInDb = _context.Projects.Single(p => p.Id == project.Id);
-                projectInDb.Title = project.Title;
-                projectInDb.Description = project.Description;
-                projectInDb.Icon = project.Icon;
-                projectInDb.RepositoryUrl = project.RepositoryUrl;
-                projectInDb.DeploymentUrl = project.DeploymentUrl;
-                projectInDb.DateAdded = project.DateAdded;
+                var projectInDb = _context.Projects.Single(p => p.Id == formData.Id);
+                projectInDb.Title = formData.Title;
+                projectInDb.Description = formData.Description;
+                projectInDb.Icon = formData.Icon;
+                projectInDb.RepositoryUrl = formData.RepositoryUrl;
+                projectInDb.DeploymentUrl = formData.DeploymentUrl;
+                projectInDb.DateAdded = formData.DateAdded;
+                // ADDING NEW ProjectSkills TO REPRESENT THE MANY TO MANY RELATIONSHIP BETWEEN PROJECTS AND SKILLS
+                foreach (int skillId in formData.SelectedSkillIds)
+                {
+                    var projectSkillExists = _context.ProjectSkills.Any(ps => ps.ProjectId == projectInDb.Id && ps.SkillId == skillId);
+                    if (projectSkillExists == false)
+                    {
+                        ProjectSkill newProjectSkill = new ProjectSkill
+                        {
+                            ProjectId = projectInDb.Id,
+                            SkillId = skillId
+                        };
+                        _context.ProjectSkills.Add(newProjectSkill);
+                    }
+                }
             }
             _context.SaveChanges();
             return RedirectToAction("Index", "Projects");
@@ -65,18 +102,29 @@ namespace DevPath.Controllers
 
         public ActionResult Index()
         {
-            //int projectsCount = _context.Projects.Count();
-            var projects = _context.Projects;
+            // LAZY LOADING
+            // By default, Entity Framework only loads the Project objects, not their related objects. Referencing related objects will cause a null reference exception.
+            //var projects = _context.Projects;
+
+            // EAGER LOADING
+            // Eager Loading will load the Project object and related objects.
+            var projects = _context.Projects.Include(p => p.ProjectSkills.Select(ps => ps.Skill)).ToList();
             return View("List", projects);
         }
 
         public ActionResult Details(int id)
         {
-            var project = _context.Projects.SingleOrDefault(p => p.Id == id);
+            // LAZY LOADING
+            //var project = _context.Projects.SingleOrDefault(p => p.Id == id);
+
+            // EAGER LOADING
+            var project = _context.Projects.Include(p => p.ProjectSkills.Select(ps => ps.Skill)).FirstOrDefault(p => p.Id == id);
+
             if (project == null)
             {
                 return HttpNotFound();
             }
+
             return View(project);
         }
 
@@ -89,7 +137,15 @@ namespace DevPath.Controllers
             {
                 return HttpNotFound();
             }
-            var viewModel = new ProjectFormViewModel(projectInDb);
+            var skills = _context.Skills.ToList();
+            var viewModel = new ProjectFormViewModel(projectInDb)
+            {
+                SkillOptions = skills.Select(skill => new SelectListItem
+                {
+                    Text = skill.Title,
+                    Value = skill.Id.ToString()
+                })
+            };
             return View("ProjectForm", viewModel);
         }
 

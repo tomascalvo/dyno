@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -27,8 +28,14 @@ namespace DevPath.Models
 
         public DateTime? DateAdded { get; set; } = DateTime.Now;
         [DataType(DataType.Url)]
+        [Display(Name = "Repository")]
+
+        public List<ProjectSkill> ProjectSkills { get; set; }
+
         public string RepositoryUrl { get; set; }
         [DataType(DataType.Url)]
+        [Display(Name = "Documentation")]
+
         public string DocumentationUrl { get; set; }
         //public virtual ICollection<Course> Courses { get; set; }
         //public virtual ICollection<DocCompletion> DocCompletions { get; set; }

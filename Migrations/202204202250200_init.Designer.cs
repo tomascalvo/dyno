@@ -13,7 +13,7 @@ namespace DevPath.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202204182222544_init"; }
+            get { return "202204202250200_init"; }
         }
         
         string IMigrationMetadata.Source
