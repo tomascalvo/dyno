@@ -75,16 +75,16 @@ namespace DevPath.Controllers
             }
             else // UPDATE EXISTING PROJECT
             {
-                var projectInDb = _context.Projects.Single(p => p.Id == formData.Id);
+                var projectInDb = _context.Projects.Include(p => p.ProjectSkills.Select(ps => ps.Skill)).Single(p => p.Id == formData.Id);
                 projectInDb.Title = formData.Title;
                 projectInDb.Description = formData.Description;
                 projectInDb.Icon = formData.Icon;
                 projectInDb.RepositoryUrl = formData.RepositoryUrl;
                 projectInDb.DeploymentUrl = formData.DeploymentUrl;
                 projectInDb.DateAdded = formData.DateAdded;
-                // ADDING NEW ProjectSkills TO REPRESENT THE MANY TO MANY RELATIONSHIP BETWEEN PROJECTS AND SKILLS
                 if (formData.SelectedSkillIds != null)
                 {
+                    // ADDING NEW ProjectSkills TO REPRESENT THE MANY TO MANY RELATIONSHIP BETWEEN PROJECTS AND SKILLS
                     foreach (int skillId in formData.SelectedSkillIds)
                     {
                         var projectSkillExists = _context.ProjectSkills.Any(ps => ps.ProjectId == projectInDb.Id && ps.SkillId == skillId);
@@ -99,6 +99,14 @@ namespace DevPath.Controllers
                         }
                     }
 
+                    // REMOVING ProjectSkills FOR SKILLS THAT WERE DESELECTED
+                    foreach (ProjectSkill priorProjectSkill in projectInDb.ProjectSkills.ToList())
+                    {
+                        if (formData.SelectedSkillIds.Contains(priorProjectSkill.SkillId) == false)
+                        {
+                            _context.ProjectSkills.Remove(priorProjectSkill);
+                        }
+                    }
                 }
             }
             _context.SaveChanges();
@@ -139,19 +147,20 @@ namespace DevPath.Controllers
 
         public ActionResult Edit(int id)
         {
-            var projectInDb = _context.Projects.SingleOrDefault(p => p.Id == id);
+            var projectInDb = _context.Projects.Include(p => p.ProjectSkills.Select(ps => ps.Skill)).SingleOrDefault(p => p.Id == id);
             if (projectInDb == null)
             {
                 return HttpNotFound();
             }
-            var skills = _context.Skills.ToList();
+            var skillOptions = _context.Skills.ToList();
             var viewModel = new ProjectFormViewModel(projectInDb)
             {
-                SkillOptions = skills.Select(skill => new SelectListItem
+                SkillOptions = skillOptions.Select(skill => new SelectListItem
                 {
                     Text = skill.Title,
                     Value = skill.Id.ToString()
-                })
+                }),
+                SelectedSkillIds = projectInDb.ProjectSkills.Select(projectSkill => projectSkill.SkillId).ToList()
             };
             return View("ProjectForm", viewModel);
         }

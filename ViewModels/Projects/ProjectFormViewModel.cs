@@ -26,7 +26,7 @@ namespace DevPath.ViewModels.Projects
 
         // Skill Options
         public IEnumerable<SelectListItem> SkillOptions { get; set; }
-        public List<int> SelectedSkillIds { get; set; }
+        public List<int> SelectedSkillIds { get; set; } = new List<int>();
 
         public string PageTitle
         {
