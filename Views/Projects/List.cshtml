@@ -48,7 +48,15 @@
                         @foreach (var projectSkill in project.ProjectSkills)
                         {
                             <a href="@Url.Action("Details", "Skills", new { id = projectSkill.Skill.Id })" title=@($"{projectSkill.Skill.Title} Details") data-bs-toggle="tooltip" data-bs-placement="top" style="text-decoration: none">
-                                <img src="@Url.Content(projectSkill.Skill.Icon)" alt=@($"{projectSkill.Skill.Title} Icon") class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover;" />
+                                @if (projectSkill.Skill.Icon.IsEmpty())
+                                {
+                                    <p>@projectSkill.Skill.Title</p>
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content(projectSkill.Skill.Icon)" alt=@($"{projectSkill.Skill.Title} Icon") class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover;" />
+                                }
+
                             </a>
                         }
                     </td>
