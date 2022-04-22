@@ -184,9 +184,17 @@
     <Compile Include="Migrations\202204210118172_RefactoredProjectSkillRelationship.designer.cs">
       <DependentUpon>202204210118172_RefactoredProjectSkillRelationship.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.cs" />
+    <Compile Include="Migrations\202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.designer.cs">
+      <DependentUpon>202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\EmploymentApplication.cs" />
+    <Compile Include="Models\EmploymentListing.cs" />
+    <Compile Include="Models\EmploymentListingSkill.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectSkill.cs" />
@@ -277,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204210118172_RefactoredProjectSkillRelationship.resx">
       <DependentUpon>202204210118172_RefactoredProjectSkillRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.resx">
+      <DependentUpon>202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

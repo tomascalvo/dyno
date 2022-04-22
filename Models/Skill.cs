@@ -31,6 +31,7 @@ namespace DevPath.Models
         [Display(Name = "Repository")]
 
         public List<ProjectSkill> ProjectSkills { get; set; }
+        public List<EmploymentListingSkill> EmploymentListingSkills { get; set; }
 
         public string RepositoryUrl { get; set; }
         [DataType(DataType.Url)]
