@@ -33,7 +33,7 @@
                         <p>
                             @Html.ActionLink(project.Title, "Details", "Projects", new { id = project.Id }, new { style = "text-decoration: none;" })
                         </p>
-                        @if (project.Icon != null)
+                        @if (project.Icon != null && project.Icon != "")
                         {
                             <a href="@Url.Action("Details", "Projects", new { id = project.Id })" title=@($"{project.Title} Details") style="display: flex; width: 100%;">
                                 <img src="@Url.Content(project.Icon)" alt=@($"{project.Title} Icon") class="rounded-circle" style="width: 150px; height: 150px; margin: 0 auto; object-fit: cover;" />

@@ -46,7 +46,7 @@ namespace DevPath.Controllers
                 return View("ProjectForm", formData);
             }
 
-            if (formData.Id == 0)
+            if (formData.Id == 0) // CREATE NEW PROJECT
             {
                 formData.DateAdded = DateTime.Now;
                 var newProject = new Project
@@ -60,17 +60,20 @@ namespace DevPath.Controllers
                 _context.Projects.Add(newProject);
                 _context.SaveChanges();
                 // ADDING NEW ProjectSkills TO REPRESENT THE MANY TO MANY RELATIONSHIP BETWEEN PROJECTS AND SKILLS
-                foreach (int skillId in formData.SelectedSkillIds)
+                if (formData.SelectedSkillIds != null)
                 {
-                    ProjectSkill newProjectSkill = new ProjectSkill
+                    foreach (int skillId in formData.SelectedSkillIds)
                     {
-                        ProjectId = newProject.Id,
-                        SkillId = skillId
-                    };
-                    _context.ProjectSkills.Add(newProjectSkill);
+                        ProjectSkill newProjectSkill = new ProjectSkill
+                        {
+                            ProjectId = newProject.Id,
+                            SkillId = skillId
+                        };
+                        _context.ProjectSkills.Add(newProjectSkill);
+                    }
                 }
             }
-            else
+            else // UPDATE EXISTING PROJECT
             {
                 var projectInDb = _context.Projects.Single(p => p.Id == formData.Id);
                 projectInDb.Title = formData.Title;
@@ -80,18 +83,22 @@ namespace DevPath.Controllers
                 projectInDb.DeploymentUrl = formData.DeploymentUrl;
                 projectInDb.DateAdded = formData.DateAdded;
                 // ADDING NEW ProjectSkills TO REPRESENT THE MANY TO MANY RELATIONSHIP BETWEEN PROJECTS AND SKILLS
-                foreach (int skillId in formData.SelectedSkillIds)
+                if (formData.SelectedSkillIds != null)
                 {
-                    var projectSkillExists = _context.ProjectSkills.Any(ps => ps.ProjectId == projectInDb.Id && ps.SkillId == skillId);
-                    if (projectSkillExists == false)
+                    foreach (int skillId in formData.SelectedSkillIds)
                     {
-                        ProjectSkill newProjectSkill = new ProjectSkill
+                        var projectSkillExists = _context.ProjectSkills.Any(ps => ps.ProjectId == projectInDb.Id && ps.SkillId == skillId);
+                        if (projectSkillExists == false)
                         {
-                            ProjectId = projectInDb.Id,
-                            SkillId = skillId
-                        };
-                        _context.ProjectSkills.Add(newProjectSkill);
+                            ProjectSkill newProjectSkill = new ProjectSkill
+                            {
+                                ProjectId = projectInDb.Id,
+                                SkillId = skillId
+                            };
+                            _context.ProjectSkills.Add(newProjectSkill);
+                        }
                     }
+
                 }
             }
             _context.SaveChanges();
