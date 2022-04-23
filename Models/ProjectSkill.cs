@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DevPath.Models
 {
@@ -16,7 +17,7 @@ namespace DevPath.Models
             ProjectId = projectId;
             SkillId = skillId;
         }
-
+        [Key]
         public int Id { get; set; }
         public int ProjectId { get; set; }
         public Project Project { get; set; }

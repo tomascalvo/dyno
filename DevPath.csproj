@@ -176,17 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204202250200_init.cs" />
-    <Compile Include="Migrations\202204202250200_init.designer.cs">
-      <DependentUpon>202204202250200_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204210118172_RefactoredProjectSkillRelationship.cs" />
-    <Compile Include="Migrations\202204210118172_RefactoredProjectSkillRelationship.designer.cs">
-      <DependentUpon>202204210118172_RefactoredProjectSkillRelationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.cs" />
-    <Compile Include="Migrations\202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.designer.cs">
-      <DependentUpon>202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.cs</DependentUpon>
+    <Compile Include="Migrations\202204232300569_init.cs" />
+    <Compile Include="Migrations\202204232300569_init.designer.cs">
+      <DependentUpon>202204232300569_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -322,17 +314,6 @@
     <Content Include="Views\Skills\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202204202250200_init.resx">
-      <DependentUpon>202204202250200_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204210118172_RefactoredProjectSkillRelationship.resx">
-      <DependentUpon>202204210118172_RefactoredProjectSkillRelationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.resx">
-      <DependentUpon>202204221716293_AddedCompany,EmploymentListing,EmploymentApplicationDomainModels.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="packages.config" />
@@ -341,6 +322,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202204232300569_init.resx">
+      <DependentUpon>202204232300569_init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

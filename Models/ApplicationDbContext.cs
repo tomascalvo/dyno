@@ -34,7 +34,8 @@ namespace DevPath.Models
             // Using fluent API to customize M2M relationship between Project and Skill.
 
             modelBuilder.Entity<ProjectSkill>()
-                .HasKey(ps => new { ps.ProjectId, ps.SkillId });
+                //.HasKey(ps => new { ps.ProjectId, ps.SkillId }); /*THIS LINE CONFIGURES A COMPOSITE PRIMARY KEY */
+                .HasKey(ps => ps.Id);
             modelBuilder.Entity<ProjectSkill>()
                 .HasRequired(ps => ps.Project)
                 .WithMany(p => p.ProjectSkills)
