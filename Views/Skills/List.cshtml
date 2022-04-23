@@ -35,7 +35,7 @@
                         @if (skill.Icon != null)
                         {
                             <a href="@Url.Action("Details", "Projects", new { id = skill.Id })" title=@($"{skill.Title} Details") style="display: flex; width: 100%;">
-                                <img src="@Url.Content(skill.Icon)" alt=@($"{skill.Title} Icon") class="rounded-circle" style="width: 150px; height: 150px; margin: 0 auto; object-fit: cover;" />
+                                <img src="@Url.Content(skill.Icon)" alt=@($"{skill.Title} Icon") style="width: 100px; height: 150px; margin: 0 auto; object-fit: scale-down;" />
                             </a>
                         }
                     </td>
@@ -74,6 +74,8 @@
                             {
                                 @Html.ActionLink("Add Docs", "Edit", "Skills", new { id = skill.Id }, new { @class = "btn btn-outline-primary" })
                             }
+                            @Html.ActionLink("Edit", "Edit", "Skills", new { id = skill.Id }, new { @class = "btn btn-danger" })
+
                             @Html.ActionLink("Delete", "Delete", "Skills", new { id = skill.Id }, new { @class = "btn btn-danger" })
                         </div>
                     </td>

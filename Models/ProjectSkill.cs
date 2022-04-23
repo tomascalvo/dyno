@@ -4,6 +4,19 @@ namespace DevPath.Models
 {
     public class ProjectSkill
     {
+        // DEFAULT CONSTRUCTOR
+        public ProjectSkill()
+        {
+
+        }
+
+        // EASY CONSTRUCTOR FOR SEED METHOD
+        public ProjectSkill(int projectId, int skillId)
+        {
+            ProjectId = projectId;
+            SkillId = skillId;
+        }
+
         public int Id { get; set; }
         public int ProjectId { get; set; }
         public Project Project { get; set; }

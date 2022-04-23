@@ -12,6 +12,26 @@
             AutomaticMigrationsEnabled = false;
         }
 
+        public List<ProjectSkill> AddProjectSkillsToList(int projectId, int[] skillIds)
+        {
+            var projectSkillsList = new List<ProjectSkill>();
+
+            foreach (int skillId in skillIds)
+            {
+                projectSkillsList.Add(new ProjectSkill(projectId, skillId));
+            }
+            return projectSkillsList;
+        }
+
+        public List<ProjectSkill> AddProjectSkillsToList(int projectId, int[] skillIds, List<ProjectSkill> projectSkillsList)
+        {
+            foreach (int skillId in skillIds)
+            {
+                projectSkillsList.Add(new ProjectSkill(projectId, skillId));
+            }
+            return projectSkillsList;
+        }
+
         protected override void Seed(DevPath.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
@@ -25,7 +45,7 @@
                 {
                     Id = 1,
                     Title = "Strength",
-                    Icon = "https://static.vecteezy.com/system/resources/thumbnails/003/179/657/small/dumbbell-equipment-gym-line-style-icon-free-vector.jpg",
+                    Icon = "~/Content/Icons/project-icons/strength-logo-3-lightmode.svg",
                     Description = "A MERN stack web app for tracking fitness and training together remotely.",
                     //OwnerID = 1,
                     RepositoryUrl = "https://github.com/tomascalvo/otrera-server",
@@ -34,8 +54,8 @@
                 new Project
                 {
                     Id = 2,
-                    Title = "DevPath",
-                    Icon = "https://icon-library.com/images/software-icon/software-icon-6.jpg",
+                    Title = "Dyno",
+                    Icon = "~/Content/Icons/project-icons/dyno-logo-lightmode.png",
                     Description = "An ASP.NET web app for matching web developers with relevant jobs and learning resources.",
                     //OwnerID = 1,
                     RepositoryUrl = "https://github.com/tomascalvo/devpath",
@@ -61,8 +81,58 @@
                     RepositoryUrl = "",
                     DeploymentUrl = "",
                 },
+                new Project
+                {
+                    Id = 5,
+                    Title = "Bamberga Minerals",
+                    Icon = "~/Content/Icons/project-icons/bamberga-logo-darkmode.svg",
+                    Description = "A website that displays interactive 3D graphics using the Three.js library.",
+                    //OwnerID = 1,
+                    RepositoryUrl = "https://github.com/tomascalvo/threejs-site",
+                    DeploymentUrl = "https://bamberga.netlify.app/",
+                },
+                new Project
+                {
+                    Id = 6,
+                    Title = "Weather Beach",
+                    Icon = "~/Content/Icons/project-icons/island.svg",
+                    Description = "A PWA that uses React and OpenWeather API to display weather information by city.",
+                    //OwnerID = 1,
+                    RepositoryUrl = "https://github.com/tomascalvo/weather-pwa",
+                    DeploymentUrl = "https://weatherbeach.netlify.app/",
+                },
+                new Project
+                {
+                    Id = 7,
+                    Title = "Pandemic Tracker",
+                    Icon = "~/Content/Icons/project-icons/graph.png",
+                    Description = "A React COVID-19 tracker that consumes data from a Johns Hopkins University API.",
+                    //OwnerID = 1,
+                    RepositoryUrl = "https://github.com/tomascalvo/covid-tracker",
+                    DeploymentUrl = "https://v-tracker.netlify.app/",
+                },
+                new Project
+                {
+                    Id = 8,
+                    Title = "IO Chat",
+                    Icon = "~/Content/Icons/project-icons/chat.png",
+                    Description = "A real-time chat app using React and Socket.IO",
+                    //OwnerID = 1,
+                    RepositoryUrl = "https://github.com/tomascalvo/react-chat-app",
+                    DeploymentUrl = "https://io-chat.netlify.app/",
+                },
+                new Project
+                {
+                    Id = 9,
+                    Title = "Cumberland Honey Shop",
+                    Icon = "~/Content/Icons/project-icons/honey.svg",
+                    Description = "A React e-commerce app using Commerce.JS.",
+                    //OwnerID = 1,
+                    RepositoryUrl = "https://github.com/tomascalvo/E-Commerce_WebApp",
+                    DeploymentUrl = "https://cumberlandhoney.netlify.app/",
+                },
             };
-            projects.ForEach(project => context.Projects.AddOrUpdate(p => p.Id, project));
+            projects.ForEach(project => context.Projects.AddOrUpdate(p => p.Title, project));
 
             var skills = new List<Skill>
             {
@@ -107,12 +177,11 @@
                 new Skill
                 {
                     Id = 4,
-                    Title = "ASP.NET",
-                    Description = "ASP.NET extends the .NET developer platform with tools and libraries specifically for building web apps. .NET is a developer platform made up of tools, programming languages, and libraries for building many different types of applications.",
-                    Developer = "Microsoft",
+                    Title = ".NET",
+                    Description = "The .NET Framework is a software framework developed by Microsoft that runs primarily on Microsoft Windows. It includes a large class library called Framework Class Library and provides language interoperability across several programming languages.",
                     //ReleaseDate = new DateTime(2002, 1, 5),
                     ReleaseDate = DateTime.Parse("2002-01-05"),
-                    DocumentationUrl = "https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-6.0",
+                    DocumentationUrl = "https://docs.microsoft.com/en-us/dotnet/",
                     Icon = "https://e7.pngegg.com/pngimages/534/663/png-clipart-net-framework-software-framework-c-microsoft-asp-net-microsoft-blue-angle.png",
                 },
                 new Skill
@@ -141,13 +210,13 @@
                 new Skill
                 {
                     Id = 7,
-                    Title = "SQL Server",
-                    Description = "Microsoft SQL Server is a relational database management system developed by Microsoft.",
+                    Title = "SQL",
+                    Description = "Microsoft SQL Server is a relational database management system developed by Microsoft. As a database server, it is a software product with the primary function of storing and retrieving data as requested by other software applications—which may run either on the same computer or on another computer across a network.",
                     Developer = "Microsoft",
                     //ReleaseDate = new DateTime(1989, 4, 24),
                     ReleaseDate = DateTime.Parse("1989-04-24"),
                     DocumentationUrl = "https://docs.microsoft.com/en-us/sql/sql-server/?view=sql-server-ver15",
-                    Icon = "https://img.icons8.com/color/480/microsoft-sql-server.png",
+                    Icon = "~/Content/Icons/skill-icons/sql-logo.png",
                 },
                 new Skill
                 {
@@ -164,13 +233,13 @@
                 {
                     Id = 9,
                     Title = "Bootstrap",
-                    Description = "Bootstrap is the most popular CSS Framework for developing responsive and mobile-first websites.",
+                    Description = "Bootstrap is a free and open-source CSS framework directed at responsive, mobile-first front-end web development. It contains CSS- and JavaScript-based design templates for typography, forms, buttons, navigation, and other interface components.",
                     Developer = "Mark Otto, Jacob Thornton, Boostrap Core Team",
                     //ReleaseDate = new DateTime(2011, 8, 19),
                     ReleaseDate = DateTime.Parse("2011-08-19"),
                     RepositoryUrl = "https://github.com/twbs/bootstrap",
                     DocumentationUrl = "https://getbootstrap.com/docs/4.1/getting-started/introduction/",
-                    Icon = "https://camo.githubusercontent.com/bec2c92468d081617cb3145a8f3d8103e268bca400f6169c3a68dc66e05c971e/68747470733a2f2f76352e676574626f6f7473747261702e636f6d2f646f63732f352e302f6173736574732f6272616e642f626f6f7473747261702d6c6f676f2d736861646f772e706e67",
+                    Icon = "~/Content/Icons/skill-icons/bootstrap-logo.png",
                 },
                 new Skill
                 {
@@ -211,12 +280,207 @@
                     Icon = "https://images-platform.99static.com//y50FdI4Or7filffZ5qSXAn5YMTI=/0x0:2000x2000/fit-in/500x500/projects-files/71/7131/713106/ec5bd3a0-f210-4729-ae13-51241c5657eb.jpg",
                     Title = "Digital Marketing",
                     Description = "Digital marketing is the component of marketing that uses internet and online based digital technologies such as desktop computers, mobile phones and other digital media and platforms to promote products and services.",
+                },
+                new Skill
+                {
+                    Id = 14,
+                    Icon = "~/Content/Icons/skill-icons/react-icon.png",
+                    Title = "React",
+                    Description = "React.js is an open-source JavaScript library that is used for building user interfaces specifically for single-page applications.",
+                    Developer = "Jordan Walke at Facebook",
+                    ReleaseDate = new DateTime(2013, 5, 29),
+                    DateAdded = DateTime.Now,
+                    DocumentationUrl = "https://reactjs.org/docs/getting-started.html",
+                    RepositoryUrl = "https://github.com/facebook/react",
+                },
+                new Skill
+                {
+                    Id = 15,
+                    Icon = "~/Content/Icons/skill-icons/axios-logo.svg",
+                    Title = "Axios",
+                    Description = "Axios.js is a promise-based HTTP Client for node.js and the browser. On the server-side it uses the native node.js http module, while on the client (browser) it uses XMLHttpRequests.",
+                    Developer = "Matt Zabriskie",
+                    ReleaseDate = new DateTime(2014, 9, 18),
+                    DateAdded = DateTime.Now,
+                    DocumentationUrl = "https://axios-http.com/docs/intro",
+                    RepositoryUrl = "https://github.com/axios/axios",
+                },
+                new Skill
+                {
+                    Id = 16,
+                    Title = "Commerce.js",
+                    Icon = "~/Content/Icons/skill-icons/commercejs-logo.png",
+                    Description = "Commerce.js is a headless eCommerce platform built specifically for develoeprs and designers to build custom eCommerce solutions.",
+                    DocumentationUrl = "https://commercejs.com/docs/",
+                    ReleaseDate = new DateTime(2016, 1, 1),
+                    DateAdded = DateTime.Now,
+                },
+                new Skill
+                {
+                    Id = 17,
+                    DateAdded = DateTime.Now,
+                    Title = "Google OAuth",
+                    Icon = "~/Content/Icons/skill-icons/google-logo.png",
+                    Description = "OAuth is an open standard for access delegation, commonly used as a way for Internet users to grant websites or applications access to their information on other websites without giving them the passwords.",
+                    DocumentationUrl = "https://developers.google.com/identity/protocols/oauth2",
+                    Developer = "Google",
+                },
+                new Skill
+                {
+                    Id = 18,
+                    DateAdded = DateTime.Now,
+                    Title = "PWAs (Progressive Web Apps)",
+                    Icon = "~/Content/Icons/skill-icons/pwa-logo.png",
+                    Description = "Progressive Web Apps use services workers and manifests to give users an experience on par with native apps.",
+                    DocumentationUrl = "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps",
+                    Developer = "Google",
+                    ReleaseDate = new DateTime(2015, 1, 1),
+                },
+                new Skill
+                {
+                    Id = 19,
+                    DateAdded = DateTime.Now,
+                    Title = "Google Lighthouse",
+                    Icon = "~/Content/Icons/skill-icons/google-lighthouse-logo.png",
+                    Description = "Google Lighthouse audits progressive web applications for performance, accessibility, and search engine optimization.",
+                    DocumentationUrl = "https://developers.google.com/web/tools/lighthouse",
+                    Developer = "Google",
+                    ReleaseDate = new DateTime(2018, 5, 8),
+                },
+                new Skill
+                {
+                    Id = 20,
+                    DateAdded = DateTime.Now,
+                    Title = "SocketIO",
+                    Icon = "~/Content/Icons/skill-icons/socketio-logo.png",
+                    Description = "Socket.IO is a JavaScript library that enables realtime, bi-directional communication between web clients and servers.",
+                    DocumentationUrl = "https://socket.io/docs/v4/",
+                    Developer = "Guillermo Rauch",
+                    ReleaseDate = new DateTime(2010, 1, 1)
+                },
+                new Skill {
+                    Id = 21,
+                    DateAdded = DateTime.Now,
+                    Icon = "~/Content/Icons/skill-icons/themeui-logo.png",
+                    Title = "Theme UI",
+                    Description = "Theme UI is a library for creating themeable user interfaces based on constraint-based design principles. Build custom component libraries, design systems, web applications, Gatsby themes, and more with a flexible API for best-in-class developer ergonomics.",
+                },
+                new Skill {
+                    Id = 22,
+                    DateAdded = DateTime.Now,
+                    Icon = "~/Content/Icons/skill-icons/materialui-logo.png",
+                    Title = "Material-UI",
+                    Description = "Material UI is an open-source, front-end framework for React components.",
+                },
+                new Skill {
+                    Id = 23,
+                    DateAdded = DateTime.Now,
+                    Title = "Node.js",
+                    Icon = "~/Content/Icons/skill-icons/node-logo.png",
+                    Description = "Node.js is a JavaScript runtime built on Chrome\'s V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.",
+                },
+                new Skill {
+                    Id = 24,
+                    DateAdded = DateTime.Now,
+                    Title = "MongoDB",
+                    Icon = "~/Content/Icons/skill-icons/mongodb-logo.png",
+                    Description = "MongoDB is a document-oriented database which stores data in JSON-like documents with dynamic schema.",
+                },
+                new Skill {
+                    Id = 25,
+                    DateAdded = DateTime.Now,
+                    Title = "Vite",
+                    Icon = "~/Content/Icons/skill-icons/vite-logo.svg",
+                    Description = "Vite is a front end build tool and dev server.",
+                },
+                new Skill {
+                    Id = 26,
+                    DateAdded = DateTime.Now,
+                    Title = "Three.js",
+                    Icon = "~/Content/Icons/skill-icons/threejs-logo.png",
+                    Description = "Three.js is a cross-browser JavaScript library and application programming interface (API) used to create and display animated 3D computer graphics in a web browser using WebGL.",
+                },
+                new Skill
+                {
+                    Id = 27,
+                    DateAdded = DateTime.Now,
+                    Title = "REST API",
+                    Icon = "~/Content/Icons/skill-icons/rest_api.png",
+                    Description = "A REST API (also known as RESTful API) is an application programming interface (API or web API) that conforms to the constraints of REST architectural style and allows for interaction with RESTful web services. REST stands for representational state transfer.",
+                    Developer = "Roy Fielding"
+                },
+                new Skill
+                {
+                    Id = 28,
+                    DateAdded = DateTime.Now,
+                    Title = "Chart.js",
+                    Icon = "~/Content/Icons/skill-icons/chartjs-logo.svg",
+                    Description = "Chart.js is an open-source JavaScript library for data visualization.",
+                },
+                new Skill
+                {
+                    Id = 29,
+                    DateAdded = DateTime.Now,
+                    Title = "Heroku",
+                    Icon = "~/Content/Icons/skill-icons/heroku.png",
+                    Description = "Heroku is a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.",
+                },
+                new Skill
+                {
+                    Id = 30,
+                    DateAdded = DateTime.Now,
+                    Title = "Netlify",
+                    Icon = "~/Content/Icons/skill-icons/netlify.svg",
+                    Description = "Netlify is a frontend web hosting platform.",
+                },
+                new Skill
+                {
+                    Id = 31,
+                    DateAdded = DateTime.Now,
+                    Title = "Hostinger",
+                    Icon = "~/Content/Icons/skill-icons/hostinger.svg",
+                    Description = "Hostinger is shared web hosting.",
+                },
+                new Skill
+                {
+                    Id = 32,
+                    DateAdded = DateTime.Now,
+                    Title = "Azure",
+                    Icon = "~/Content/Icons/skill-icons/azure.png",
+                    Description = "Azure is a public cloud computing platform—with solutions including Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS) that can be used for services such as analytics, virtual computing, storage, and networking.",
                 }
+
+
             };
-            skills.ForEach(skill => context.Skills.AddOrUpdate(s => s.Id, skill));
+            skills.ForEach(skill => context.Skills.AddOrUpdate(s => s.Title, skill));
+
+
+            // ADD PROJECT SKILLS FOR STRENGTH
+            var projectSkills = AddProjectSkillsToList(1, new int[] { 8, 10, 11, 14, 15, 17, 20, 22, 23, 24, 27, 28, 29, 30 });
+
+            // ADD PROJECTSKILLS FOR DYNO
+            projectSkills = AddProjectSkillsToList(2, new int[] { 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 15, 17, 27, 32 }, projectSkills);
+
+            // ADD PROJECTSKILLS FOR BAMBERGA MINERALS
+            projectSkills = AddProjectSkillsToList(5, new int[] { 8, 10, 11, 25, 26, 30 }, projectSkills);
+
+            // ADD PROJECTSKILLS FOR WEATHER BEACH
+            projectSkills = AddProjectSkillsToList(6, new int[] { 8, 10, 11, 14, 15, 18, 27, 30 }, projectSkills);
+
+            // ADD PROJECTSKILLS FOR PANDEMIC TRACKER
+            projectSkills = AddProjectSkillsToList(7, new int[] { 8, 10, 11, 27, 28, 30 }, projectSkills);
+
+            // ADD PROJECTSKILLS FOR IO CHAT
+            projectSkills = AddProjectSkillsToList(8, new int[] { 8, 10, 11, 20, 29, 30 }, projectSkills);
+
+            // ADD PROJECTSKILLS FOR CUMBERLAND HONEY
+            projectSkills = AddProjectSkillsToList(9, new int[] { 8, 10, 11, 16, 22, 27, 30 }, projectSkills);
+
+            projectSkills.ForEach(projectSkill => context.ProjectSkills.AddOrUpdate(ps => ps.Id, projectSkill));
+
+
+
             context.SaveChanges();
         }
-
-
     }
 }
