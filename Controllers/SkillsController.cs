@@ -1,6 +1,7 @@
 ﻿using DevPath.Models;
 using DevPath.ViewModels.Skills;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -62,7 +63,7 @@ namespace DevPath.Controllers
 
         public ActionResult Index()
         {
-            var skills = _context.Skills;
+            var skills = _context.Skills.Include(s => s.ProjectSkills.Select(ps => ps.Project)).ToList();
             return View("List", skills);
         }
 

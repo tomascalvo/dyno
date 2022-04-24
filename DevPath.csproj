@@ -206,11 +206,13 @@
     <Compile Include="ViewModels\Skills\SkillFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Icons\book-solid.svg" />
     <Content Include="Content\bootstrap-slate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Icons\github.svg" />
     <Content Include="Content\Icons\globe.svg" />
+    <Content Include="Content\Icons\pencil-solid.svg" />
     <Content Include="Content\Icons\project-icons\bamberga-logo-darkmode.svg" />
     <Content Include="Content\Icons\project-icons\chat.png" />
     <Content Include="Content\Icons\project-icons\dyno-logo-darkmode.svg" />
@@ -253,6 +255,7 @@
     <Content Include="Content\Icons\skill-icons\themeui-logo.png" />
     <Content Include="Content\Icons\skill-icons\threejs-logo.png" />
     <Content Include="Content\Icons\skill-icons\vite-logo.svg" />
+    <Content Include="Content\Icons\trash-solid.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
