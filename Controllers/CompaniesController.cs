@@ -1,6 +1,8 @@
 ﻿using DevPath.Models;
 using DevPath.ViewModels.Companies;
 using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace DevPath.Controllers
@@ -48,9 +50,52 @@ namespace DevPath.Controllers
                     WebsiteUrl = formData.WebsiteUrl,
                 };
                 _context.Companies.Add(newCompany);
-                _context.SaveChanges();
             }
-            return RedirectToAction("Index", "Home");
+            else // UPDATE EXISTING COMPANY
+            {
+                var companyInDb = _context.Companies.Include(c => c.EmploymentListings).Single(c => c.Id == formData.Id);
+                companyInDb.Title = formData.Title;
+                companyInDb.Description = formData.Description;
+                companyInDb.Logo = formData.Logo;
+                companyInDb.WebsiteUrl = formData.WebsiteUrl;
+                companyInDb.Country = formData.Country;
+                companyInDb.StateProvince = formData.StateProvince;
+                companyInDb.City = formData.City;
+                companyInDb.DateFounded = formData.DateFounded;
+                companyInDb.DateAdded = formData.DateAdded;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Companies");
+        }
+
+        public ActionResult Index()
+        {
+            // EAGER LOADING
+            var companies = _context.Companies.Include(c => c.EmploymentListings).ToList();
+            return View("List", companies);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var companyInDb = _context.Companies.Include(c => c.EmploymentListings).SingleOrDefault(c => c.Id == id);
+            if (companyInDb == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModel = new CompanyFormViewModel(companyInDb);
+            return View("CompanyForm", viewModel);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var companyInDb = _context.Companies.SingleOrDefault(c => c.Id == id);
+            if (companyInDb == null)
+            {
+                return RedirectToAction("Index");
+            }
+            _context.Companies.Remove(companyInDb);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

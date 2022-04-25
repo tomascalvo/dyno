@@ -1,0 +1,43 @@
+﻿@model DevPath.ViewModels.EmploymentListings.EmploymentListingFormViewModel
+@{
+    ViewBag.Title = @Model.PageTitle;
+}
+
+<h2>@Model.PageTitle</h2>
+
+@using (Html.BeginForm("Save", "EmploymentListings"))
+{
+    <div class="mb-3">
+        @Html.LabelFor(el => el.Title)
+        @Html.TextBoxFor(el => el.Title, new { @class = "form-control" })
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(el => el.SelectedClientCompanyId)
+        @Html.DropDownListFor(
+            el => el.SelectedClientCompanyId, 
+            new SelectList(Model.ClientCompanyOptions, "Id", "Title"), 
+            "Select Company", 
+            new { @class = "form-control" })
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(el => el.PayQuantity)
+        @Html.EditorFor(el => el.PayQuantity, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="mb-3">
+        <div>
+            @Html.LabelFor(el => el.WorkLocation)
+            @Html.EnumDropDownListFor(el => el.WorkLocation,
+           "Select Work Arrangement",
+            new { @class = "form-control" }
+           )
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(el => el.FullText)
+        @Html.TextAreaFor(el => el.FullText, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(el => el.Id)
+    @Html.HiddenFor(el => el.DateAdded)
+    @Html.HiddenFor(el => el.EmploymentApplicationIds)
+    <button type="submit" class="btn btn-primary">Save</button>
+}

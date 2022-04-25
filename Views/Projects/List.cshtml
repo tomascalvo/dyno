@@ -7,7 +7,7 @@
 
 <p>DevPath currently has @Model.Count() projects.</p>
 
-<p>@Html.ActionLink("New Project", "New", "Projects", new { @class = "btn btn-primary" })</p>
+<p>@Html.ActionLink("Add Project", "New", "Projects", new { @class = "btn btn-primary" })</p>
 
 @if (Model.Any())
 {
@@ -29,11 +29,31 @@
                     @*ICON*@
 
                     <td class="d-none d-md-table-cell">
-                        <div style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-evenly;">
+                        <div style="
+                            width: 100%;
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            justify-content: space-evenly;">
                             @if (project.Icon != null && project.Icon != "")
                             {
-                                <a href="@Url.Action("Details", "Projects", new { id = project.Id })" title=@($"{project.Title} Details") style="display: flex; width: 100%;">
-                                    <img src="@Url.Content(project.Icon)" alt=@($"{project.Title} Icon") style="width: 150px; height: 100px; margin: 0 auto; object-fit: scale-down;" />
+                                <a href="@Url.Action(
+                                        "Details",
+                                        "Projects",
+                                        new {
+                                            id = project.Id
+                                        })"
+                                   title=@($"{project.Title} Details")
+                                   style="
+                                    display: flex;
+                                    width: 100%;">
+                                    <img src="@Url.Content(project.Icon)"
+                                         alt=@($"{project.Title} Icon")
+                                         style="
+                                            width: 150px;
+                                            height: 100px;
+                                            margin: 0 auto;
+                                            object-fit: scale-down;" />
                                 </a>
                             }
                         </div>
@@ -44,8 +64,20 @@
                     <td>
                         @if (project.Icon != null && project.Icon != "")
                         {
-                            <a href="@Url.Action("Details", "Projects", new { id = project.Id })" title=@($"{project.Title} Details") style="display: flex; width: 100%;">
-                                <img src="@Url.Content(project.Icon)" alt=@($"{project.Title} Icon") class="d-md-none d-sm-block" style="width: 150px; height: 100px; margin: 0 auto; object-fit: scale-down;" />
+                            <a href="@Url.Action(
+                                    "Details", 
+                                    "Projects", 
+                                    new { id = project.Id })"
+                               title=@($"{project.Title} Details")
+                               style="display: flex; width: 100%;">
+                                <img src="@Url.Content(project.Icon)"
+                                     alt=@($"{project.Title} Icon")
+                                     class="d-md-none d-sm-block"
+                                     style="
+                                        width: 150px;
+                                        height: 100px;
+                                        margin: 0 auto;
+                                        object-fit: scale-down;" />
                             </a>
                         }
                         <p>
@@ -104,7 +136,11 @@
                         <div class="d-grid gap-2">
                             @if (project?.RepositoryUrl.IsEmpty() == false)
                             {
-                                <a href=@project.RepositoryUrl class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Repo">
+                                <a href=@project.RepositoryUrl
+                                   class="btn btn-primary"
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   title="Repo">
                                     <img src="~/Content/Icons/github.svg" alt="github" />
                                 </a>
                             }

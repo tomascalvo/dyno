@@ -19,6 +19,19 @@ namespace DevPath.Models
         [Display(Name = "State/Province")]
         public string StateProvince { get; set; }
         public string City { get; set; }
+        public string Location
+        {
+            get
+            {
+                var locationString =
+                    $"{this.City}" +
+                    $"{((this.City != null && this.Country != null) ? ", " : "")}" +
+                    $"{this.StateProvince}" +
+                    $"{((this.StateProvince != null && this.Country != null) ? ", " : "")}" +
+                    $"{this.Country}";
+                return locationString;
+            }
+        }
         //public string CEOId { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyy-MM-dd", ApplyFormatInEditMode = true)]
@@ -38,7 +51,7 @@ namespace DevPath.Models
 
         public string OrganizationLookupId { get; set; }
         [Display(Name = "Employment Listings")]
-        public virtual ICollection<EmploymentListing> EmploymentListings { get; set; }
+        public List<EmploymentListing> EmploymentListings { get; set; }
         //[Display(Name = "Employment Offers")]
         //public virtual ICollection<EmploymentOffer> EmploymentOffers { get; set; }
         //public virtual ICollection<Recruiter> Recruiters { get; set; }

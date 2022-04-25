@@ -59,6 +59,7 @@ namespace DevPath.Controllers
                 };
                 _context.Projects.Add(newProject);
                 _context.SaveChanges();
+
                 // ADDING NEW ProjectSkills TO REPRESENT THE MANY TO MANY RELATIONSHIP BETWEEN PROJECTS AND SKILLS
                 if (formData.SelectedSkillIds != null)
                 {
@@ -82,6 +83,7 @@ namespace DevPath.Controllers
                 projectInDb.RepositoryUrl = formData.RepositoryUrl;
                 projectInDb.DeploymentUrl = formData.DeploymentUrl;
                 projectInDb.DateAdded = formData.DateAdded;
+
                 if (formData.SelectedSkillIds != null)
                 {
                     // ADDING NEW ProjectSkills TO REPRESENT THE MANY TO MANY RELATIONSHIP BETWEEN PROJECTS AND SKILLS

@@ -169,6 +169,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\EmploymentListingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -179,6 +181,14 @@
     <Compile Include="Migrations\202204251121173_init.cs" />
     <Compile Include="Migrations\202204251121173_init.designer.cs">
       <DependentUpon>202204251121173_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204251447060_ConfiguredCompositeKeyInEmploymentListingSkillModelClass.cs" />
+    <Compile Include="Migrations\202204251447060_ConfiguredCompositeKeyInEmploymentListingSkillModelClass.designer.cs">
+      <DependentUpon>202204251447060_ConfiguredCompositeKeyInEmploymentListingSkillModelClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum.cs" />
+    <Compile Include="Migrations\202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum.designer.cs">
+      <DependentUpon>202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -202,6 +212,8 @@
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
+    <Compile Include="ViewModels\Companies\CompanyFormViewModel.cs" />
+    <Compile Include="ViewModels\EmploymentListings\EmploymentListingFormViewModel.cs" />
     <Compile Include="ViewModels\Projects\ProjectFormViewModel.cs" />
     <Compile Include="ViewModels\Skills\SkillFormViewModel.cs" />
   </ItemGroup>
@@ -315,6 +327,10 @@
     <Content Include="Views\Skills\SkillForm.cshtml" />
     <Content Include="Views\Skills\List.cshtml" />
     <Content Include="Views\Skills\Details.cshtml" />
+    <Content Include="Views\Companies\CompanyForm.cshtml" />
+    <Content Include="Views\Companies\List.cshtml" />
+    <Content Include="Views\EmploymentListings\List.cshtml" />
+    <Content Include="Views\EmploymentListings\EmploymentListingForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
@@ -329,6 +345,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202204251121173_init.resx">
       <DependentUpon>202204251121173_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204251447060_ConfiguredCompositeKeyInEmploymentListingSkillModelClass.resx">
+      <DependentUpon>202204251447060_ConfiguredCompositeKeyInEmploymentListingSkillModelClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum.resx">
+      <DependentUpon>202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

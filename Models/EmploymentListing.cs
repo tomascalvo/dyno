@@ -5,14 +5,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DevPath.Models
 {
-    public enum Currency
+    public enum CurrencyEnum
     {
         USD, BTC, ETH, EUR, CAD, MXN, GBP, AUD, SGD
     };
-    public enum PayFrequency
+    public enum PayFrequencyEnum
     {
-        annual, hourly, lumpSum
+        [Display(Name = "Annual Salary")]
+        annual,
+        [Display(Name = "Hourly Wage")]
+        hourly,
+        [Display(Name = "Lump Sum")]
+        lumpSum
     };
+    public enum WorkLocationEnum
+    {
+        [Display(Name = "Fully Remote")]
+        remote,
+        [Display(Name = "In Office")]
+        office,
+        [Display(Name = "Hybrid")]
+        hybrid
+    }
     public class EmploymentListing
     {
         public int Id { get; set; }
@@ -22,13 +36,13 @@ namespace DevPath.Models
         [Column(TypeName = "money")]
         [Display(Name = "Pay Quantity")]
         public int? PayQuantity { get; set; }
-        public Currency? Currency { get; set; } = Models.Currency.USD;
+        public CurrencyEnum? Currency { get; set; } = Models.CurrencyEnum.USD;
         [Display(Name = "Pay Frequency")]
-        public PayFrequency? PayFrequency { get; set; } = Models.PayFrequency.annual;
-        [Display(Name = "Remote")]
-        public bool? IsRemote { get; set; }
+        public PayFrequencyEnum? PayFrequency { get; set; } = Models.PayFrequencyEnum.annual;
+        [Display(Name = "Work Arrangement")]
+        public WorkLocationEnum? WorkLocation { get; set; }
         public int? ClientCompanyId { get; set; }
-        public virtual Company ClientCompany { get; set; }
+        public Company ClientCompany { get; set; }
         //public int? StaffingCompanyId { get; set; }
         //public virtual Company StaffingCompany { get; set; }
         [DataType(DataType.MultilineText)]

@@ -8,6 +8,24 @@ namespace DevPath.ViewModels.Projects
 {
     public class ProjectFormViewModel
     {
+        // CONSTRUCTORS
+        public ProjectFormViewModel()
+        {
+            Id = 0; // This constructor initializes Id to 0 so that when ProjectForm is used to create a new Project record the ProjectController recognizes it as new and not an existing Project record.
+            DateAdded = DateTime.Now;
+        }
+
+        public ProjectFormViewModel(Project project)
+        {
+            Id = project.Id;
+            Title = project.Title;
+            Description = project.Description;
+            Icon = project.Icon;
+            RepositoryUrl = project.RepositoryUrl;
+            DeploymentUrl = project.DeploymentUrl;
+            DateAdded = project.DateAdded;
+        }
+
         // Project Model Properties
         public int? Id { get; set; }
         [StringLength(50, ErrorMessage = "Project title must be 1 to 50 characters in length.")]
@@ -41,23 +59,6 @@ namespace DevPath.ViewModels.Projects
                     return "New Project";
                 }
             }
-        }
-
-        public ProjectFormViewModel()
-        {
-            Id = 0;
-            DateAdded = DateTime.Now;
-        }
-
-        public ProjectFormViewModel(Project project)
-        {
-            Id = project.Id;
-            Title = project.Title;
-            Description = project.Description;
-            Icon = project.Icon;
-            RepositoryUrl = project.RepositoryUrl;
-            DeploymentUrl = project.DeploymentUrl;
-            DateAdded = project.DateAdded;
         }
     }
 }
