@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace DevPath.Controllers
 {
+    [AllowAnonymous] // This attribute supercedes the global filter in App_Start/FilterConfig.cs that requires the user to be authenticated before accessing any controller actions. This attribute allows anonymous users to access HomeController actions.
     public class HomeController : Controller
     {
 
