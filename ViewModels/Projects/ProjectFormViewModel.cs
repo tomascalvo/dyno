@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace DevPath.ViewModels.Projects
@@ -15,7 +16,7 @@ namespace DevPath.ViewModels.Projects
             DateAdded = DateTime.Now;
         }
 
-        public ProjectFormViewModel(Project project)
+        public ProjectFormViewModel(Project project) // This constructor is for editing an existing record.
         {
             Id = project.Id;
             Title = project.Title;
@@ -24,9 +25,10 @@ namespace DevPath.ViewModels.Projects
             RepositoryUrl = project.RepositoryUrl;
             DeploymentUrl = project.DeploymentUrl;
             DateAdded = project.DateAdded;
+            SelectedSkillIds = project.ProjectSkills.Select(ps => ps.Skill.Id).ToList();
         }
 
-        // Project Model Properties
+        // DOMAIN MODEL PROPERTIES
         public int? Id { get; set; }
         [StringLength(50, ErrorMessage = "Project title must be 1 to 50 characters in length.")]
         public string Title { get; set; }
@@ -42,9 +44,11 @@ namespace DevPath.ViewModels.Projects
         public DateTime DateAdded { get; set; }
         [Display(Name = "Skills")]
 
-        // Skill Options
+        // SKILL OPTIONS
         public IEnumerable<SelectListItem> SkillOptions { get; set; }
         public List<int> SelectedSkillIds { get; set; } = new List<int>();
+
+        // PAGE TITLE
 
         public string PageTitle
         {

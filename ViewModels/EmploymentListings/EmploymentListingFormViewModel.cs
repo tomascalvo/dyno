@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace DevPath.ViewModels.EmploymentListings
@@ -16,7 +17,7 @@ namespace DevPath.ViewModels.EmploymentListings
             DateAdded = DateTime.Now;
         }
 
-        public EmploymentListingFormViewModel(EmploymentListing employmentListing)
+        public EmploymentListingFormViewModel(EmploymentListing employmentListing) // This constructor is for editing an existing record.
         {
             Id = employmentListing.Id;
             Title = employmentListing.Title;
@@ -27,11 +28,11 @@ namespace DevPath.ViewModels.EmploymentListings
             DateAdded = employmentListing.DateAdded;
             DatePublished = employmentListing.DatePublished;
             EmploymentApplicationIds = employmentListing.EmploymentApplicationIds;
-            //SelectedClientCompanyId = employmentListing.ClientCompanyId;
-            //SelectedSkillIds = employmentListing.EmploymentListingSkills.Select(els => els.Skill.Id);
+            SelectedClientCompanyId = employmentListing.ClientCompanyId;
+            SelectedSkillIds = employmentListing.EmploymentListingSkills.Select(els => els.Skill.Id).ToList();
         }
 
-        // EMPLOYMENTLISTING MODEL PROPERTIES
+        // DOMAIN MODEL PROPERTIES
         public int? Id { get; set; }
         [StringLength(50, ErrorMessage = "Job title cannot be longer than 50 characters.")]
         public string Title { get; set; }
@@ -61,7 +62,7 @@ namespace DevPath.ViewModels.EmploymentListings
         public IEnumerable<Company> ClientCompanyOptions
         { get; set; }
         [Display(Name = "Company")]
-        public int SelectedClientCompanyId { get; set; }
+        public int? SelectedClientCompanyId { get; set; }
 
         // SKILL OPTIONS
         public IEnumerable<SelectListItem> SkillOptions { get; set; }

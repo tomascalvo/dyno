@@ -14,9 +14,9 @@
     <div class="mb-3">
         @Html.LabelFor(el => el.SelectedClientCompanyId)
         @Html.DropDownListFor(
-            el => el.SelectedClientCompanyId, 
-            new SelectList(Model.ClientCompanyOptions, "Id", "Title"), 
-            "Select Company", 
+            el => el.SelectedClientCompanyId,
+            new SelectList(Model.ClientCompanyOptions, "Id", "Title"),
+            "Select Company",
             new { @class = "form-control" })
     </div>
     <div class="mb-3">
@@ -31,6 +31,10 @@
             new { @class = "form-control" }
            )
         </div>
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(p => p.SelectedSkillIds)
+        @Html.ListBoxFor(p => p.SelectedSkillIds, Model.SkillOptions, new { @class = "form-control" })
     </div>
     <div class="mb-3">
         @Html.LabelFor(el => el.FullText)
