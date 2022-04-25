@@ -133,6 +133,8 @@
                 },
             };
             projects.ForEach(project => context.Projects.AddOrUpdate(p => p.Title, project));
+            context.SaveChanges();
+
 
             var skills = new List<Skill>
             {
@@ -453,6 +455,7 @@
 
             };
             skills.ForEach(skill => context.Skills.AddOrUpdate(s => s.Title, skill));
+            context.SaveChanges();
 
 
             // ADD PROJECT SKILLS FOR STRENGTH
@@ -476,10 +479,7 @@
             // ADD PROJECTSKILLS FOR CUMBERLAND HONEY
             projectSkills = AddProjectSkillsToList(9, new int[] { 8, 10, 11, 16, 22, 27, 30 }, projectSkills);
 
-            projectSkills.ForEach(projectSkill => context.ProjectSkills.AddOrUpdate(ps => ps.Id, projectSkill));
-
-
-
+            projectSkills.ForEach(projectSkill => context.ProjectSkills.AddOrUpdate(ps => new { ps.ProjectId, ps.SkillId }, projectSkill));
             context.SaveChanges();
         }
     }

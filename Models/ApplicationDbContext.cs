@@ -9,7 +9,13 @@ namespace DevPath.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
+            // THIS DATABASE INITIALIZATION STRATEGY DROPS AND CREATES A DB ONLY WHEN MODEL CLASSES (ENTITY CLASSES) HAVE BEEN CHANGED
+            //Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
+
+            // THIS DATABASE INITIALIZATION STRATEGY DROPS AND CREATES A DB EVERY TIME THE APPLICATION RUNS IRRESPECTIVE OF MODEL CHANGES OR LACK THEREOF.
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
+
+            //DATABASE INITIALIZATION STRATEGIES EXPLAINED: https://www.entityframeworktutorial.net/code-first/database-initialization-strategy-in-code-first.aspx
 
             this.Configuration.LazyLoadingEnabled = false;
         }
@@ -34,8 +40,8 @@ namespace DevPath.Models
             // Using fluent API to customize M2M relationship between Project and Skill.
 
             modelBuilder.Entity<ProjectSkill>()
-                //.HasKey(ps => new { ps.ProjectId, ps.SkillId }); /*THIS LINE CONFIGURES A COMPOSITE PRIMARY KEY */
-                .HasKey(ps => ps.Id);
+                .HasKey(ps => new { ps.ProjectId, ps.SkillId }); /*THIS LINE CONFIGURES A COMPOSITE PRIMARY KEY */
+            //.HasKey(ps => ps.Id);
             modelBuilder.Entity<ProjectSkill>()
                 .HasRequired(ps => ps.Project)
                 .WithMany(p => p.ProjectSkills)

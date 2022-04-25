@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DevPath.Models
 {
@@ -17,10 +18,10 @@ namespace DevPath.Models
             ProjectId = projectId;
             SkillId = skillId;
         }
-        [Key]
-        public int Id { get; set; }
+        [Key, Column(Order = 0)]
         public int ProjectId { get; set; }
         public Project Project { get; set; }
+        [Key, Column(Order = 1)]
         public int SkillId { get; set; }
         public Skill Skill { get; set; }
         private DateTime? dateAdded = null;

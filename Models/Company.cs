@@ -23,6 +23,19 @@ namespace DevPath.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyy-MM-dd", ApplyFormatInEditMode = true)]
         public DateTime? DateFounded { get; set; }
+        private DateTime? dateAdded = null;
+        [Display(Name = "Date Added")]
+
+        public DateTime DateAdded
+        {
+            get
+            {
+                return this.dateAdded ?? DateTime.Now;
+            }
+
+            set { this.dateAdded = value; }
+        }
+
         public string OrganizationLookupId { get; set; }
         [Display(Name = "Employment Listings")]
         public virtual ICollection<EmploymentListing> EmploymentListings { get; set; }

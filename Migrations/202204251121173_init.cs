@@ -20,6 +20,7 @@
                         StateProvince = c.String(),
                         City = c.String(),
                         DateFounded = c.DateTime(),
+                        DateAdded = c.DateTime(nullable: false),
                         OrganizationLookupId = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
@@ -93,12 +94,11 @@
                 "dbo.ProjectSkills",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
                         ProjectId = c.Int(nullable: false),
                         SkillId = c.Int(nullable: false),
                         DateAdded = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => new { t.ProjectId, t.SkillId })
                 .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)
                 .ForeignKey("dbo.Skills", t => t.SkillId, cascadeDelete: true)
                 .Index(t => t.ProjectId)
