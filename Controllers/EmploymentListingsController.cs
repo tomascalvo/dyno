@@ -88,5 +88,17 @@ namespace DevPath.Controllers
                 .ToList();
             return View("List", employmentListings);
         }
+
+        public ActionResult Delete(int id)
+        {
+            var ELInDb = _context.EmploymentListings.SingleOrDefault(el => el.Id == id);
+            if (ELInDb == null)
+            {
+                return RedirectToAction("Index");
+            }
+            _context.EmploymentListings.Remove(ELInDb);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
