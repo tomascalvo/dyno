@@ -149,12 +149,18 @@ namespace DevPath.Controllers
 
         public ActionResult Edit(int id)
         {
-            var projectInDb = _context.Projects.Include(p => p.ProjectSkills.Select(ps => ps.Skill)).SingleOrDefault(p => p.Id == id);
+            var projectInDb = _context.Projects
+                .Include(p => p.ProjectSkills
+                .Select(ps => ps.Skill))
+                .SingleOrDefault(p => p.Id == id);
+
             if (projectInDb == null)
             {
                 return HttpNotFound();
             }
+
             var skillOptions = _context.Skills.ToList();
+
             var viewModel = new ProjectFormViewModel(projectInDb)
             {
                 SkillOptions = skillOptions.Select(skill => new SelectListItem
@@ -164,6 +170,7 @@ namespace DevPath.Controllers
                 }),
                 SelectedSkillIds = projectInDb.ProjectSkills.Select(projectSkill => projectSkill.SkillId).ToList()
             };
+
             return View("ProjectForm", viewModel);
         }
 

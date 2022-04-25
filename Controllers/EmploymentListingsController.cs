@@ -25,7 +25,12 @@ namespace DevPath.Controllers
         {
             var viewModel = new EmploymentListingFormViewModel()
             {
-                ClientCompanyOptions = _context.Companies.ToList()
+                ClientCompanyOptions = _context.Companies.ToList(),
+                SkillOptions = _context.Skills.ToList().Select(skill => new SelectListItem
+                {
+                    Text = skill.Title,
+                    Value = skill.Id.ToString()
+                }),
             };
             return View("EmploymentListingForm", viewModel);
         }
@@ -87,6 +92,40 @@ namespace DevPath.Controllers
                     .Select(els => els.Skill))
                 .ToList();
             return View("List", employmentListings);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            // find the record to edit (with eager loading)
+            var employmentListingInDb = _context.EmploymentListings
+                .Include(el => el.ClientCompany)
+                .Include(el => el.EmploymentListingSkills
+                    .Select(els => els.Skill))
+                .SingleOrDefault(el => el.Id == id);
+
+            // return error page if no record can be found
+            if (employmentListingInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            // query db for select list options
+            var clientCompanyOptions = _context.Companies.ToList();
+            var skillOptions = _context.Skills.ToList();
+
+            // instantiate ViewModel
+            var viewModel = new EmploymentListingFormViewModel(employmentListingInDb)
+            {
+                ClientCompanyOptions = clientCompanyOptions,
+                SkillOptions = skillOptions.Select(skill => new SelectListItem
+                {
+                    Text = skill.Title,
+                    Value = skill.Id.ToString()
+                }),
+            };
+
+            // return View passing in ViewModel
+            return View("EmploymentListingForm", viewModel);
         }
 
         public ActionResult Delete(int id)
