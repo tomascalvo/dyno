@@ -61,43 +61,49 @@
 
                     @*DESCRIPTION*@
 
-                    <td>
-                        @if (project.Icon != null && project.Icon != "")
-                        {
-                            <a href="@Url.Action(
-                                    "Details", 
-                                    "Projects", 
+                <td>
+                    @if (project.Icon != null && project.Icon != "")
+                    {
+                        <a href="@Url.Action(
+                                    "Details",
+                                    "Projects",
                                     new { id = project.Id })"
-                               title=@($"{project.Title} Details")
-                               style="display: flex; width: 100%;">
-                                <img src="@Url.Content(project.Icon)"
-                                     alt=@($"{project.Title} Icon")
-                                     class="d-md-none d-sm-block"
-                                     style="
+                           title=@($"{project.Title} Details")
+                           style="display: flex; width: 100%;">
+                            <img src="@Url.Content(project.Icon)"
+                                 alt=@($"{project.Title} Icon")
+                                 class="d-md-none d-sm-block"
+                                 style="
                                         width: 150px;
                                         height: 100px;
                                         margin: 0 auto;
                                         object-fit: scale-down;" />
-                            </a>
-                        }
+                        </a>
+                    }
+                    <p>
+                        @Html.ActionLink(project.Title, "Details", "Projects", new { id = project.Id }, new { style = "text-decoration: none;" })
+                    </p>
+                    @if (!project.Description.IsEmpty())
+                    {
                         <p>
-                            @Html.ActionLink(project.Title, "Details", "Projects", new { id = project.Id }, new { style = "text-decoration: none;" })
+                            @project.Description
                         </p>
-                        @if (!project.Description.IsEmpty())
-                        {
-                            <p>
-                                @project.Description
-                            </p>
-                            <p style="margin-bottom: 0;">Developers:</p>
-                            <ul style="list-style-type: none; padding: 0;">
-                                @foreach(var aup in project.ApplicationUserProjects)
-                        {
-                            <li>@aup.ApplicationUser.UserName</li>
-                        }
-                            </ul>
-                            <p class="d-lg-none d-md-block">Added to database on @project.DateAdded.ToShortDateString()</p>
-                        }
-                    </td>
+                    }
+
+                    @*DEVELOPER(S)*@
+                    @if (project.ApplicationUserProjects.Count > 0)
+                    {
+                        string devLabel = "Developer" + ((project.ApplicationUserProjects.Count > 1) ? "s" : "") + ":";
+                        <p style="margin-bottom: 0;">@devLabel</p>
+                        <ul style="list-style-type: none; padding: 0;">
+                            @foreach (var aup in project.ApplicationUserProjects)
+                            {
+                                <li>@aup.ApplicationUser.UserName</li>
+                            }
+                        </ul>
+                    }
+                    <p class="d-lg-none d-md-block">Added to database on @project.DateAdded.ToShortDateString()</p>
+                </td>
 
                     @*SKILL AVATARS*@
 
