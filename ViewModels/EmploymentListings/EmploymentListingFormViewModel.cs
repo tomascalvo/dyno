@@ -39,7 +39,7 @@ namespace DevPath.ViewModels.EmploymentListings
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         [Display(Name = "Pay Quantity")]
-        public int? PayQuantity { get; set; }
+        public int? PayQuantity { get; set; } = 50000;
         [Display(Name = "Work Arrangement")]
         public WorkLocationEnum? WorkLocation { get; set; }
 
