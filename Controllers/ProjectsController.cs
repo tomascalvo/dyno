@@ -131,7 +131,12 @@ namespace DevPath.Controllers
 
             // EAGER LOADING
             // Eager Loading will load the Project object and related objects.
-            var projects = _context.Projects.Include(p => p.ProjectSkills.Select(ps => ps.Skill)).ToList();
+            var projects = _context.Projects
+                .Include(p => p.ProjectSkills
+                    .Select(ps => ps.Skill))
+                .Include(p => p.ApplicationUserProjects
+                    .Select(aup => aup.ApplicationUser))
+                .ToList();
 
             // AUTHORIZATION
             if (!User.IsInRole(RoleName.CanManageAll)) return View("ListReadOnly", projects);

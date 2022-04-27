@@ -182,9 +182,18 @@
     <Compile Include="Migrations\202204271911010_init.designer.cs">
       <DependentUpon>202204271911010_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204272038460_AddedEntityApplicationUserProject.cs" />
+    <Compile Include="Migrations\202204272038460_AddedEntityApplicationUserProject.designer.cs">
+      <DependentUpon>202204272038460_AddedEntityApplicationUserProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204272122379_SeedApplicationUserProjects.cs" />
+    <Compile Include="Migrations\202204272122379_SeedApplicationUserProjects.designer.cs">
+      <DependentUpon>202204272122379_SeedApplicationUserProjects.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\ApplicationUserProject.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\EmploymentApplication.cs" />
     <Compile Include="Models\EmploymentListing.cs" />
@@ -344,6 +353,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202204271911010_init.resx">
       <DependentUpon>202204271911010_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204272038460_AddedEntityApplicationUserProject.resx">
+      <DependentUpon>202204272038460_AddedEntityApplicationUserProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204272122379_SeedApplicationUserProjects.resx">
+      <DependentUpon>202204272122379_SeedApplicationUserProjects.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

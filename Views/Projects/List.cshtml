@@ -88,6 +88,13 @@
                             <p>
                                 @project.Description
                             </p>
+                            <p style="margin-bottom: 0;">Developers:</p>
+                            <ul style="list-style-type: none; padding: 0;">
+                                @foreach(var aup in project.ApplicationUserProjects)
+                        {
+                            <li>@aup.ApplicationUser.UserName</li>
+                        }
+                            </ul>
                             <p class="d-lg-none d-md-block">Added to database on @project.DateAdded.ToShortDateString()</p>
                         }
                     </td>

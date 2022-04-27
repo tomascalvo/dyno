@@ -27,6 +27,7 @@ namespace DevPath.Models
         public DbSet<EmploymentListing> EmploymentListings { get; set; }
         public DbSet<EmploymentListingSkill> EmploymentListingSkills { get; set; }
         public DbSet<EmploymentApplication> EmploymentApplications { get; set; }
+        public DbSet<ApplicationUserProject> ApplicationUserProjects { get; set; }
 
 
         public static ApplicationDbContext Create()
@@ -78,6 +79,20 @@ namespace DevPath.Models
                 .HasMany(el => el.EmploymentApplications)
                 .WithRequired(ea => ea.EmploymentListing)
                 .HasForeignKey(ea => ea.EmploymentListingId);
+
+            // Customize M2M relationship between ApplicationUser and Project
+
+            modelBuilder.Entity<ApplicationUserProject>()
+                .HasKey(aup => new { aup.ApplicationUserId, aup.ProjectId });
+            modelBuilder.Entity<ApplicationUserProject>()
+                .HasRequired(aup => aup.ApplicationUser)
+                .WithMany(au => au.ApplicationUserProjects)
+                .HasForeignKey(aup => aup.ApplicationUserId);
+            modelBuilder.Entity<ApplicationUserProject>()
+                .HasRequired(aup => aup.Project)
+                .WithMany(p => p.ApplicationUserProjects)
+                .HasForeignKey(aup => aup.ProjectId);
+
 
             // This method is necessary because this MVC app is using Identity Framework and the DbContext needs to include the built-in identity models as datasets.
 
