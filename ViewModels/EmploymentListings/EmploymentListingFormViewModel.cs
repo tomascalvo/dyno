@@ -70,6 +70,7 @@ namespace DevPath.ViewModels.EmploymentListings
 
         // SKILL OPTIONS
         public IEnumerable<SelectListItem> SkillOptions { get; set; }
+        [Display(Name = "Requirements")]
         public List<int> SelectedSkillIds { get; set; } = new List<int>();
 
         // PAGE TITLE
