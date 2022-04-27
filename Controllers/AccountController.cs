@@ -156,9 +156,14 @@ namespace DevPath.Controllers
 
                     // TEMPORARY CODE FOR LEARNING AUTH ONLY
 
-                    var roleStore
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //await roleManager.CreateAsync(new IdentityRole("CanManageSkills"));
+                    //await UserManager.AddToRoleAsync(user.Id, "CanManageSkills");
+
 
                     // END TEMPORARY CODE
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

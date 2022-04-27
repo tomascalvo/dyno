@@ -190,6 +190,10 @@
     <Compile Include="Migrations\202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum.designer.cs">
       <DependentUpon>202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204252334540_SeedUsers.cs" />
+    <Compile Include="Migrations\202204252334540_SeedUsers.designer.cs">
+      <DependentUpon>202204252334540_SeedUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -351,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum.resx">
       <DependentUpon>202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204252334540_SeedUsers.resx">
+      <DependentUpon>202204252334540_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
