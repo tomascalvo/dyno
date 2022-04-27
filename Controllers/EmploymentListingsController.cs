@@ -75,8 +75,47 @@ namespace DevPath.Controllers
             }
             else // UPDATE EXISTING EmploymentListing
             {
+                // AUTHORIZATION
+                if (!User.IsInRole(RoleName.CanManageAll)) return RedirectToAction("Account", "Login");
 
-                _context.SaveChanges();
+                // QUERY DB FOR RECORD TO UPDATE
+                var employmentListingInDb = _context.EmploymentListings
+                    .Include(el => el.ClientCompany)
+                    .Single(el => el.Id == formData.Id);
+
+                // CHANGE PROPERTY VALUES
+                employmentListingInDb.Title = formData.Title;
+                employmentListingInDb.ClientCompanyId = formData.SelectedClientCompanyId;
+                employmentListingInDb.PayQuantity = formData.PayQuantity;
+                employmentListingInDb.WorkLocation = formData.WorkLocation;
+                employmentListingInDb.FullText = formData.FullText;
+
+                // CHANGE RELATED ENTITIES
+
+                // ADD ENTITIES
+                foreach (int skillId in formData.SelectedSkillIds)
+                {
+                    // CHECK TO SEE IF RELATED ENTITY ALREADY EXISTS
+                    var elsExists = _context.EmploymentListingSkills
+                        .Any(els => els.EmploymentListingId == employmentListingInDb.Id
+                        && els.SkillId == skillId);
+                    if (elsExists) continue;
+                    EmploymentListingSkill newELS = new EmploymentListingSkill
+                    {
+                        EmploymentListingId = employmentListingInDb.Id,
+                        SkillId = skillId
+                    };
+                    _context.EmploymentListingSkills.Add(newELS);
+                }
+
+                // REMOVE ENTITIES
+                foreach (EmploymentListingSkill els in employmentListingInDb.EmploymentListingSkills.ToList())
+                {
+                    // CHECK TO SEE IF RELATED ENTITIES ARE CHOSEN FOR REMOVAL IN FORM
+                    if (formData.SelectedSkillIds.Contains(els.SkillId)) continue;
+                    _context.EmploymentListingSkills.Remove(els);
+                }
+
             }
 
             _context.SaveChanges();
@@ -94,6 +133,21 @@ namespace DevPath.Controllers
             return View("List", employmentListings);
         }
 
+        public ActionResult Details(int id)
+        {
+            // EAGER LOADING
+            var employmentListing = _context.EmploymentListings
+                .Include(el => el.ClientCompany)
+                .FirstOrDefault(el => el.Id == id);
+            if (employmentListing == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(employmentListing);
+        }
+
+        [Authorize(Roles = RoleName.CanManageAll)]
         public ActionResult Edit(int id)
         {
             // find the record to edit (with eager loading)
@@ -128,6 +182,7 @@ namespace DevPath.Controllers
             return View("EmploymentListingForm", viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManageAll)]
         public ActionResult Delete(int id)
         {
             var ELInDb = _context.EmploymentListings.SingleOrDefault(el => el.Id == id);

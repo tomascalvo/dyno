@@ -1,6 +1,7 @@
 ﻿using DevPath.Models;
 using DevPath.ViewModels.Account;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Linq;
@@ -154,12 +155,19 @@ namespace DevPath.Controllers
                 if (result.Succeeded)
                 {
 
-                    // TEMPORARY CODE FOR LEARNING AUTH ONLY
+                    // TEMPORARY CODE FOR LEARNING AUTH / ADDING IDENTITY ROLES ONLY
 
                     //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
                     //var roleManager = new RoleManager<IdentityRole>(roleStore);
                     //await roleManager.CreateAsync(new IdentityRole("CanManageSkills"));
                     //await UserManager.AddToRoleAsync(user.Id, "CanManageSkills");
+
+
+                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    await roleManager.CreateAsync(new IdentityRole("CanManageAll"));
+                    await UserManager.AddToRoleAsync(user.Id, "CanManageSkills");
+
 
 
                     // END TEMPORARY CODE

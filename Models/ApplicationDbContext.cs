@@ -10,10 +10,10 @@ namespace DevPath.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
             // THIS DATABASE INITIALIZATION STRATEGY DROPS AND CREATES A DB ONLY WHEN MODEL CLASSES (ENTITY CLASSES) HAVE BEEN CHANGED
-            //Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
 
             // THIS DATABASE INITIALIZATION STRATEGY DROPS AND CREATES A DB EVERY TIME THE APPLICATION RUNS IRRESPECTIVE OF MODEL CHANGES OR LACK THEREOF.
-            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
+            //Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
 
             //DATABASE INITIALIZATION STRATEGIES EXPLAINED: https://www.entityframeworktutorial.net/code-first/database-initialization-strategy-in-code-first.aspx
 
@@ -51,11 +51,11 @@ namespace DevPath.Models
                 .WithMany(s => s.ProjectSkills)
                 .HasForeignKey(ps => ps.SkillId);
 
-            // Customize 1 TO MANY Relationship between Company and EmploymentListing
+            // Customize 1 (or 0) to many Relationship between Company and EmploymentListing
 
             modelBuilder.Entity<Company>()
                 .HasMany(c => c.EmploymentListings)
-                .WithRequired(el => el.ClientCompany)
+                .WithOptional(el => el.ClientCompany)
                 .HasForeignKey(el => el.ClientCompanyId);
 
             // Customize Many to Many relationship between EmploymentListing and Skill

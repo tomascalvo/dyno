@@ -7,13 +7,13 @@ namespace DevPath.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "202204251631566_ChangedEmploymentListingIsRemotePropertyToWorkArrangementEnum"; }
+            get { return "202204271911010_init"; }
         }
         
         string IMigrationMetadata.Source

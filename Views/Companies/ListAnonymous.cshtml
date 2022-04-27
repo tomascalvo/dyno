@@ -1,0 +1,147 @@
+﻿@model IEnumerable<DevPath.Models.Company>
+@{
+    ViewBag.Title = "Companies";
+}
+
+<h2>Companies</h2>
+
+<p>Dyno currently has @Model.Count() companies.</p>
+
+<p>@Html.ActionLink("Add Company", "New", "Company", new { @class = "btn btn-primary" })</p>
+
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="d-none d-md-table-cell">Logo</th>
+                <th>Description</th>
+                <th class="d-none d-lg-table-cell">Location</th>
+                <th>Skills</th>
+                <th class="d-none d-lg-table-cell">Date Added</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in Model)
+            {
+                <tr>
+
+                    @*LOGO*@
+                    <td class="d-none d-md-table-cell">
+                        <div style="width: 100%;
+                                display: flex;
+                                flex-direction: row;
+                                flex-wrap: wrap;
+                                justify-content: space-evenly;">
+                            @if (company.Logo.IsEmpty() == false)
+                            {
+                                <a href="@Url.Action(
+                                             "Details",
+                                             "Companies",
+                                             new { id = company.Id })"
+                                   title=@($"{company.Title} Details")
+                                   style="
+                                            display: flex;
+                                            width: 100%;
+                                        ">
+                                    <img src="@Url.Content(company.Logo)"
+                                         alt=@($"{company.Title} Logo")
+                                         style="
+                                            width: 150px;
+                                            height: 100px;
+                                            margin: 0 auto;
+                                            object-fit: scale-down;
+                                        " />
+                                </a>
+                            }
+                        </div>
+                    </td>
+
+                    @*DESCRIPTION*@
+                    <td>
+                        @if (company.Logo.IsEmpty() == false)
+
+                        {
+                            <a href="@Url.Action(
+                                    "Details",
+                                    "Companies",
+                                    new { id = company.Id }
+                                    )"
+                               title=@($"{company.Title} Details")
+                               style="display: flex; width: 100%;">
+                                <img src="@Url.Content(company.Logo)"
+                                     alt=@($"{company.Title} Logo")
+                                     class="d-md-none d-sm-block"
+                                     style="
+                                    width: 150px;
+                                    height: 100px;
+                                    margin: 0 auto;
+                                    object-fit: scale-down;
+                                    " />
+                            </a>
+                        }
+                        <p>
+                            @Html.ActionLink(
+                                company.Title,
+                                "Details",
+                                "Companies",
+                                new { id = company.Id },
+                                new { style = "text-decoration: none;" }
+                                )
+                        </p>
+                        @if (!company.Description.IsEmpty())
+                        {
+                            <p>
+                                @company.Description
+                            </p>
+                            <p class="d-lg-none d-md-block">
+                                Added to database on @company.DateAdded.ToShortDateString()
+                            </p>
+                            if (!company.Location.IsEmpty())
+                            {
+                                <p class="d-lg-none d-md-block">
+                                    Located in @company.Location
+                                </p>
+                            }
+                        }
+                    </td>
+
+                    @*LOCATION*@
+                    <td class="d-none d-lg-table-cell" style="white-space: nowrap;">
+                        @if (!company.Location.IsEmpty())
+                        {
+                            <p>Located in @company.Location</p>
+                        }
+                    </td>
+
+                    @*SKILLS*@
+                    <td>
+                    </td>
+
+                    @*DATE ADDED*@
+                    <td class="d-none d-lg-table-cell" style="white-space: nowrap;">
+                        @company.DateAdded.ToString("yyyy-MM-dd")
+                    </td>
+
+                    @*ACTIONS*@
+                    <td>
+                        <div class="d-grid gap-2">
+                            @if (company?.WebsiteUrl.IsEmpty() == false)
+                            {
+                                <a href=@company.WebsiteUrl
+                                   class="btn btn-primary"
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   title="Website">
+                                    <img src="~/Content/Icons/globe.svg" alt="website" />
+
+                                </a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
