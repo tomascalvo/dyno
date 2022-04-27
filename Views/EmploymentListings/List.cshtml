@@ -29,19 +29,34 @@
                     @*TITLE*@
                     <td class="d-none d-md-table-cell">
                         <p>
-                            @job.Title
+                            @job?.Title
                         </p>
                     </td>
 
                     @*COMPANY*@
                     <td class="d-none d-md-table-cell">
-                        <p>@job.ClientCompany.Title</p>
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p>@job.ClientCompany.Title</p>
+                        }
+
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p>Staffing Company: @job.StaffingCompany.Title</p>
+                        }
                     </td>
 
                     @*DESCRIPTION*@
                     <td>
                         <p class="d-md-none d-sm-block">@job.Title</p>
-                        <p class="d-md-none d-sm-block">@job.ClientCompany.Title</p>
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p class="d-md-none d-sm-block">@job.ClientCompany.Title</p>
+                        }
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p class="d-md-none d-sm-block">Staffing Company: @job.StaffingCompany.Title</p>
+                        }
                         @if (!job.FullText.IsEmpty())
                         {
                             <p>@job.FullText</p>

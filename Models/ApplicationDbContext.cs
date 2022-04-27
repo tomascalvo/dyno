@@ -52,12 +52,19 @@ namespace DevPath.Models
                 .WithMany(s => s.ProjectSkills)
                 .HasForeignKey(ps => ps.SkillId);
 
-            // Customize 1 (or 0) to many Relationship between Company and EmploymentListing
+            // Customize 1 (or 0) to many Relationship between ClientCompany and EmploymentListing
 
             modelBuilder.Entity<Company>()
                 .HasMany(c => c.EmploymentListings)
                 .WithOptional(el => el.ClientCompany)
                 .HasForeignKey(el => el.ClientCompanyId);
+
+            // Customize 1 (or 0) to many Relationship between StaffingCompany and EmploymentListing
+
+            modelBuilder.Entity<Company>()
+                .HasMany(c => c.EmploymentListings)
+                .WithOptional(el => el.StaffingCompany)
+                .HasForeignKey(el => el.StaffingCompanyId);
 
             // Customize Many to Many relationship between EmploymentListing and Skill
 

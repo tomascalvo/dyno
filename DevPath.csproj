@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202204272219151_AddCompanyPropertyIsStaffingCompany.designer.cs">
       <DependentUpon>202204272219151_AddCompanyPropertyIsStaffingCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204272303166_AddedStaffingCompanyToEmploymentListing.cs" />
+    <Compile Include="Migrations\202204272303166_AddedStaffingCompanyToEmploymentListing.designer.cs">
+      <DependentUpon>202204272303166_AddedStaffingCompanyToEmploymentListing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -366,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204272219151_AddCompanyPropertyIsStaffingCompany.resx">
       <DependentUpon>202204272219151_AddCompanyPropertyIsStaffingCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204272303166_AddedStaffingCompanyToEmploymentListing.resx">
+      <DependentUpon>202204272303166_AddedStaffingCompanyToEmploymentListing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -29,6 +29,8 @@ namespace DevPath.Models
     }
     public class EmploymentListing
     {
+
+        // PROPERTIES
         public int Id { get; set; }
         [StringLength(50, ErrorMessage = "Job title cannot be longer than 50 characters.")]
         public string Title { get; set; }
@@ -41,19 +43,11 @@ namespace DevPath.Models
         public PayFrequencyEnum? PayFrequency { get; set; } = Models.PayFrequencyEnum.annual;
         [Display(Name = "Work Arrangement")]
         public WorkLocationEnum? WorkLocation { get; set; }
-        public int? ClientCompanyId { get; set; }
-        public Company ClientCompany { get; set; }
-        //public int? StaffingCompanyId { get; set; }
-        //public virtual Company StaffingCompany { get; set; }
         [DataType(DataType.MultilineText)]
         [Display(Name = "Description")]
         public string FullText { get; set; }
         [DataType(DataType.Url)]
         public string Url { get; set; }
-        public List<int> EmploymentApplicationIds { get; set; }
-        public ICollection<EmploymentApplication> EmploymentApplications { get; set; }
-        //public int? RecruiterID { get; set; }
-        //public virtual Recruiter Recruiter { get; set; }
         //public int? PlatformID { get; set; }
         //public virtual Platform Platform { get; set; }
         [DataType(DataType.DateTime)]
@@ -66,13 +60,22 @@ namespace DevPath.Models
         //public int? UserID { get; set; }
         //[Display(Name = "Added By")]
         //public virtual User User { get; set; }
-        [Display(Name = "Requirements")]
-        public List<EmploymentListingSkill> EmploymentListingSkills { get; set; }
         //[Display(Name = "Likes")]
         //public virtual ICollection<User> Users { get; set; }
         //[Display(Name = "Offers")]
         //public virtual ICollection<EmploymentOffer> EmploymentOffers { get; set; }
         //[Display(Name = "Ratings")]
         //public virtual ICollection<EmploymentRating> EmploymentRatings { get; set; }
+
+        // NAVIGATION PROPERTIES
+        public int? ClientCompanyId { get; set; }
+        public Company ClientCompany { get; set; }
+        public int? StaffingCompanyId { get; set; }
+        public Company StaffingCompany { get; set; }
+        public List<int> EmploymentApplicationIds { get; set; }
+        public ICollection<EmploymentApplication> EmploymentApplications { get; set; }
+        [Display(Name = "Requirements")]
+        public List<EmploymentListingSkill> EmploymentListingSkills { get; set; }
+        //public List<RecruiterEmploymentListing> RecruiterEmploymentListings { get; set; }
     }
 }

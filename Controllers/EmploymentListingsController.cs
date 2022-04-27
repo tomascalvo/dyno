@@ -56,6 +56,7 @@ namespace DevPath.Controllers
                     DatePublished = formData.DatePublished,
                     EmploymentApplicationIds = formData.EmploymentApplicationIds,
                     ClientCompanyId = formData.SelectedClientCompanyId,
+                    StaffingCompanyId = formData.SelectedStaffingCompanyId,
                 };
                 _context.EmploymentListings.Add(newEmploymentListing);
                 _context.SaveChanges();
@@ -87,6 +88,7 @@ namespace DevPath.Controllers
                 // CHANGE PROPERTY VALUES
                 employmentListingInDb.Title = formData.Title;
                 employmentListingInDb.ClientCompanyId = formData.SelectedClientCompanyId;
+                employmentListingInDb.StaffingCompanyId = formData.SelectedStaffingCompanyId;
                 employmentListingInDb.PayQuantity = formData.PayQuantity;
                 employmentListingInDb.WorkLocation = formData.WorkLocation;
                 employmentListingInDb.FullText = formData.FullText;
@@ -128,6 +130,7 @@ namespace DevPath.Controllers
             // EAGER LOADING
             var employmentListings = _context.EmploymentListings
                 .Include(el => el.ClientCompany)
+                .Include(el => el.StaffingCompany)
                 .Include(el => el.EmploymentListingSkills
                     .Select(els => els.Skill))
                 .ToList();
@@ -139,6 +142,7 @@ namespace DevPath.Controllers
             // EAGER LOADING
             var employmentListing = _context.EmploymentListings
                 .Include(el => el.ClientCompany)
+                .Include(el => el.StaffingCompany)
                 .FirstOrDefault(el => el.Id == id);
             if (employmentListing == null)
             {

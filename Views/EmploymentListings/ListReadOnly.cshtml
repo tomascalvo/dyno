@@ -25,79 +25,94 @@
         <tbody>
             @foreach (var job in Model)
             {
-                <tr>
-                    @*TITLE*@
-                    <td class="d-none d-md-table-cell">
-                        <p>
-                            @job.Title
-                        </p>
-                    </td>
+            <tr>
+                @*TITLE*@
+                <td class="d-none d-md-table-cell">
+                    <p>
+                        @job?.Title
+                    </p>
+                </td>
 
-                    @*COMPANY*@
-                    <td class="d-none d-md-table-cell">
+                @*COMPANY*@
+                <td class="d-none d-md-table-cell">
+                    @if (job.StaffingCompany != null)
+                    {
                         <p>@job.ClientCompany.Title</p>
-                    </td>
+                    }
 
-                    @*DESCRIPTION*@
-                    <td>
-                        <p class="d-md-none d-sm-block">@job.Title</p>
+                    @if (job.StaffingCompany != null)
+                    {
+                        <p>Staffing Company: @job.StaffingCompany.Title</p>
+                    }
+                </td>
+
+                @*DESCRIPTION*@
+                <td>
+                    <p class="d-md-none d-sm-block">@job.Title</p>
+                    @if (job.StaffingCompany != null)
+                    {
                         <p class="d-md-none d-sm-block">@job.ClientCompany.Title</p>
-                        @if (!job.FullText.IsEmpty())
-                        {
-                            <p>@job.FullText</p>
+                    }
+                    @if (job.StaffingCompany != null)
+                    {
+                        <p class="d-md-none d-sm-block">Staffing Company: @job.StaffingCompany.Title</p>
+                    }
+                    @if (!job.FullText.IsEmpty())
+                    {
+                        <p>@job.FullText</p>
+                    }
+                    <p class="d-lg-none d-md-block">Added to database on @job.DateAdded.ToShortDateString()</p>
+                </td>
+
+                @*SKILLS*@
+                <td>
+                    <div class="skill-avatars">
+                        @{
+                            var skillCount = job.EmploymentListingSkills.Count;
+                            var skillsCapacity = 18;
+                            var skillsToDisplay = skillCount <= skillsCapacity ? skillCount : skillsCapacity;
+                            var skillsHidden = skillCount - skillsToDisplay;
                         }
-                        <p class="d-lg-none d-md-block">Added to database on @job.DateAdded.ToShortDateString()</p>
-                    </td>
-
-                    @*SKILLS*@
-                    <td>
-                        <div class="skill-avatars">
-                            @{
-                                var skillCount = job.EmploymentListingSkills.Count;
-                                var skillsCapacity = 18;
-                                var skillsToDisplay = skillCount <= skillsCapacity ? skillCount : skillsCapacity;
-                                var skillsHidden = skillCount - skillsToDisplay;
-                            }
-                            @for (int i = 0; i < skillsToDisplay; i++)
+                        @for (int i = 0; i < skillsToDisplay; i++)
+                        {
+                            if (!job.EmploymentListingSkills[i].Skill.Icon.IsEmpty())
                             {
-                                if (!job.EmploymentListingSkills[i].Skill.Icon.IsEmpty())
-                                {
-                                    <span class="skill-avatar">
-                                        <a href="@Url.Action("Details", "Skills", new { id = job.EmploymentListingSkills[i].Skill.Id })"
-                                           title=@($"{job.EmploymentListingSkills[i].Skill.Title} Details")
-                                           data-bs-toggle="tooltip"
-                                           data-bs-placement="top"
-                                           style="text-decoration: none">
-                                            <img src="@Url.Content(job.EmploymentListingSkills[i].Skill.Icon)">
-                                        </a>
-                                    </span>
-                                }
+                                <span class="skill-avatar">
+                                    <a href="@Url.Action("Details", "Skills", new { id = job.EmploymentListingSkills[i].Skill.Id })"
+                                       title=@($"{job.EmploymentListingSkills[i].Skill.Title} Details")
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       style="text-decoration: none">
+                                        <img src="@Url.Content(job.EmploymentListingSkills[i].Skill.Icon)">
+                                    </a>
+                                </span>
                             }
-                            @{
-                                if (skillsHidden > 3)
-                                {
-                                    @Html.ActionLink($"and {@skillsHidden} more", "Details", "Projects", new { id = job.Id })
-                                }
-                            }
-                        </div>
-                    </td>
-
-                    @*DATE ADDED*@
-                    <td class="d-none d-lg-table-cell" style="white-space: nowrap;">@job.DateAdded.ToString("yyyy-MM-dd")</td>
-
-                    @*ACTIONS*@
-                    <td>
-                        <div class="d-grid gap-2">
-                            @if (job?.Url.IsEmpty() == false)
+                        }
+                        @{
+                            if (skillsHidden > 3)
                             {
-                                <a href=@job.Url class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Website">
-                                    <img src="~/Content/Icons/globe.svg" alt="website" />
-
-                                </a>
+                                @Html.ActionLink($"and {@skillsHidden} more", "Details", "Projects", new { id = job.Id })
                             }
-                        </div>
-                    </td>
-                </tr>
+                        }
+                    </div>
+                </td>
+
+                @*DATE ADDED*@
+                <td class="d-none d-lg-table-cell" style="white-space: nowrap;">@job.DateAdded.ToString("yyyy-MM-dd")</td>
+
+                @*ACTIONS*@
+                <td>
+                    <div class="d-grid gap-2">
+                        @if (job?.Url.IsEmpty() == false)
+                        {
+                            <a href=@job.Url class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Website">
+                                <img src="~/Content/Icons/globe.svg" alt="website" />
+
+                            </a>
+                        }
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
