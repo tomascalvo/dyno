@@ -12,6 +12,11 @@
         @Html.TextBoxFor(c => c.Title, new { @class = "form-control" })
     </div>
     <div class="mb-3">
+        <label>
+            @Html.CheckBoxFor(c => c.IsStaffingCompany) Staffing Company
+        </label>
+    </div>
+    <div class="mb-3">
         @Html.LabelFor(c => c.Description)
         @Html.TextBoxFor(c => c.Description, new { @class = "form-control" })
     </div>

@@ -190,6 +190,10 @@
     <Compile Include="Migrations\202204272122379_SeedApplicationUserProjects.designer.cs">
       <DependentUpon>202204272122379_SeedApplicationUserProjects.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204272219151_AddCompanyPropertyIsStaffingCompany.cs" />
+    <Compile Include="Migrations\202204272219151_AddCompanyPropertyIsStaffingCompany.designer.cs">
+      <DependentUpon>202204272219151_AddCompanyPropertyIsStaffingCompany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -359,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204272122379_SeedApplicationUserProjects.resx">
       <DependentUpon>202204272122379_SeedApplicationUserProjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204272219151_AddCompanyPropertyIsStaffingCompany.resx">
+      <DependentUpon>202204272219151_AddCompanyPropertyIsStaffingCompany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

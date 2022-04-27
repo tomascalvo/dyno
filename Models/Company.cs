@@ -6,6 +6,7 @@ namespace DevPath.Models
 {
     public class Company
     {
+        // PROPERTIES
         public int Id { get; set; }
         [StringLength(50, ErrorMessage = "Title name cannot be longer than 50 characters.")]
         public string Title { get; set; }
@@ -32,6 +33,7 @@ namespace DevPath.Models
                 return locationString;
             }
         }
+        public bool IsStaffingCompany { get; set; } = false;
         //public string CEOId { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyy-MM-dd", ApplyFormatInEditMode = true)]
@@ -50,8 +52,11 @@ namespace DevPath.Models
         }
 
         public string OrganizationLookupId { get; set; }
+
+        // NAVIGATION PROPERTIES
         [Display(Name = "Employment Listings")]
         public List<EmploymentListing> EmploymentListings { get; set; }
+
         //[Display(Name = "Employment Offers")]
         //public virtual ICollection<EmploymentOffer> EmploymentOffers { get; set; }
         //public virtual ICollection<Recruiter> Recruiters { get; set; }

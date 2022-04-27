@@ -61,8 +61,12 @@ namespace DevPath.ViewModels.EmploymentListings
         // COMPANY OPTIONS
         public IEnumerable<Company> ClientCompanyOptions
         { get; set; }
-        [Display(Name = "Company")]
+        [Display(Name = "Client Company")]
         public int? SelectedClientCompanyId { get; set; }
+        public IEnumerable<Company> StaffingCompanyOptions
+        { get; set; }
+        [Display(Name = "Staffing Company")]
+        public int? SelectedStaffingCompanyId { get; set; }
 
         // SKILL OPTIONS
         public IEnumerable<SelectListItem> SkillOptions { get; set; }

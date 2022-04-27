@@ -26,6 +26,7 @@ namespace DevPath.ViewModels.Companies
             City = company.City;
             DateFounded = company.DateFounded;
             DateAdded = company.DateAdded;
+            IsStaffingCompany = company.IsStaffingCompany;
         }
 
         // MODEL PROPERTIES
@@ -50,6 +51,7 @@ namespace DevPath.ViewModels.Companies
         public DateTime? DateFounded { get; set; }
         [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; }
+        public bool IsStaffingCompany { get; set; } = false;
         //public string OrganizationLookupId { get; set; }
 
 

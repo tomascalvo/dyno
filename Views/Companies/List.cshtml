@@ -61,7 +61,7 @@
 
                     @*DESCRIPTION*@
                     <td>
-                        @if (company.Logo.IsEmpty() == false)
+                        @if (!company.Logo.IsEmpty())
 
                         {
                             <a href="@Url.Action(
@@ -91,6 +91,14 @@
                                 new { style = "text-decoration: none;" }
                                 )
                         </p>
+                        @if (company.IsStaffingCompany)
+                        {
+                            <p>
+                                <em>
+                                    Staffing Company
+                                </em>
+                            </p>
+                        }
                         @if (!company.Description.IsEmpty())
                         {
                             <p>
@@ -119,39 +127,39 @@
                     @*EMPLOYMENT LISTINGS*@
                     <td>
 
-                            @{
-                                var ELCount = company.EmploymentListings != null ? company.EmploymentListings.Count : 0;
-                                var ELCapacity = 18;
-                                var ELsToDisplay = ELCount <= ELCapacity ? ELCount : ELCapacity;
-                                var skillsHidden = ELCount - ELsToDisplay;
-                            }
-                            @for (int i = 0; i < ELsToDisplay; i++)
+                        @{
+                            var ELCount = company.EmploymentListings != null ? company.EmploymentListings.Count : 0;
+                            var ELCapacity = 18;
+                            var ELsToDisplay = ELCount <= ELCapacity ? ELCount : ELCapacity;
+                            var skillsHidden = ELCount - ELsToDisplay;
+                        }
+                        @for (int i = 0; i < ELsToDisplay; i++)
+                        {
+                            if (!company.EmploymentListings[i].Title.IsEmpty())
                             {
-                                if (!company.EmploymentListings[i].Title.IsEmpty())
-                                {
-                                        <a href="@Url.Action(
+                                <a href="@Url.Action(
                                             "Details",
                                             "EmploymentListings",
                                             new {
                                                 id = company.EmploymentListings[i].Id
                                             }
                                             )"
-                                           title=@($"{company.EmploymentListings[i].Title} Details")
-                                           data-bs-toggle="tooltip"
-                                           data-bs-placement="top"
-                                           style="text-decoration: none">
-                                            <p>
-                                                @company.EmploymentListings[i].Title
-                                            </p>
-                                        </a>
-                                }
+                                   title=@($"{company.EmploymentListings[i].Title} Details")
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   style="text-decoration: none">
+                                    <p>
+                                        @company.EmploymentListings[i].Title
+                                    </p>
+                                </a>
                             }
-                            @{
-                                if (skillsHidden > 3)
-                                {
-                                    @Html.ActionLink($"and {@skillsHidden} more", "Details", "Companies", new { id = company.Id })
-                                }
+                        }
+                        @{
+                            if (skillsHidden > 3)
+                            {
+                                @Html.ActionLink($"and {@skillsHidden} more", "Details", "Companies", new { id = company.Id })
                             }
+                        }
                     </td>
 
                     @*SKILLS*@

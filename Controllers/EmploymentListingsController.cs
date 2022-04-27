@@ -26,6 +26,7 @@ namespace DevPath.Controllers
             var viewModel = new EmploymentListingFormViewModel()
             {
                 ClientCompanyOptions = _context.Companies.ToList(),
+                StaffingCompanyOptions = _context.Companies.Where(c => c.IsStaffingCompany == true).ToList(),
                 SkillOptions = _context.Skills.ToList().Select(skill => new SelectListItem
                 {
                     Text = skill.Title,
@@ -164,13 +165,13 @@ namespace DevPath.Controllers
             }
 
             // query db for select list options
-            var clientCompanyOptions = _context.Companies.ToList();
             var skillOptions = _context.Skills.ToList();
 
             // instantiate ViewModel
             var viewModel = new EmploymentListingFormViewModel(employmentListingInDb)
             {
-                ClientCompanyOptions = clientCompanyOptions,
+                ClientCompanyOptions = _context.Companies.ToList(),
+                StaffingCompanyOptions = _context.Companies.Where(c => c.IsStaffingCompany == true).ToList(),
                 SkillOptions = skillOptions.Select(skill => new SelectListItem
                 {
                     Text = skill.Title,

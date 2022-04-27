@@ -48,6 +48,7 @@ namespace DevPath.Controllers
                     Title = formData.Title,
                     Description = formData.Description,
                     WebsiteUrl = formData.WebsiteUrl,
+                    IsStaffingCompany = formData.IsStaffingCompany,
                 };
                 _context.Companies.Add(newCompany);
             }
@@ -66,6 +67,7 @@ namespace DevPath.Controllers
                 companyInDb.City = formData.City;
                 companyInDb.DateFounded = formData.DateFounded;
                 companyInDb.DateAdded = formData.DateAdded;
+                companyInDb.IsStaffingCompany = formData.IsStaffingCompany;
             }
             _context.SaveChanges();
             return RedirectToAction("Index", "Companies");
