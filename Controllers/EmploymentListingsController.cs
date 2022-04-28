@@ -1,5 +1,6 @@
 ﻿using DevPath.Models;
 using DevPath.ViewModels.EmploymentListings;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -53,13 +54,23 @@ namespace DevPath.Controllers
                     WorkLocation = formData.WorkLocation,
                     FullText = formData.FullText,
                     Url = formData.Url,
-                    DatePublished = formData.DatePublished,
+                    DateAdded = formData.DateAdded,
                     EmploymentApplicationIds = formData.EmploymentApplicationIds,
                     ClientCompanyId = formData.SelectedClientCompanyId,
                     StaffingCompanyId = formData.SelectedStaffingCompanyId,
+                    CreatorId = User.Identity.GetUserId(),
                 };
                 _context.EmploymentListings.Add(newEmploymentListing);
                 _context.SaveChanges();
+
+                // Create new EmploymentListingAccess record to allow creator to access EmploymentListing.
+
+                var ela = new EmploymentListingAccess
+                {
+                    EmploymentListingId = newEmploymentListing.Id,
+                    ApplicationUserId = User.Identity.GetUserId(),
+                };
+                _context.EmploymentListingAccesses.Add(ela);
 
                 // ADDING NEW EmploymentListingSkills TO REPRESENT THE MANY TO MANY RELATIONSIHP BETWEEN EmploymentListings and Skills
                 if (formData.SelectedSkillIds != null)
@@ -74,11 +85,28 @@ namespace DevPath.Controllers
                         _context.EmploymentListingSkills.Add(newELS);
                     }
                 }
+
+                // ADD NEW EmploymentApplication
+                if (formData.ApplicationSubmitted)
+                {
+                    EmploymentApplication newEA = new EmploymentApplication
+                    {
+                        EmploymentListingId = newEmploymentListing.Id,
+                        ApplicantId = User.Identity.GetUserId(),
+                    };
+                    _context.EmploymentApplications.Add(newEA);
+                }
             }
             else // UPDATE EXISTING EmploymentListing
             {
                 // AUTHORIZATION
-                if (!User.IsInRole(RoleName.CanManageAll)) return RedirectToAction("Account", "Login");
+                bool isAdmin = User.IsInRole(RoleName.CanManageAll);
+                string userId = User.Identity.GetUserId();
+                bool isAuthorized = _context.EmploymentListingAccesses.Any(ela => (ela.EmploymentListingId == formData.Id) && (ela.ApplicationUserId == userId) && ela.CanEdit);
+                if (!isAdmin && !isAuthorized)
+                {
+                    return RedirectToAction("Account", "Login");
+                }
 
                 // QUERY DB FOR RECORD TO UPDATE
                 var employmentListingInDb = _context.EmploymentListings
@@ -92,6 +120,14 @@ namespace DevPath.Controllers
                 employmentListingInDb.PayQuantity = formData.PayQuantity;
                 employmentListingInDb.WorkLocation = formData.WorkLocation;
                 employmentListingInDb.FullText = formData.FullText;
+                if (employmentListingInDb.DateArchived == null && formData.IsArchived)
+                {
+                    employmentListingInDb.DateArchived = DateTime.Now;
+                }
+                else if (employmentListingInDb.DateArchived != null && !formData.IsArchived)
+                {
+                    employmentListingInDb.DateArchived = null;
+                }
 
                 // CHANGE RELATED ENTITIES
 
@@ -103,7 +139,7 @@ namespace DevPath.Controllers
                         .Any(els => els.EmploymentListingId == employmentListingInDb.Id
                         && els.SkillId == skillId);
                     if (elsExists) continue;
-                    EmploymentListingSkill newELS = new EmploymentListingSkill
+                    var newELS = new EmploymentListingSkill
                     {
                         EmploymentListingId = employmentListingInDb.Id,
                         SkillId = skillId
@@ -118,7 +154,6 @@ namespace DevPath.Controllers
                     if (formData.SelectedSkillIds.Contains(els.SkillId)) continue;
                     _context.EmploymentListingSkills.Remove(els);
                 }
-
             }
 
             _context.SaveChanges();
@@ -131,9 +166,21 @@ namespace DevPath.Controllers
             var employmentListings = _context.EmploymentListings
                 .Include(el => el.ClientCompany)
                 .Include(el => el.StaffingCompany)
+                .Include(el => el.Creator)
                 .Include(el => el.EmploymentListingSkills
                     .Select(els => els.Skill))
-                .ToList();
+                .Include(el => el.EmploymentApplications
+                    .Select(ea => ea.Applicant))
+                .Include(el => el.EmploymentListingAccesses);
+
+            // AUTHORIZED TO SEE OTHERS' ARCHIVED LISTINGS
+            if (!User.IsInRole(RoleName.CanManageAll))
+            {
+                string userId = User.Identity.GetUserId();
+                employmentListings = employmentListings
+                    .Where(el => el.DateArchived == null || el.EmploymentListingAccesses.Any(ela => ela.ApplicationUserId == userId));
+            }
+
             return View("List", employmentListings);
         }
 
@@ -152,7 +199,6 @@ namespace DevPath.Controllers
             return View(employmentListing);
         }
 
-        [Authorize(Roles = RoleName.CanManageAll)]
         public ActionResult Edit(int id)
         {
             // find the record to edit (with eager loading)
@@ -166,6 +212,15 @@ namespace DevPath.Controllers
             if (employmentListingInDb == null)
             {
                 return HttpNotFound();
+            }
+
+            // is user authorized to edit record?
+            bool isAdmin = User.IsInRole(RoleName.CanManageAll);
+            string userId = User.Identity.GetUserId();
+            bool isAuthorized = _context.EmploymentListingAccesses.Any(ela => (ela.EmploymentListingId == employmentListingInDb.Id) && (ela.ApplicationUserId == userId) && ela.CanEdit);
+            if (!isAdmin && !isAuthorized)
+            {
+                return RedirectToAction("Account", "Login");
             }
 
             // query db for select list options
@@ -187,16 +242,104 @@ namespace DevPath.Controllers
             return View("EmploymentListingForm", viewModel);
         }
 
-        [Authorize(Roles = RoleName.CanManageAll)]
+        public ActionResult ToggleApplication(int id)
+        {
+            // query for the EmploymentListing record
+            var employmentListingInDb = _context.EmploymentListings
+                .Include(el => el.ClientCompany)
+                .Include(el => el.EmploymentListingSkills
+                    .Select(els => els.Skill))
+                .Include(el => el.EmploymentListingAccesses
+                    .Select(ela => ela.ApplicationUser))
+                .SingleOrDefault(el => el.Id == id);
+
+            // does EmploymentApplication exist?
+            string userId = User.Identity.GetUserId();
+            var eaInDb = _context.EmploymentApplications
+                .SingleOrDefault(ea => ea.EmploymentListingId == id && ea.ApplicantId == userId);
+            // if ea doesn't exist, create it
+            if (eaInDb == null)
+            {
+                EmploymentApplication newEA = new EmploymentApplication
+                {
+                    EmploymentListingId = id,
+                    ApplicantId = userId,
+                };
+                _context.EmploymentApplications.Add(newEA);
+            }
+            else
+            // if ea exists, delete it
+            {
+                _context.EmploymentApplications.Remove(eaInDb);
+            }
+            // save changes
+            _context.SaveChanges();
+
+            // return view
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ToggleArchive(int id)
+        {
+            // query for the EmploymentListing record
+            var employmentListingInDb = _context.EmploymentListings
+                .Include(el => el.ClientCompany)
+                .Include(el => el.EmploymentListingSkills
+                    .Select(els => els.Skill))
+                .Include(el => el.EmploymentListingAccesses
+                    .Select(ela => ela.ApplicationUser))
+                .SingleOrDefault(el => el.Id == id);
+
+            // is user authorized to archive record?
+            bool isAdmin = User.IsInRole(RoleName.CanManageAll);
+            string userId = User.Identity.GetUserId();
+            bool isAuthorized = _context.EmploymentListingAccesses.Any(ela => (ela.EmploymentListingId == employmentListingInDb.Id) && (ela.ApplicationUserId == userId) && ela.CanArchive);
+            if (!isAdmin && !isAuthorized)
+            {
+                return RedirectToAction("Account", "Login");
+            }
+
+            // toggle archive
+
+            if (employmentListingInDb.DateArchived == null)
+            {
+                employmentListingInDb.DateArchived = DateTime.Now;
+            }
+            else
+            {
+                employmentListingInDb.DateArchived = null;
+            }
+
+            // save changes
+            _context.SaveChanges();
+
+            // return view
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Delete(int id)
         {
+            // does record exist?
             var ELInDb = _context.EmploymentListings.SingleOrDefault(el => el.Id == id);
             if (ELInDb == null)
             {
                 return RedirectToAction("Index");
             }
+
+            // is user authorized to delete record?
+            bool isAdmin = User.IsInRole(RoleName.CanManageAll);
+            string userId = User.Identity.GetUserId();
+            bool isAuthorized = _context.EmploymentListingAccesses.Any(ela => (ela.EmploymentListingId == ELInDb.Id) && (ela.ApplicationUserId == userId) && ela.CanDelete);
+            if (!isAdmin && !isAuthorized)
+            {
+                return RedirectToAction("Account", "Login");
+            }
+
+            // remove 
             _context.EmploymentListings.Remove(ELInDb);
+            // save
             _context.SaveChanges();
+            // redirect
             return RedirectToAction("Index");
         }
     }

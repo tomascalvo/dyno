@@ -1,0 +1,118 @@
+﻿@using Microsoft.AspNet.Identity;
+@using DevPath.Models;
+@model DevPath.Models.EmploymentListing
+<div class="d-grid gap-2">
+    @*LINK TO JOB LISTING ON WEB*@
+    @if (Model?.Url.IsEmpty() == false)
+    {
+        <a href=@Model.Url
+           class="btn btn-primary"
+           data-bs-toggle="tooltip"
+           data-bs-placement="top"
+           title="Website">
+            <img src="~/Content/Icons/globe.svg" alt="website" />
+        </a>
+    }
+    @*TOGGLE APPLICATION STATUS*@
+    @if (!Model.EmploymentApplications
+        .Any(ea => ea.Applicant.Id == User.Identity.GetUserId()))
+    {
+        <a href="@Url.Action(
+                "ToggleApplication",
+                "EmploymentListings",
+                new { id = Model.Id }
+                )"
+           class="btn btn-primary"
+           title="Mark as Applied"
+           data-bs-toggle="tooltip"
+           data-bs-placement="top"
+           style="text-decoration: none">
+            <img src="~/Content/Icons/paper-plane-solid.svg"
+                 alt="mark as applied"
+                 style="width: 16px;" />
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action(
+                "ToggleApplication",
+                "EmploymentListings",
+                new { id = Model.Id }
+                )"
+           class="btn btn-primary"
+           title="Application Sent"
+           data-bs-toggle="tooltip"
+           data-bs-placement="top"
+           style="text-decoration: none">
+            <img src="~/Content/Icons/check-to-slot-solid.svg"
+                 alt="view application"
+                 style="width: 16px;" />
+        </a>
+    }
+    @*EDIT JOB LISTING*@
+    @*LIMIT ACCESS TO ADMIN, RECORD CREATOR, AND USERS DESIGNATED BY THE RECORD CREATOR*@
+    @{
+        bool isAdmin = User.IsInRole(RoleName.CanManageAll);
+        string userId = User.Identity.GetUserId();
+        var authorizedToEdit = Model.EmploymentListingAccesses.Any(ela => ela.EmploymentListingId == Model.Id && ela.ApplicationUser.Id == userId && ela.CanEdit);
+    }
+    @if (isAdmin || authorizedToEdit)
+    {
+        <a href="@Url.Action("Edit", "EmploymentListings", new { id = Model.Id })"
+           class="btn btn-primary"
+           title="Edit Listing"
+           data-bs-toggle="tooltip"
+           data-bs-placement="top"
+           style="text-decoration: none">
+            <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
+        </a>
+    }
+    @*TOGGLE ARCIVED/ACTIVE*@
+    @*LIMIT ACCESS TO ADMIN, RECORD CREATOR, AND USERS DESIGNATED BY THE RECORD CREATOR*@
+    @{
+
+        var authorizedToArchive = Model.EmploymentListingAccesses.Any(ela => ela.EmploymentListingId == Model.Id && ela.ApplicationUser.Id == userId && ela.CanArchive);
+    }
+    @if (isAdmin || authorizedToArchive)
+    {
+        if (Model.DateArchived == null)
+        {
+            <a href="@Url.Action("ToggleArchive", "EmploymentListings", new { id = Model.Id })"
+               class="btn btn-primary"
+               title="Archive Job Listing"
+               data-bs-toggle="tooltip"
+               data-bs-placement="top"
+               style="text-decoration: none">
+                <img src="~/Content/Icons/lock-solid.svg" alt="Archive Job Listing" style="width: 16px;" />
+            </a>
+        }
+        else
+        {
+            <a href="@Url.Action("ToggleArchive", "EmploymentListings", new { id = Model.Id })"
+               class="btn btn-primary"
+               title="Activate Job Listing"
+               data-bs-toggle="tooltip"
+               data-bs-placement="top"
+               style="text-decoration: none">
+                <img src="~/Content/Icons/lock-open-solid.svg" alt="Activate Job Listing" style="width: 16px;" />
+            </a>
+        }
+    }
+    @*DELETE JOB LISTING*@
+    @*LIMIT ACCESS TO ADMIN, RECORD CREATOR, AND USERS DESIGNATED BY THE RECORD CREATOR*@
+    @{
+
+        var authorizedToDelete = Model.EmploymentListingAccesses.Any(ela => ela.EmploymentListingId == Model.Id && ela.ApplicationUser.Id == userId && ela.CanDelete);
+    }
+    @if (isAdmin || authorizedToDelete)
+    {
+        <a href="@Url.Action("Delete", "EmploymentListings", new { id = Model.Id })"
+           class="btn btn-danger"
+           title="Delete Listing"
+           data-bs-toggle="tooltip"
+           data-bs-placement="top"
+           style="text-decoration: none">
+            <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
+        </a>
+    }
+    </div>

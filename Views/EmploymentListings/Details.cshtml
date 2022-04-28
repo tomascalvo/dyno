@@ -3,9 +3,18 @@
     ViewBag.Title = "Job Details";
 }
 
-<h2>@Model.Title</h2>
-
-<p>Company: @Model.ClientCompany.Title</p>
-@Html.LabelFor(el => el.FullText)
-<p>@Model.FullText</p>
+<h2 class="mb-3">@Model.Title</h2>
+@if (Model.ClientCompany != null)
+{
+    <p>Company: @Model.ClientCompany.Title</p>
+}
+@if (Model.StaffingCompany != null)
+{
+    <p>Staffing Company: @Model.StaffingCompany.Title</p>
+}
+@if (!Model.FullText.IsEmpty())
+{
+    @Html.LabelFor(el => el.FullText)
+    <p>@Model.FullText</p>
+}
 

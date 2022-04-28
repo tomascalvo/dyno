@@ -46,7 +46,12 @@ namespace DevPath.Models
         public int? CurrentRoleId { get; set; }
         [Display(Name = "Desired Role")]
         public int? DesiredRoleId { get; set; }
+        [Display(Name = "Accessible Job Listings")]
 
+        public List<EmploymentListingAccess> EmploymentListingAccesses { get; set; }
+        [Display(Name = "Job Listings Posted")]
+
+        public List<EmploymentListing> EmploymentListingsCreated { get; set; }
         public List<ApplicationUserProject> ApplicationUserProjects { get; set; }
         //public List<ApplicationUserCompany> ApplicationUserCompanies { get; set; }
         //public List<ApplicationUserSkill> ApplicationUserSkills { get; set; }

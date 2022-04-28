@@ -198,9 +198,22 @@
     <Compile Include="Migrations\202204272303166_AddedStaffingCompanyToEmploymentListing.designer.cs">
       <DependentUpon>202204272303166_AddedStaffingCompanyToEmploymentListing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204272342080_Added_ApplicantId_to_EmploymeApplication.cs" />
+    <Compile Include="Migrations\202204272342080_Added_ApplicantId_to_EmploymeApplication.designer.cs">
+      <DependentUpon>202204272342080_Added_ApplicantId_to_EmploymeApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204281634298_AddedJoinTableEmploymentListingAccess.cs" />
+    <Compile Include="Migrations\202204281634298_AddedJoinTableEmploymentListingAccess.designer.cs">
+      <DependentUpon>202204281634298_AddedJoinTableEmploymentListingAccess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204282255001_AddedDateArchivedToEmploymentListing.cs" />
+    <Compile Include="Migrations\202204282255001_AddedDateArchivedToEmploymentListing.designer.cs">
+      <DependentUpon>202204282255001_AddedDateArchivedToEmploymentListing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\EmploymentListingAccess.cs" />
     <Compile Include="Models\ApplicationUserProject.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\EmploymentApplication.cs" />
@@ -232,8 +245,12 @@
     <Content Include="Content\bootstrap-slate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Icons\check-to-slot-solid.svg" />
     <Content Include="Content\Icons\github.svg" />
     <Content Include="Content\Icons\globe.svg" />
+    <Content Include="Content\Icons\lock-open-solid.svg" />
+    <Content Include="Content\Icons\lock-solid.svg" />
+    <Content Include="Content\Icons\paper-plane-solid.svg" />
     <Content Include="Content\Icons\pencil-solid.svg" />
     <Content Include="Content\Icons\project-icons\bamberga-logo-darkmode.svg" />
     <Content Include="Content\Icons\project-icons\chat.png" />
@@ -347,6 +364,8 @@
     <Content Include="Views\Companies\ListAnonymous.cshtml" />
     <Content Include="Views\EmploymentListings\ListReadOnly.cshtml" />
     <Content Include="Views\EmploymentListings\Details.cshtml" />
+    <Content Include="Views\EmploymentListings\ListAuthenticated.cshtml" />
+    <Content Include="Views\EmploymentListings\_ActionButtons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
@@ -373,6 +392,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204272303166_AddedStaffingCompanyToEmploymentListing.resx">
       <DependentUpon>202204272303166_AddedStaffingCompanyToEmploymentListing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204272342080_Added_ApplicantId_to_EmploymeApplication.resx">
+      <DependentUpon>202204272342080_Added_ApplicantId_to_EmploymeApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204281634298_AddedJoinTableEmploymentListingAccess.resx">
+      <DependentUpon>202204281634298_AddedJoinTableEmploymentListingAccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204282255001_AddedDateArchivedToEmploymentListing.resx">
+      <DependentUpon>202204282255001_AddedDateArchivedToEmploymentListing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

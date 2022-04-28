@@ -8,6 +8,10 @@
 @using (Html.BeginForm("Save", "EmploymentListings"))
 {
     <div class="mb-3">
+        @Html.LabelFor(el => el.Url)
+        @Html.TextBoxFor(el => el.Url, new { @class = "form-control" })
+    </div>
+    <div class="mb-3">
         @Html.LabelFor(el => el.Title)
         @Html.TextBoxFor(el => el.Title, new { @class = "form-control" })
     </div>
@@ -48,6 +52,14 @@
         @Html.LabelFor(el => el.FullText)
         @Html.TextAreaFor(el => el.FullText, new { @class = "form-control" })
     </div>
+    if (Model.PageTitle != "Edit Job Listing")
+    {
+        <div class="mb-3">
+            <label>
+                @Html.CheckBoxFor(c => c.ApplicationSubmitted) Application Submitted
+            </label>
+        </div>
+    }
     @Html.HiddenFor(el => el.Id)
     @Html.HiddenFor(el => el.DateAdded)
     @Html.HiddenFor(el => el.EmploymentApplicationIds)

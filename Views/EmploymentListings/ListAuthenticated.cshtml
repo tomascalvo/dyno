@@ -1,0 +1,173 @@
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<DevPath.Models.EmploymentListing>
+@{
+    ViewBag.Title = "Jobs";
+}
+
+<h2>Jobs</h2>
+
+<p>Dyno currently has @Model.Count() jobs.</p>
+
+<p>@Html.ActionLink("Add Job Listing", "New", "EmploymentListings", new { @class = "btn btn-primary" })</p>
+
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="d-none d-md-table-cell">Title</th>
+                <th class="d-none d-md-table-cell">Company</th>
+                <th>Description</th>
+                <th>Requirements</th>
+                <th class="d-none d-lg-table-cell">Date Added</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var job in Model)
+            {
+                <tr>
+                    @*TITLE*@
+                    @if (!job.Title.IsEmpty())
+                    {
+                        <td class="d-none d-md-table-cell">
+                            <p>
+                                @job.Title
+                            </p>
+                        </td>
+                    }
+
+                    @*COMPANY*@
+                    <td class="d-none d-md-table-cell">
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p>@job.ClientCompany.Title</p>
+                        }
+
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p>Staffing Company: @job.StaffingCompany.Title</p>
+                        }
+                    </td>
+
+                    @*DESCRIPTION*@
+                    <td>
+                        <p class="d-md-none d-sm-block">@job.Title</p>
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p class="d-md-none d-sm-block">@job.ClientCompany.Title</p>
+                        }
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p class="d-md-none d-sm-block">Staffing Company: @job.StaffingCompany.Title</p>
+                        }
+                        @if (!job.FullText.IsEmpty())
+                        {
+                            <p>@job.FullText</p>
+                        }
+                        <p class="d-lg-none d-md-block">Added to database on @job.DateAdded.ToShortDateString()</p>
+                    </td>
+
+                    @*SKILLS*@
+                    <td>
+                        <div class="skill-avatars">
+                            @{
+                                var skillCount = job.EmploymentListingSkills.Count;
+                                var skillsCapacity = 18;
+                                var skillsToDisplay = skillCount <= skillsCapacity ? skillCount : skillsCapacity;
+                                var skillsHidden = skillCount - skillsToDisplay;
+                            }
+                            @for (int i = 0; i < skillsToDisplay; i++)
+                            {
+                                if (!job.EmploymentListingSkills[i].Skill.Icon.IsEmpty())
+                                {
+                                    <span class="skill-avatar">
+                                        <a href="@Url.Action("Details", "Skills", new { id = job.EmploymentListingSkills[i].Skill.Id })"
+                                           title=@($"{job.EmploymentListingSkills[i].Skill.Title} Details")
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           style="text-decoration: none">
+                                            <img src="@Url.Content(job.EmploymentListingSkills[i].Skill.Icon)">
+                                        </a>
+                                    </span>
+                                }
+                            }
+                            @{
+                                if (skillsHidden > 3)
+                                {
+                                    @Html.ActionLink($"and {@skillsHidden} more", "Details", "Projects", new { id = job.Id })
+                                }
+                            }
+                        </div>
+                    </td>
+
+                    @*DATE ADDED*@
+                    <td class="d-none d-lg-table-cell" style="white-space: nowrap;">@job.DateAdded.ToString("yyyy-MM-dd")</td>
+
+                    @*ACTIONS*@
+                    <td>
+                        <div class="d-grid gap-2">
+                            @if (job?.Url.IsEmpty() == false)
+                            {
+                                <a href=@job.Url class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Website">
+                                    <img src="~/Content/Icons/globe.svg" alt="website" />
+
+                                </a>
+                            }
+                            @if (!job.EmploymentApplications
+                                .Any(ea => ea.Applicant.Id == User.Identity.GetUserId()))
+                            {
+                                <a href="@Url.Action(
+                                        "Details",
+                                        "EmploymentListings",
+                                        new { id = job.Id }
+                                        )"
+                                   class="btn btn-primary"
+                                   title=@($"Apply for {job.Title}")
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   style="text-decoration: none">
+                                    <img src="~/Content/Icons/paper-plane-solid.svg"
+                                         alt="apply"
+                                         style="width: 16px;" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary"
+                                   title="Application Sent"
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   style="text-decoration: none">
+                                    <img src="~/Content/Icons/check-to-slot-solid.svg"
+                                         alt="view application"
+                                         style="width: 16px;" />
+                                </a>
+                            }
+                            @if (!job.EmploymentApplications
+.Any(ea => ea.Applicant.Id == User.Identity.GetUserId()))
+                            {
+                                <a href="@Url.Action("Edit", "EmploymentListings", new { id = job.Id })"
+                                   class="btn btn-primary"
+                                   title=@($"Edit {job.Title}")
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   style="text-decoration: none">
+                                    <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
+                                </a>
+                                <a href="@Url.Action("Delete", "EmploymentListings", new { id = job.Id })"
+                                   class="btn btn-danger"
+                                   title=@($"Delete {job.Title}")
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   style="text-decoration: none">
+                                    <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
+                                </a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

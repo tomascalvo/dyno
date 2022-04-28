@@ -26,7 +26,7 @@ namespace DevPath.ViewModels.EmploymentListings
             FullText = employmentListing.FullText;
             Url = employmentListing.Url;
             DateAdded = employmentListing.DateAdded;
-            DatePublished = employmentListing.DatePublished;
+            IsArchived = employmentListing.DateArchived != null ? true : false;
             EmploymentApplicationIds = employmentListing.EmploymentApplicationIds;
             SelectedClientCompanyId = employmentListing.ClientCompanyId;
             SelectedSkillIds = employmentListing.EmploymentListingSkills.Select(els => els.Skill.Id).ToList();
@@ -55,6 +55,8 @@ namespace DevPath.ViewModels.EmploymentListings
         [Display(Name = "Added")]
         public DateTime DateAdded { get; set; }
         public List<int> EmploymentApplicationIds { get; set; }
+        public bool ApplicationSubmitted { get; set; } = false;
+        public bool IsArchived { get; set; } = false;
         public ICollection<EmploymentApplication> EmploymentApplications { get; set; }
 
 

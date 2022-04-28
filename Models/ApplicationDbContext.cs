@@ -28,6 +28,7 @@ namespace DevPath.Models
         public DbSet<EmploymentListingSkill> EmploymentListingSkills { get; set; }
         public DbSet<EmploymentApplication> EmploymentApplications { get; set; }
         public DbSet<ApplicationUserProject> ApplicationUserProjects { get; set; }
+        public DbSet<EmploymentListingAccess> EmploymentListingAccesses { get; set; }
 
 
         public static ApplicationDbContext Create()
@@ -86,6 +87,26 @@ namespace DevPath.Models
                 .HasMany(el => el.EmploymentApplications)
                 .WithRequired(ea => ea.EmploymentListing)
                 .HasForeignKey(ea => ea.EmploymentListingId);
+
+            // CUSTOMIZE MANY TO MANY Relationship (EmploymentListingAccess) between ApplicationUser and EmploymentListing (FOR CONTROLLING JOB LISTING EDIT/DELETE PRIVILEGES)
+
+            modelBuilder.Entity<EmploymentListingAccess>()
+                .HasKey(ela => new { ela.ApplicationUserId, ela.EmploymentListingId });
+            modelBuilder.Entity<EmploymentListingAccess>()
+                .HasRequired(ela => ela.ApplicationUser)
+                .WithMany(au => au.EmploymentListingAccesses)
+                .HasForeignKey(ela => ela.ApplicationUserId);
+            modelBuilder.Entity<EmploymentListingAccess>()
+                .HasRequired(ela => ela.EmploymentListing)
+                .WithMany(el => el.EmploymentListingAccesses)
+                .HasForeignKey(ela => ela.EmploymentListingId);
+
+            // 0 OR 1 TO MANY // EmploymentListing & ApplicationUser / EmploymentListingsCreated & Creator 
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(au => au.EmploymentListingsCreated)
+                .WithOptional(el => el.Creator)
+                .HasForeignKey(el => el.CreatorId);
 
             // Customize M2M relationship between ApplicationUser and Project
 

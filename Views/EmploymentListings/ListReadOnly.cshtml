@@ -27,11 +27,14 @@
             {
             <tr>
                 @*TITLE*@
-                <td class="d-none d-md-table-cell">
-                    <p>
-                        @job?.Title
-                    </p>
-                </td>
+                @if (!job.Title.IsEmpty())
+                {
+                    <td class="d-none d-md-table-cell">
+                        <p>
+                            @job.Title
+                        </p>
+                    </td>
+                }
 
                 @*COMPANY*@
                 <td class="d-none d-md-table-cell">
