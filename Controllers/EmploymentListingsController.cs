@@ -175,7 +175,8 @@ namespace DevPath.Controllers
                 .Include(el => el.EmploymentApplications
                     .Select(ea => ea.Applicant))
                 .Include(el => el.EmploymentListingAccesses)
-                .Include(el => el.Recruiter);
+                .Include(el => el.Recruiter)
+                .Include(el => el.EmploymentOffers);
 
             // AUTHORIZED TO SEE OTHERS' ARCHIVED LISTINGS
             if (!User.IsInRole(RoleName.CanManageAll))
@@ -319,6 +320,40 @@ namespace DevPath.Controllers
 
             // return view
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ReceiveOffer(int id)
+        {
+            // query for the EmploymentListing record
+            var employmentListingInDb = _context.EmploymentListings
+                .Include(el => el.ClientCompany)
+                .Include(el => el.EmploymentListingSkills
+                    .Select(els => els.Skill))
+                .Include(el => el.EmploymentListingAccesses
+                    .Select(ela => ela.ApplicationUser))
+                .SingleOrDefault(el => el.Id == id);
+            // does offer already exist?
+            string userId = User.Identity.GetUserId();
+            var eoInDb = _context.EmploymentOffers
+                .Where(eo => eo.RecipientId == userId && eo.EmploymentListingId == employmentListingInDb.Id)
+                .FirstOrDefault();
+            if (eoInDb != null)
+            {
+                return RedirectToAction("Index", "EmploymentListings");
+            }
+            // create first offer
+            var newEmploymentOffer = new EmploymentOffer
+            {
+                EmploymentListingId = employmentListingInDb.Id,
+                RecipientId = User.Identity.GetUserId(),
+                RecruiterId = employmentListingInDb.RecruiterId,
+            };
+            // add to db
+            _context.EmploymentOffers.Add(newEmploymentOffer);
+            // save changes
+            _context.SaveChanges();
+            // return view
+            return RedirectToAction("Index", "EmploymentListings");
         }
 
         public ActionResult Delete(int id)

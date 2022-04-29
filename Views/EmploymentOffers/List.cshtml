@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<DevPath.Models.EmploymentOffer>
+@{
+    ViewBag.Title = "Offers";
+}
+
+<h2>Offers</h2>
+
+<p>You have @Model.Count() offers.</p>
+
+<p>@Html.ActionLink("Add Offer", "New", "EmploymentOffers", new { @class = "btn btn-primary" })</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Company</th>
+            <th>Compensation</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var offer in Model)
+        {
+            <tr>
+                @*TITLE*@
+                <td>
+                    @offer.EmploymentListing.Title
+                </td>
+                @*COMPANY*@
+                <td>
+                    <p>
+                        Client: @offer.EmploymentListing.ClientCompany.Title
+                    </p>
+                    <p>
+                        Recruiter: @offer.EmploymentListing.StaffingCompany.Title
+                    </p>
+                </td>
+                @*COMPENSATION*@
+                <td>
+                    <p>
+                        Offered: @offer.PayQuantity
+                    </p>
+                    <p>
+                        Listed: @offer.PayQuantity
+                    </p>
+                </td>
+                @*DETAILS*@
+                <td>
+                    <p>
+                        Offer Details:
+                        <span>@offer.FullText</span>
+                    </p>
+                    <p>
+                        Listing Details:
+                        <span>@offer.EmploymentListing.FullText</span>
+                    </p>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+

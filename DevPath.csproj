@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\EmploymentListingsController.cs" />
+    <Compile Include="Controllers\EmploymentOffersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -214,6 +215,18 @@
     <Compile Include="Migrations\202204282354048_AddedRecruiterEntity.designer.cs">
       <DependentUpon>202204282354048_AddedRecruiterEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204290408150_AddEmploymentOfferEntity.cs" />
+    <Compile Include="Migrations\202204290408150_AddEmploymentOfferEntity.designer.cs">
+      <DependentUpon>202204290408150_AddEmploymentOfferEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204290443388_MadeEmploymentOfferRecruiterIdNullableAndOptional.cs" />
+    <Compile Include="Migrations\202204290443388_MadeEmploymentOfferRecruiterIdNullableAndOptional.designer.cs">
+      <DependentUpon>202204290443388_MadeEmploymentOfferRecruiterIdNullableAndOptional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204291639310_StandardizedPayQuantityPayFrequencyPropertyNames.cs" />
+    <Compile Include="Migrations\202204291639310_StandardizedPayQuantityPayFrequencyPropertyNames.designer.cs">
+      <DependentUpon>202204291639310_StandardizedPayQuantityPayFrequencyPropertyNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -223,6 +236,7 @@
     <Compile Include="Models\EmploymentApplication.cs" />
     <Compile Include="Models\EmploymentListing.cs" />
     <Compile Include="Models\EmploymentListingSkill.cs" />
+    <Compile Include="Models\EmploymentOffer.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectSkill.cs" />
@@ -252,6 +266,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Icons\check-to-slot-solid.svg" />
+    <Content Include="Content\Icons\envelope-open-text-solid.svg" />
+    <Content Include="Content\Icons\envelope-solid.svg" />
     <Content Include="Content\Icons\github.svg" />
     <Content Include="Content\Icons\globe.svg" />
     <Content Include="Content\Icons\lock-open-solid.svg" />
@@ -370,6 +386,8 @@
     <Content Include="Views\Companies\ListAnonymous.cshtml" />
     <Content Include="Views\EmploymentListings\Details.cshtml" />
     <Content Include="Views\EmploymentListings\_ActionButtons.cshtml" />
+    <Content Include="Views\EmploymentOffers\Details.cshtml" />
+    <Content Include="Views\EmploymentOffers\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
@@ -408,6 +426,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204282354048_AddedRecruiterEntity.resx">
       <DependentUpon>202204282354048_AddedRecruiterEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204290408150_AddEmploymentOfferEntity.resx">
+      <DependentUpon>202204290408150_AddEmploymentOfferEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204290443388_MadeEmploymentOfferRecruiterIdNullableAndOptional.resx">
+      <DependentUpon>202204290443388_MadeEmploymentOfferRecruiterIdNullableAndOptional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204291639310_StandardizedPayQuantityPayFrequencyPropertyNames.resx">
+      <DependentUpon>202204291639310_StandardizedPayQuantityPayFrequencyPropertyNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

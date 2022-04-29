@@ -1,0 +1,11 @@
+﻿@model DevPath.Models.EmploymentOffer
+@{
+    ViewBag.Title = "Offer Details";
+}
+
+<h2>@Model.EmploymentListing.Title</h2>
+<p>Company: @Model.EmploymentListing.ClientCompany.Title</p>
+@Html.LabelFor(el => el.FullText)
+<p>@Model.FullText</p>
+
+

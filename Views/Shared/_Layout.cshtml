@@ -20,11 +20,15 @@
                     aria-expanded="false"
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>            
+            </button>
             <div class="navbar-collapse collapse" id="menuItems">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Jobs", "Index", "EmploymentListings", null, new { @class = "nav-link" })</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">@Html.ActionLink("Offers", "Index", "EmploymentOffers", null, new { @class = "nav-link" })</li>
+                    }
                     <li class="nav-item">@Html.ActionLink("Companies", "Index", "Companies", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Skills", "Index", "Skills", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Projects", "Index", "Projects", null, new { @class = "nav-link" })</li>

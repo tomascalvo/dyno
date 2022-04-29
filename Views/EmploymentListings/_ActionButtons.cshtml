@@ -40,15 +40,44 @@
                 new { id = Model.Id }
                 )"
            class="btn btn-primary"
-           title="Application Sent"
+           title="Withdraw Application"
            data-bs-toggle="tooltip"
            data-bs-placement="top"
            style="text-decoration: none">
             <img src="~/Content/Icons/check-to-slot-solid.svg"
-                 alt="view application"
+                 alt="Withdraw Application"
                  style="width: 16px;" />
         </a>
     }
+
+    @*RECEIVE / VIEW JOB OFFER*@
+    @*LIMIT ACCESS TO AUTHENTICATED*@
+    @if (!Model.EmploymentOffers
+        .Any(eo => eo.RecipientId == User.Identity.GetUserId() && eo.EmploymentListingId == Model.Id))
+    {
+        <a href="@Url.Action("ReceiveOffer", "EmploymentListings", new { id = Model.Id })"
+           class="btn btn-primary"
+           title="Receive Offer"
+           data-bs-toggle="tooltip"
+           data-bs-placement="top"
+           style="text-decoration: none">
+            <img src="~/Content/Icons/envelope-solid.svg" alt="Receive Offer" style="width: 16px;" />
+        </a>
+
+    }
+    else
+    {
+        <a href="@Url.Action("Index", "EmploymentOffers")"
+           class="btn btn-primary"
+           title="View Offer"
+           data-bs-toggle="tooltip"
+           data-bs-placement="top"
+           style="text-decoration: none">
+            <img src="~/Content/Icons/envelope-open-text-solid.svg" alt="View Offer" style="width: 16px;" />
+        </a>
+
+    }
+
     @*EDIT JOB LISTING*@
     @*LIMIT ACCESS TO ADMIN, RECORD CREATOR, AND USERS DESIGNATED BY THE RECORD CREATOR*@
     @{
@@ -115,4 +144,4 @@
             <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
         </a>
     }
-    </div>
+</div>
