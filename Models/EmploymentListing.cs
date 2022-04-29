@@ -68,7 +68,8 @@ namespace DevPath.Models
         public ICollection<EmploymentApplication> EmploymentApplications { get; set; }
         [Display(Name = "Requirements")]
         public List<EmploymentListingSkill> EmploymentListingSkills { get; set; }
-        //public List<RecruiterEmploymentListing> RecruiterEmploymentListings { get; set; }
+        public int? RecruiterId { get; set; }
+        public Recruiter Recruiter { get; set; }
         //public int? PlatformID { get; set; }
         //public virtual Platform Platform { get; set; }
         //[Display(Name = "Offers")]

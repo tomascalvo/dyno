@@ -53,6 +53,7 @@ namespace DevPath.Models
 
         public List<EmploymentListing> EmploymentListingsCreated { get; set; }
         public List<ApplicationUserProject> ApplicationUserProjects { get; set; }
+        public List<RecruiterClient> RecruiterClientsCreated { get; set; }
         //public List<ApplicationUserCompany> ApplicationUserCompanies { get; set; }
         //public List<ApplicationUserSkill> ApplicationUserSkills { get; set; }
         //public List<ApplicationUserAward> ApplicationUserAwards { get; set; }

@@ -60,7 +60,7 @@ namespace DevPath.ViewModels.EmploymentListings
         public ICollection<EmploymentApplication> EmploymentApplications { get; set; }
 
 
-        // COMPANY OPTIONS
+        // SELECT OPTIONS
         public IEnumerable<Company> ClientCompanyOptions
         { get; set; }
         [Display(Name = "Client Company")]
@@ -69,11 +69,13 @@ namespace DevPath.ViewModels.EmploymentListings
         { get; set; }
         [Display(Name = "Staffing Company")]
         public int? SelectedStaffingCompanyId { get; set; }
-
-        // SKILL OPTIONS
         public IEnumerable<SelectListItem> SkillOptions { get; set; }
         [Display(Name = "Requirements")]
         public List<int> SelectedSkillIds { get; set; } = new List<int>();
+        public IEnumerable<Recruiter> RecruiterOptions { get; set; }
+        [Display(Name = "Recruiter")]
+
+        public int? SelectedRecruiterId { get; set; }
 
         // PAGE TITLE
         public string PageTitle

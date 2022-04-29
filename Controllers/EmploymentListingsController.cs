@@ -28,6 +28,7 @@ namespace DevPath.Controllers
             {
                 ClientCompanyOptions = _context.Companies.ToList(),
                 StaffingCompanyOptions = _context.Companies.Where(c => c.IsStaffingCompany == true).ToList(),
+                RecruiterOptions = _context.Recruiters.ToList(),
                 SkillOptions = _context.Skills.ToList().Select(skill => new SelectListItem
                 {
                     Text = skill.Title,
@@ -59,6 +60,7 @@ namespace DevPath.Controllers
                     ClientCompanyId = formData.SelectedClientCompanyId,
                     StaffingCompanyId = formData.SelectedStaffingCompanyId,
                     CreatorId = User.Identity.GetUserId(),
+                    RecruiterId = formData.SelectedRecruiterId
                 };
                 _context.EmploymentListings.Add(newEmploymentListing);
                 _context.SaveChanges();
@@ -120,6 +122,7 @@ namespace DevPath.Controllers
                 employmentListingInDb.PayQuantity = formData.PayQuantity;
                 employmentListingInDb.WorkLocation = formData.WorkLocation;
                 employmentListingInDb.FullText = formData.FullText;
+                employmentListingInDb.RecruiterId = formData.SelectedRecruiterId;
                 if (employmentListingInDb.DateArchived == null && formData.IsArchived)
                 {
                     employmentListingInDb.DateArchived = DateTime.Now;
@@ -171,7 +174,8 @@ namespace DevPath.Controllers
                     .Select(els => els.Skill))
                 .Include(el => el.EmploymentApplications
                     .Select(ea => ea.Applicant))
-                .Include(el => el.EmploymentListingAccesses);
+                .Include(el => el.EmploymentListingAccesses)
+                .Include(el => el.Recruiter);
 
             // AUTHORIZED TO SEE OTHERS' ARCHIVED LISTINGS
             if (!User.IsInRole(RoleName.CanManageAll))

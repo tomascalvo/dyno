@@ -29,6 +29,7 @@ namespace DevPath.Models
         public DbSet<EmploymentApplication> EmploymentApplications { get; set; }
         public DbSet<ApplicationUserProject> ApplicationUserProjects { get; set; }
         public DbSet<EmploymentListingAccess> EmploymentListingAccesses { get; set; }
+        public DbSet<Recruiter> Recruiters { get; set; }
 
 
         public static ApplicationDbContext Create()
@@ -121,6 +122,29 @@ namespace DevPath.Models
                 .WithMany(p => p.ApplicationUserProjects)
                 .HasForeignKey(aup => aup.ProjectId);
 
+            // MANY TO 1 OR 0 RELATIONSHIP: (Staffing) Company to Recruiters
+            modelBuilder.Entity<Company>()
+                .HasMany(c => c.RecruitersEmployed)
+                .WithOptional(r => r.StaffingCompany)
+                .HasForeignKey(r => r.StaffingCompanyId);
+
+            // MANY TO MANY RELATIONSHIP: Recruiters to Client Companies
+            modelBuilder.Entity<RecruiterClient>()
+                .HasKey(rc => new { rc.RecruiterId, rc.CompanyId });
+            modelBuilder.Entity<RecruiterClient>()
+                .HasRequired(rc => rc.Recruiter)
+                .WithMany(r => r.RecruiterClients)
+                .HasForeignKey(rc => rc.RecruiterId);
+            modelBuilder.Entity<RecruiterClient>()
+                .HasRequired(rc => rc.Company)
+                .WithMany(c => c.RecruitersConsulting)
+                .HasForeignKey(rc => rc.CompanyId);
+
+            // MANY TO ONE OR ZERO RELATIONSHIP: RecruiterClients to ApplicationUser
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(au => au.RecruiterClientsCreated)
+                .WithOptional(el => el.Creator)
+                .HasForeignKey(el => el.CreatorId);
 
             // This method is necessary because this MVC app is using Identity Framework and the DbContext needs to include the built-in identity models as datasets.
 

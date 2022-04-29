@@ -48,36 +48,40 @@
                         {
                             <p>Staffing Company: @job.StaffingCompany.Title</p>
                         }
+                        @if (job.Recruiter != null)
+                        {
+                            <p>Recruiter: @job.Recruiter.FullName</p>
+                        }
                     </td>
 
                     @*DESCRIPTION*@
-                <td>
-                    <p class="d-md-none d-sm-block">@job.Title</p>
-                    @if (job.StaffingCompany != null)
-                    {
-                        <p class="d-md-none d-sm-block">@job.ClientCompany.Title</p>
-                    }
-                    @if (job.StaffingCompany != null)
-                    {
-                        <p class="d-md-none d-sm-block">Staffing Company: @job.StaffingCompany.Title</p>
-                    }
-                    @if (!job.FullText.IsEmpty())
-                    {
-                        <p>@job.FullText</p>
-                    }
-                    @if (job.Creator == null)
-                    {
-                        <p class="d-lg-none d-md-block">Posted on @job.DateAdded.ToShortDateString()</p>
-                    }
-                    else if (job.Creator.Id == User.Identity.GetUserId())
-                    {
-                        <p class="d-lg-none d-md-block">Posted by you on @job.DateAdded.ToShortDateString()</p>
-                    }
-                    else
-                    {
-                        <p class="d-lg-none d-md-block">Posted by @job.Creator.UserName on @job.DateAdded.ToShortDateString()</p>
-                    }
-                </td>
+                    <td>
+                        <p class="d-md-none d-sm-block">@job.Title</p>
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p class="d-md-none d-sm-block">@job.ClientCompany.Title</p>
+                        }
+                        @if (job.StaffingCompany != null)
+                        {
+                            <p class="d-md-none d-sm-block">Staffing Company: @job.StaffingCompany.Title</p>
+                        }
+                        @if (!job.FullText.IsEmpty())
+                        {
+                            <p>@job.FullText</p>
+                        }
+                        @if (job.Creator == null)
+                        {
+                            <p class="d-lg-none d-md-block">Posted on @job.DateAdded.ToShortDateString()</p>
+                        }
+                        else if (job.Creator.Id == User.Identity.GetUserId())
+                        {
+                            <p class="d-lg-none d-md-block">Posted by you on @job.DateAdded.ToShortDateString()</p>
+                        }
+                        else
+                        {
+                            <p class="d-lg-none d-md-block">Posted by @job.Creator.UserName on @job.DateAdded.ToShortDateString()</p>
+                        }
+                    </td>
 
                     @*SKILLS*@
                     <td>
@@ -113,22 +117,22 @@
                     </td>
 
                     @*POSTED BY*@
-                <td class="d-none d-lg-table-cell" style="white-space: nowrap;">
-                    @if (job.Creator == null)
-                    {
-                        <p>Admin on @job.DateAdded.ToShortDateString()</p>
-                    }
-                    else if (job.Creator.Id == User.Identity.GetUserId())
-                    {
-                        <p>You on @job.DateAdded.ToShortDateString()</p>
-                    }
-                    else
-                    {
-                        <p>
-                            @job.Creator.UserName on @job.DateAdded.ToShortDateString()
-                        </p>
-                    }
-                </td>
+                    <td class="d-none d-lg-table-cell" style="white-space: nowrap;">
+                        @if (job.Creator == null)
+                        {
+                            <p>Admin on @job.DateAdded.ToShortDateString()</p>
+                        }
+                        else if (job.Creator.Id == User.Identity.GetUserId())
+                        {
+                            <p>You on @job.DateAdded.ToShortDateString()</p>
+                        }
+                        else
+                        {
+                            <p>
+                                @job.Creator.UserName on @job.DateAdded.ToShortDateString()
+                            </p>
+                        }
+                    </td>
                     @*ACTIONS*@
                     <td>
                         @Html.Partial("_ActionButtons", job)

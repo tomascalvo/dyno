@@ -57,9 +57,11 @@ namespace DevPath.Models
         [Display(Name = "Employment Listings")]
         public List<EmploymentListing> EmploymentListings { get; set; }
 
+        public List<Recruiter> RecruitersEmployed { get; set; }
+        public List<RecruiterClient> RecruitersConsulting { get; set; }
+
         //[Display(Name = "Employment Offers")]
         //public virtual ICollection<EmploymentOffer> EmploymentOffers { get; set; }
-        //public virtual ICollection<Recruiter> Recruiters { get; set; }
         //[Display(Name = "Certifications Offered")]
 
         //public virtual ICollection<Certification> Certifications { get; set; }
