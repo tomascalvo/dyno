@@ -24,7 +24,7 @@ namespace DevPath.Controllers
 
         public ActionResult Index()
         {
-            return View(_context.Users.Count());
+            return View("index_htmlrev_riga", _context.Users.Count());
         }
 
         public ActionResult About()

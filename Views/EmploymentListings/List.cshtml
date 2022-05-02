@@ -4,141 +4,154 @@
     ViewBag.Title = "Jobs";
 }
 
-<h2>Jobs</h2>
-
-<p>Dyno currently has @Model.Count() jobs.</p>
-
-<p>@Html.ActionLink("Add Job Listing", "New", "EmploymentListings", new { @class = "btn btn-primary" })</p>
+<!-- Header -->
+<header class="ex-header bg-black">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10">
+                <h1>Jobs</h1>
+                <p>Dyno currently has @Model.Count() job listings.</p>
+                <p>@Html.ActionLink("Add Job Listing", "New", "EmploymentListings", new { @class = "btn btn-primary" })</p>
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</header> <!-- end of ex-header -->
+<!-- end of header -->
 
 @if (Model.Any())
 {
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th class="d-none d-md-table-cell">Title</th>
-                <th class="d-none d-md-table-cell">Company</th>
-                <th>Description</th>
-                <th>Requirements</th>
-                <th class="d-none d-lg-table-cell">Posted By</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var job in Model)
-            {
-                <tr>
-                    @*TITLE*@
-                    @if (!job.Title.IsEmpty())
+    <!-- Table -->
+    <div class="ex-basic-1 bg-black pb-4">
+        <div class="container">
+            <table class="table table-bordered table-hover table-dark">
+                <thead>
+                    <tr>
+                        <th class="d-none d-md-table-cell">Title</th>
+                        <th class="d-none d-md-table-cell">Company</th>
+                        <th>Description</th>
+                        <th>Requirements</th>
+                        <th class="d-none d-lg-table-cell">Posted By</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var job in Model)
                     {
-                        <td class="d-none d-md-table-cell">
-                            <p>
-                                @job.Title
-                            </p>
-                        </td>
-                    }
-
-                    @*COMPANY*@
-                    <td class="d-none d-md-table-cell">
-                        @if (job.StaffingCompany != null)
-                        {
-                            <p>@job.ClientCompany.Title</p>
-                        }
-
-                        @if (job.StaffingCompany != null)
-                        {
-                            <p>Staffing Company: @job.StaffingCompany.Title</p>
-                        }
-                        @if (job.Recruiter != null)
-                        {
-                            <p>Recruiter: @job.Recruiter.FullName</p>
-                        }
-                    </td>
-
-                    @*DESCRIPTION*@
-                    <td>
-                        <p class="d-md-none d-sm-block">@job.Title</p>
-                        @if (job.StaffingCompany != null)
-                        {
-                            <p class="d-md-none d-sm-block">@job.ClientCompany.Title</p>
-                        }
-                        @if (job.StaffingCompany != null)
-                        {
-                            <p class="d-md-none d-sm-block">Staffing Company: @job.StaffingCompany.Title</p>
-                        }
-                        @if (!job.FullText.IsEmpty())
-                        {
-                            <p>@job.FullText</p>
-                        }
-                        @if (job.Creator == null)
-                        {
-                            <p class="d-lg-none d-md-block">Posted on @job.DateAdded.ToShortDateString()</p>
-                        }
-                        else if (job.Creator.Id == User.Identity.GetUserId())
-                        {
-                            <p class="d-lg-none d-md-block">Posted by you on @job.DateAdded.ToShortDateString()</p>
-                        }
-                        else
-                        {
-                            <p class="d-lg-none d-md-block">Posted by @job.Creator.UserName on @job.DateAdded.ToShortDateString()</p>
-                        }
-                    </td>
-
-                    @*SKILLS*@
-                    <td>
-                        <div class="skill-avatars">
-                            @{
-                                var skillCount = job.EmploymentListingSkills.Count;
-                                var skillsCapacity = 18;
-                                var skillsToDisplay = skillCount <= skillsCapacity ? skillCount : skillsCapacity;
-                                var skillsHidden = skillCount - skillsToDisplay;
-                            }
-                            @for (int i = 0; i < skillsToDisplay; i++)
+                        <tr>
+                            @*TITLE*@
+                            @if (!job.Title.IsEmpty())
                             {
-                                if (!job.EmploymentListingSkills[i].Skill.Icon.IsEmpty())
-                                {
-                                    <span class="skill-avatar">
-                                        <a href="@Url.Action("Details", "Skills", new { id = job.EmploymentListingSkills[i].Skill.Id })"
-                                           title=@($"{job.EmploymentListingSkills[i].Skill.Title} Details")
-                                           data-bs-toggle="tooltip"
-                                           data-bs-placement="top"
-                                           style="text-decoration: none">
-                                            <img src="@Url.Content(job.EmploymentListingSkills[i].Skill.Icon)">
-                                        </a>
-                                    </span>
-                                }
+                                <td class="d-none d-md-table-cell">
+                                    <p>
+                                        @job.Title
+                                    </p>
+                                </td>
                             }
-                            @{
-                                if (skillsHidden > 3)
-                                {
-                                    @Html.ActionLink($"and {@skillsHidden} more", "Details", "Projects", new { id = job.Id })
-                                }
-                            }
-                        </div>
-                    </td>
 
-                    @*POSTED BY*@
-                    <td class="d-none d-lg-table-cell" style="white-space: nowrap;">
-                        @if (job.Creator == null)
-                        {
-                            <p>Admin on @job.DateAdded.ToShortDateString()</p>
-                        }
-                        else if (job.Creator.Id == User.Identity.GetUserId())
-                        {
-                            <p>You on @job.DateAdded.ToShortDateString()</p>
-                        }
-                        else
-                        {
-                            <p>
-                                @job.Creator.UserName on @job.DateAdded.ToShortDateString()
-                            </p>
-                        }
-                    </td>
-                    @*ACTIONS*@
-                    <td>
-                        @Html.Partial("_ActionButtons", job)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                            @*COMPANY*@
+                            <td class="d-none d-md-table-cell">
+                                @if (job.StaffingCompany != null)
+                                {
+                                    <p>@job.ClientCompany.Title</p>
+                                }
+
+                                @if (job.StaffingCompany != null)
+                                {
+                                    <p>Staffing Company: @job.StaffingCompany.Title</p>
+                                }
+                                @if (job.Recruiter != null)
+                                {
+                                    <p>Recruiter: @job.Recruiter.FullName</p>
+                                }
+                            </td>
+
+                            @*DESCRIPTION*@
+                            <td>
+                                <p class="d-md-none d-sm-block">@job.Title</p>
+                                @if (job.StaffingCompany != null)
+                                {
+                                    <p class="d-md-none d-sm-block">@job.ClientCompany.Title</p>
+                                }
+                                @if (job.StaffingCompany != null)
+                                {
+                                    <p class="d-md-none d-sm-block">Staffing Company: @job.StaffingCompany.Title</p>
+                                }
+                                @if (!job.FullText.IsEmpty())
+                                {
+                                    <p>@job.FullText</p>
+                                }
+                                @if (job.Creator == null)
+                                {
+                                    <p class="d-lg-none d-md-block">Posted on @job.DateAdded.ToShortDateString()</p>
+                                }
+                                else if (job.Creator.Id == User.Identity.GetUserId())
+                                {
+                                    <p class="d-lg-none d-md-block">Posted by you on @job.DateAdded.ToShortDateString()</p>
+                                }
+                                else
+                                {
+                                    <p class="d-lg-none d-md-block">Posted by @job.Creator.UserName on @job.DateAdded.ToShortDateString()</p>
+                                }
+                            </td>
+
+                            @*SKILLS*@
+                            <td>
+                                <div class="overlapping-avatars">
+                                    @{
+                                        var skillCount = job.EmploymentListingSkills.Count;
+                                        var skillsCapacity = 5;
+                                        var skillsToDisplay = skillCount <= skillsCapacity ? skillCount : skillsCapacity;
+                                        var skillsHidden = skillCount - skillsToDisplay;
+                                    }
+                                    @for (int i = 0; i < skillsToDisplay; i++)
+                                    {
+                                        if (!job.EmploymentListingSkills[i].Skill.Icon.IsEmpty())
+                                        {
+                                            <span class="overlapping-avatar">
+                                                <a href="@Url.Action("Details", "Skills", new { id = job.EmploymentListingSkills[i].Skill.Id })"
+                                                   title=@($"{job.EmploymentListingSkills[i].Skill.Title} Details")
+                                                   data-bs-toggle="tooltip"
+                                                   data-bs-placement="top"
+                                                   style="text-decoration: none">
+                                                    <img src="@Url.Content(job.EmploymentListingSkills[i].Skill.Icon)">
+                                                </a>
+                                            </span>
+                                        }
+                                    }
+                                    @{
+                                        if (skillsHidden > 3)
+                                        {
+                                            @Html.ActionLink($"and {@skillsHidden} more", "Details", "Projects", new { id = job.Id })
+                                        }
+                                    }
+                                </div>
+                            </td>
+
+                            @*POSTED BY*@
+                            <td class="d-none d-lg-table-cell" style="white-space: nowrap;">
+                                @if (job.Creator == null)
+                                {
+                                    <p>Admin on @job.DateAdded.ToShortDateString()</p>
+                                }
+                                else if (job.Creator.Id == User.Identity.GetUserId())
+                                {
+                                    <p>You on @job.DateAdded.ToShortDateString()</p>
+                                }
+                                else
+                                {
+                                    <p>
+                                        @job.Creator.UserName on @job.DateAdded.ToShortDateString()
+                                    </p>
+                                }
+                            </td>
+                            @*ACTIONS*@
+                            <td>
+                                @Html.Partial("_ActionButtons", job)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 }

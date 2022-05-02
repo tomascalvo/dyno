@@ -26,41 +26,25 @@ textarea {
 }
 
 /*Project List View Overlapping Skill Icons*/
-.skill-avatars {
-    width: 200px;
+
+.overlapping-avatars {
     display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    overflow: hidden;
+    flex-direction: row-reverse;
 }
 
-@media only screen and (max-width: 991px) {
-    .skill-avatars {
-        width: 152px;
-    }
-}
-
-.skill-avatar {
+.overlapping-avatar {
     position: relative;
-    overflow: hidden;
-}
-
-.skill-avatar a img {
-    object-fit: scale-down;
-    border: 0px solid #fff;
     border-radius: 50%;
-    background-color: #fff;
+    overflow: hidden;
     width: 50px;
-    height: 50px;
-    padding: 4px;
+    background-color: #fff;
 }
 
-.skill-avatar:not(:last-child) {
-    /*margin-left: -30px;*/
+.overlapping-avatar:not(:first-child) {
+    margin-right: -24px;
 }
 
-.skill-avatar img {
+.overlapping-avatar img {
     width: 100%;
     display: block;
 }

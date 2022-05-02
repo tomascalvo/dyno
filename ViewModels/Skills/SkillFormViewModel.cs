@@ -24,8 +24,10 @@ namespace DevPath.ViewModels.Skills
         [Display(Name = "Date Added")]
 
         public DateTime? DateAdded { get; set; } = DateTime.Now;
+        [Display(Name = "Repository")]
         [DataType(DataType.Url)]
         public string RepositoryUrl { get; set; }
+        [Display(Name = "Documentation")]
         [DataType(DataType.Url)]
         public string DocumentationUrl { get; set; }
 

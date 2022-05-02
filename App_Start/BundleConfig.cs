@@ -8,7 +8,13 @@ namespace DevPath
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/landing_page_js/jquery.min.js",
+                        "~/Scripts/landing_page_js/jquery.easing.min.js",
+                        "~/Scripts/landing_page_js/jquery.magnific-popup.js",
+                        "~/Scripts/landing_page_js/morphext.min.js",
+                        "~/Scripts/landing_page_js/swiper.min.js",
+                        "~/Scripts/landing_page_js/scripts.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -19,12 +25,19 @@ namespace DevPath
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      //"~/Scripts/bootstrap.js"));
+                      "~/Scripts/landing_page_js/bootstrap.min.js"
+                      ));
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                    //"~/Content/bootstrap-slate.css",
-                    "~/Content/site.css",
-                    "~/Content/bootstrap.css"
+                    //"~/Content/bootstrap.css",
+                    "~/Content/Landing_Page_Content/css/bootstrap.css",
+                    "~/Content/Landing_Page_Content/css/fontawesome-all.css",
+                    "~/Content/Landing_Page_Content/css/swiper.css",
+                    "~/Content/Landing_Page_Content/css/magnific-popup.css",
+                    "~/Content/Landing_Page_Content/css/syles.css",
+                    "~/Content/Site.css"
                     ));
         }
     }

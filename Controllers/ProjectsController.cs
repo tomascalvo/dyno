@@ -1,5 +1,6 @@
 ﻿using DevPath.Models;
 using DevPath.ViewModels.Projects;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -122,13 +123,33 @@ namespace DevPath.Controllers
         }
 
         // GET: Projects
-        [AllowAnonymous]
         public ActionResult Index()
         {
             // LAZY LOADING
             // By default, Entity Framework only loads the Project objects, not their related objects. Referencing related objects will cause a null reference exception.
             //var projects = _context.Projects;
 
+            // EAGER LOADING
+            // Eager Loading will load the Project object and related objects.
+            string userId = User.Identity.GetUserId();
+            var projects = _context.Projects
+                .Include(p => p.ProjectSkills
+                    .Select(ps => ps.Skill))
+                .Include(p => p.ApplicationUserProjects
+                    .Select(aup => aup.ApplicationUser))
+                .Where(p => p.ApplicationUserProjects.Any(aup => aup.ApplicationUserId == userId))
+                .ToList();
+
+            // AUTHORIZATION
+            if (!User.IsInRole(RoleName.CanManageAll)) return View("ListReadOnly", projects);
+
+            return View("List", projects);
+        }
+
+        // GET: Projects
+        [AllowAnonymous]
+        public ActionResult Showcase()
+        {
             // EAGER LOADING
             // Eager Loading will load the Project object and related objects.
             var projects = _context.Projects
@@ -141,7 +162,7 @@ namespace DevPath.Controllers
             // AUTHORIZATION
             if (!User.IsInRole(RoleName.CanManageAll)) return View("ListReadOnly", projects);
 
-            return View("List", projects);
+            return View("Showcase", projects);
         }
 
         [AllowAnonymous]
