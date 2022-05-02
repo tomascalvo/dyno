@@ -1,7 +1,6 @@
 ﻿using DevPath.Models;
 using DevPath.ViewModels.Account;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Linq;
@@ -159,16 +158,8 @@ namespace DevPath.Controllers
 
                     //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
                     //var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    //await roleManager.CreateAsync(new IdentityRole("CanManageSkills"));
+                    //await roleManager.CreateAsync(new IdentityRole("CanManageAll"));
                     //await UserManager.AddToRoleAsync(user.Id, "CanManageSkills");
-
-
-                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    await roleManager.CreateAsync(new IdentityRole("CanManageAll"));
-                    await UserManager.AddToRoleAsync(user.Id, "CanManageSkills");
-
-
 
                     // END TEMPORARY CODE
 
