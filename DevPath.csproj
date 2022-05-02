@@ -227,6 +227,10 @@
     <Compile Include="Migrations\202204291639310_StandardizedPayQuantityPayFrequencyPropertyNames.designer.cs">
       <DependentUpon>202204291639310_StandardizedPayQuantityPayFrequencyPropertyNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205022326306_calvoirvineUser.cs" />
+    <Compile Include="Migrations\202205022326306_calvoirvineUser.designer.cs">
+      <DependentUpon>202205022326306_calvoirvineUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -495,6 +499,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204291639310_StandardizedPayQuantityPayFrequencyPropertyNames.resx">
       <DependentUpon>202204291639310_StandardizedPayQuantityPayFrequencyPropertyNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205022326306_calvoirvineUser.resx">
+      <DependentUpon>202205022326306_calvoirvineUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
