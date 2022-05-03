@@ -1,0 +1,81 @@
+﻿@model DevPath.ViewModels.EmploymentOffers.EmploymentOfferFormViewModel
+@{
+    ViewBag.ViewTitle = Model.ViewTitle;
+}
+
+@Html.Partial("_Header")
+
+<div class="ex-basic-1 bg-black pb-4">
+    <div class="container">
+        <p>@Html.ActionLink("Offer List", "Index", "EmploymentOffers", new { @class = "btn btn-primary" })</p>
+        @using (Html.BeginForm("Save", "EmploymentOffers"))
+        {
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.SelectedEmploymentListingId)
+                @Html.DropDownListFor(
+                    offer => offer.SelectedEmploymentListingId,
+                    new SelectList(Model.EmploymentListingOptions, "Id", "Title"),
+                    "Select Listing",
+                    new { @class = "form-control" }
+                )
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.SelectedRecruiterId)
+                @Html.DropDownListFor(
+                    offer => offer.SelectedRecruiterId,
+                    new SelectList(Model.RecruiterOptions, "Id", "FullName"),
+                    "Select Listing",
+                    new { @class = "form-control" }
+                )
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.PayQuantity)
+                @Html.EditorFor(offer => offer.PayQuantity, new { htmlAttributes = new { @class = "form-control", step = "1000" } })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.Url)
+                @Html.TextBoxFor(offer => offer.Url, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.Rating)
+                @Html.EditorFor(offer => offer.Rating, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.FullText)
+                @Html.TextAreaFor(offer => offer.FullText, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.Terms)
+                @Html.TextAreaFor(offer => offer.Terms, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.Benefits)
+                @Html.TextAreaFor(offer => offer.Benefits, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.DateOffered)
+                @Html.EditorFor(offer => offer.DateOffered, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.StartDate)
+                @Html.EditorFor(offer => offer.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.Expiration)
+                @Html.EditorFor(offer => offer.Expiration, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.Accepted)
+                @Html.EditorFor(offer => offer.Accepted, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(offer => offer.Declined)
+                @Html.EditorFor(offer => offer.Declined, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.HiddenFor(offer => offer.Id)
+            @Html.HiddenFor(offer => offer.DateAdded)
+            @Html.HiddenFor(offer => offer.SelectedRecipientId)
+            <button type="submit" class="btn btn-primary">Save</button>
+        }
+    </div>
+</div>

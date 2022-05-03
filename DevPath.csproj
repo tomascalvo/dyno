@@ -231,6 +231,14 @@
     <Compile Include="Migrations\202205022326306_calvoirvineUser.designer.cs">
       <DependentUpon>202205022326306_calvoirvineUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205031537323_AddedRatingAndUrlPropertiesToEmploymentOfferEntity.cs" />
+    <Compile Include="Migrations\202205031537323_AddedRatingAndUrlPropertiesToEmploymentOfferEntity.designer.cs">
+      <DependentUpon>202205031537323_AddedRatingAndUrlPropertiesToEmploymentOfferEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205031554195_AddedDateAddedToEmploymentOfferModel.cs" />
+    <Compile Include="Migrations\202205031554195_AddedDateAddedToEmploymentOfferModel.designer.cs">
+      <DependentUpon>202205031554195_AddedDateAddedToEmploymentOfferModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -261,6 +269,7 @@
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
     <Compile Include="ViewModels\Companies\CompanyFormViewModel.cs" />
     <Compile Include="ViewModels\EmploymentListings\EmploymentListingFormViewModel.cs" />
+    <Compile Include="ViewModels\EmploymentOffers\EmploymentOfferFormViewModel.cs" />
     <Compile Include="ViewModels\Projects\ProjectFormViewModel.cs" />
     <Compile Include="ViewModels\Skills\SkillFormViewModel.cs" />
   </ItemGroup>
@@ -453,6 +462,7 @@
     <Content Include="Views\Projects\Showcase.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Companies\_ActionButtons.cshtml" />
+    <Content Include="Views\EmploymentOffers\EmploymentOfferForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
@@ -503,6 +513,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205022326306_calvoirvineUser.resx">
       <DependentUpon>202205022326306_calvoirvineUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205031537323_AddedRatingAndUrlPropertiesToEmploymentOfferEntity.resx">
+      <DependentUpon>202205031537323_AddedRatingAndUrlPropertiesToEmploymentOfferEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205031554195_AddedDateAddedToEmploymentOfferModel.resx">
+      <DependentUpon>202205031554195_AddedDateAddedToEmploymentOfferModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
