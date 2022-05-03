@@ -79,11 +79,6 @@ namespace DevPath.Controllers
             // EAGER LOADING
             var companies = _context.Companies.Include(c => c.EmploymentListings).ToList();
 
-            // AUTHORIZATION
-            if (!User.Identity.IsAuthenticated) return View("ListAnonymous", companies);
-
-            if (!(User.IsInRole(RoleName.CanManageAll))) return View("ListReadOnly", companies);
-
             return View("List", companies);
         }
 

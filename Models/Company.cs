@@ -15,7 +15,9 @@ namespace DevPath.Models
         public string Logo { get; set; }
         [DataType(DataType.Url)]
         public string WebsiteUrl { get; set; }
-        //public virtual ICollection<Social> Socials { get; set; }
+        public bool IsStaffingCompany { get; set; } = false;
+        public string OrganizationLookupId { get; set; }
+        // LOCATION PROPERTIES
         public string Country { get; set; }
         [Display(Name = "State/Province")]
         public string StateProvince { get; set; }
@@ -33,8 +35,7 @@ namespace DevPath.Models
                 return locationString;
             }
         }
-        public bool IsStaffingCompany { get; set; } = false;
-        //public string CEOId { get; set; }
+        //DATETIME PROPERTIES
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyy-MM-dd", ApplyFormatInEditMode = true)]
         public DateTime? DateFounded { get; set; }
@@ -51,7 +52,6 @@ namespace DevPath.Models
             set { this.dateAdded = value; }
         }
 
-        public string OrganizationLookupId { get; set; }
 
         // NAVIGATION PROPERTIES
         [Display(Name = "Employment Listings")]
@@ -60,6 +60,8 @@ namespace DevPath.Models
         public List<Recruiter> RecruitersEmployed { get; set; }
         public List<RecruiterClient> RecruitersConsulting { get; set; }
 
+        //public string CEOId { get; set; }
+        //public virtual ICollection<Social> Socials { get; set; }
         //[Display(Name = "Employment Offers")]
         //public virtual ICollection<EmploymentOffer> EmploymentOffers { get; set; }
         //[Display(Name = "Certifications Offered")]

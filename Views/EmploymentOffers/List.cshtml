@@ -1,29 +1,19 @@
 ﻿@using Microsoft.AspNet.Identity;
 @model IEnumerable<DevPath.Models.EmploymentOffer>
 @{
-    ViewBag.Title = "Offers";
+    ViewBag.ViewTitle = "Offers";
+    ViewBag.Message = $"You have {@Model.Count()} offers.";
 }
 
-<!-- Header -->
-<header class="ex-header bg-black">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-10">
-                <h1>Offers</h1>
-                <p>You have @Model.Count() offers.</p>
-                <p>@Html.ActionLink("Add Offer", "New", "EmploymentOffers", new { @class = "btn btn-primary" })</p>
-            </div> <!-- end of col -->
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-</header> <!-- end of ex-header -->
-<!-- end of header -->
+@Html.Partial("_Header")
 
 
 @if (Model.Any())
 {
-    <!-- Table -->
     <div class="ex-basic-1 bg-black pb-4">
         <div class="container">
+            <p>@Html.ActionLink("Add Offer", "New", "EmploymentOffers", new { @class = "btn btn-primary" })</p>
+            <!-- Table -->
             <table class="table table-bordered table-hover table-dark">
                 <thead>
                     <tr>

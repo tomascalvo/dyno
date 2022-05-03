@@ -1,28 +1,17 @@
 ﻿@model IEnumerable<DevPath.Models.Company>
 @{
-    ViewBag.Title = "Companies";
+    ViewBag.ViewTitle = "Companies";
+    ViewBag.Message = $"Dyno currently has {Model.Count()} companies.";
 }
 
-<!-- Header -->
-<header class="ex-header bg-black">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-10">
-                <h1>Companies</h1>
-                <p>Dyno currently has @Model.Count() companies.</p>
-                <p>@Html.ActionLink("Add Company", "New", "Company", new { @class = "btn btn-primary" })</p>
-            </div> <!-- end of col -->
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-</header> <!-- end of ex-header -->
-<!-- end of header -->
-
+@Html.Partial("_Header")
 
 @if (Model.Any())
 {
     <!-- Table -->
     <div class="ex-basic-1 bg-black pb-4">
         <div class="container">
+        <p>@Html.ActionLink("Add Company", "New", "Company", new { @class = "btn btn-primary" })</p>
             <table class="table table-bordered table-hover table-dark">
                 <thead>
                     <tr>
@@ -184,37 +173,8 @@
                             </td>
 
                             @*ACTIONS*@
-                            <td>
-                                <div class="d-grid gap-2">
-                                    @if (company?.WebsiteUrl.IsEmpty() == false)
-                                    {
-                                        <a href=@company.WebsiteUrl
-                                           class="btn btn-primary"
-                                           data-bs-toggle="tooltip"
-                                           data-bs-placement="top"
-                                           title="Website">
-                                            <img src="~/Content/Icons/globe.svg" alt="website" />
-
-                                        </a>
-                                    }
-                                    <a href="@Url.Action("Edit", "Companies", new { id = company.Id })"
-                                       class="btn btn-primary"
-                                       title=@($"Edit {company.Title}")
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       style="text-decoration: none">
-                                        <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
-                                    </a>
-                                    <a href="@Url.Action("Delete", "Companies", new { id = company.Id })"
-                                       class="btn btn-danger"
-                                       title=@($"Delete {company.Title}")
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       style="text-decoration: none">
-                                        <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
-                                    </a>
-                                </div>
-                            </td>
+                            @Html.Partial("_ActionButtons", company)
+                            
                         </tr>
                     }
                 </tbody>

@@ -1,203 +1,193 @@
 ﻿@model IEnumerable<DevPath.Models.Project>
 @{
-    ViewBag.Title = "Projects";
+    ViewBag.ViewTitle = "Projects";
+    ViewBag.Message = $"You currently have {@Model.Count()} projects on Dyno.";
 }
 
-<!-- Header -->
-<header class="ex-header bg-black">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-10">
-                <h1>Projects</h1>
-                <p>You currently have @Model.Count() projects on Dyno.</p>
-                <p>@Html.ActionLink("Add Project", "New", "Projects", new { @class = "btn btn-primary" })</p>
-            </div> <!-- end of col -->
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-</header> <!-- end of ex-header -->
-<!-- end of header -->
+@Html.Partial("_Header")
 
 @if (Model.Any())
 {
+<div class="ex-basic-1 bg-black pb-4">
+    <div class="container">
+    <p>@Html.ActionLink("Add Project", "New", "Projects", new { @class = "btn btn-primary" })</p>
     <!-- Table -->
-    <div class="ex-basic-1 bg-black pb-4">
-        <div class="container">
-            <table class="table table-bordered table-hover table-dark">
-                <thead>
+        <table class="table table-bordered table-hover table-dark">
+            <thead>
+                <tr>
+                    <th class="d-none d-md-table-cell">Icon</th>
+                    <th>Description</th>
+                    <th class="d-none d-sm-table-cell">Skills</th>
+                    <th class="d-none d-lg-table-cell">Date Added</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model)
+                {
                     <tr>
-                        <th class="d-none d-md-table-cell">Icon</th>
-                        <th>Description</th>
-                        <th class="d-none d-sm-table-cell">Skills</th>
-                        <th class="d-none d-lg-table-cell">Date Added</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var project in Model)
-                    {
-                        <tr>
 
-                            @*ICON*@
+                        @*ICON*@
 
-                            <td class="d-none d-md-table-cell">
-                                <div style="
+                        <td class="d-none d-md-table-cell">
+                            <div style="
                             width: 100%;
                             display: flex;
                             flex-direction: row;
                             flex-wrap: wrap;
                             justify-content: space-evenly;">
-                                    @if (project.Icon != null && project.Icon != "")
-                                    {
-                                        <a href="@Url.Action(
+                                @if (project.Icon != null && project.Icon != "")
+                                {
+                                    <a href="@Url.Action(
                                         "Details",
                                         "Projects",
                                         new {
                                             id = project.Id
                                         })"
-                                           title=@($"{project.Title} Details")
-                                           style="
+                                       title=@($"{project.Title} Details")
+                                       style="
                                     display: flex;
                                     width: 100%;">
-                                            <img src="@Url.Content(project.Icon)"
-                                                 alt=@($"{project.Title} Icon")
-                                                 style="
+                                        <img src="@Url.Content(project.Icon)"
+                                             alt=@($"{project.Title} Icon")
+                                             style="
                                             width: 150px;
                                             height: 100px;
                                             margin: 0 auto;
                                             object-fit: scale-down;" />
-                                        </a>
-                                    }
-                                </div>
-                            </td>
+                                    </a>
+                                }
+                            </div>
+                        </td>
 
-                            @*DESCRIPTION*@
+                        @*DESCRIPTION*@
 
-                            <td>
-                                @if (project.Icon != null && project.Icon != "")
-                                {
-                                    <a href="@Url.Action(
+                        <td>
+                            @if (project.Icon != null && project.Icon != "")
+                            {
+                                <a href="@Url.Action(
                                     "Details",
                                     "Projects",
                                     new { id = project.Id })"
-                                       title=@($"{project.Title} Details")
-                                       style="display: flex; width: 100%;">
-                                        <img src="@Url.Content(project.Icon)"
-                                             alt=@($"{project.Title} Icon")
-                                             class="d-md-none d-sm-block"
-                                             style="
+                                   title=@($"{project.Title} Details")
+                                   style="display: flex; width: 100%;">
+                                    <img src="@Url.Content(project.Icon)"
+                                         alt=@($"{project.Title} Icon")
+                                         class="d-md-none d-sm-block"
+                                         style="
                                         width: 150px;
                                         height: 100px;
                                         margin: 0 auto;
                                         object-fit: scale-down;" />
-                                    </a>
-                                }
+                                </a>
+                            }
+                            <p>
+                                @Html.ActionLink(project.Title, "Details", "Projects", new { id = project.Id }, new { style = "text-decoration: none;" })
+                            </p>
+                            @if (!project.Description.IsEmpty())
+                            {
                                 <p>
-                                    @Html.ActionLink(project.Title, "Details", "Projects", new { id = project.Id }, new { style = "text-decoration: none;" })
+                                    @project.Description
                                 </p>
-                                @if (!project.Description.IsEmpty())
-                                {
-                                    <p>
-                                        @project.Description
-                                    </p>
+                            }
+
+                            @*DEVELOPER(S)*@
+                            @if (project.ApplicationUserProjects.Count > 0)
+                            {
+                                string devLabel = "Developer" + ((project.ApplicationUserProjects.Count > 1) ? "s" : "") + ":";
+                                <p style="margin-bottom: 0;">@devLabel</p>
+                                <ul style="list-style-type: none; padding: 0;">
+                                    @foreach (var aup in project.ApplicationUserProjects)
+                                    {
+                                        <li>@aup.ApplicationUser.UserName</li>
+                                    }
+                                </ul>
+                            }
+                            <p class="d-lg-none d-md-block">Added to database on @project.DateAdded.ToShortDateString()</p>
+                        </td>
+
+                        @*SKILL AVATARS*@
+
+                        <td class="d-none d-sm-table-cell">
+                            <div class="overlapping-avatars">
+                                @{
+                                    var skillCount = project.ProjectSkills.Count;
+                                    var skillsCapacity = 5;
+                                    var skillsToDisplay = skillCount <= skillsCapacity ? skillCount : skillsCapacity;
+                                    var skillsHidden = skillCount - skillsToDisplay;
                                 }
-
-                                @*DEVELOPER(S)*@
-                                @if (project.ApplicationUserProjects.Count > 0)
+                                @for (int i = 0; i < skillsToDisplay; i++)
                                 {
-                                    string devLabel = "Developer" + ((project.ApplicationUserProjects.Count > 1) ? "s" : "") + ":";
-                                    <p style="margin-bottom: 0;">@devLabel</p>
-                                    <ul style="list-style-type: none; padding: 0;">
-                                        @foreach (var aup in project.ApplicationUserProjects)
-                                        {
-                                            <li>@aup.ApplicationUser.UserName</li>
-                                        }
-                                    </ul>
+                                    if (!project.ProjectSkills[i].Skill.Icon.IsEmpty())
+                                    {
+                                        <span class="overlapping-avatar">
+                                            <a href="@Url.Action("Details", "Skills", new { id = project.ProjectSkills[i].Skill.Id })"
+                                               title=@($"{project.ProjectSkills[i].Skill.Title} Details")
+                                               data-bs-toggle="tooltip"
+                                               data-bs-placement="top"
+                                               style="text-decoration: none">
+                                                <img src="@Url.Content(project.ProjectSkills[i].Skill.Icon)">
+                                            </a>
+                                        </span>
+                                    }
                                 }
-                                <p class="d-lg-none d-md-block">Added to database on @project.DateAdded.ToShortDateString()</p>
-                            </td>
-
-                            @*SKILL AVATARS*@
-
-                            <td class="d-none d-sm-table-cell">
-                                <div class="overlapping-avatars">
-                                    @{
-                                        var skillCount = project.ProjectSkills.Count;
-                                        var skillsCapacity = 5;
-                                        var skillsToDisplay = skillCount <= skillsCapacity ? skillCount : skillsCapacity;
-                                        var skillsHidden = skillCount - skillsToDisplay;
-                                    }
-                                    @for (int i = 0; i < skillsToDisplay; i++)
+                                @{
+                                    if (skillsHidden > 3)
                                     {
-                                        if (!project.ProjectSkills[i].Skill.Icon.IsEmpty())
-                                        {
-                                            <span class="overlapping-avatar">
-                                                <a href="@Url.Action("Details", "Skills", new { id = project.ProjectSkills[i].Skill.Id })"
-                                                   title=@($"{project.ProjectSkills[i].Skill.Title} Details")
-                                                   data-bs-toggle="tooltip"
-                                                   data-bs-placement="top"
-                                                   style="text-decoration: none">
-                                                    <img src="@Url.Content(project.ProjectSkills[i].Skill.Icon)">
-                                                </a>
-                                            </span>
-                                        }
+                                        @Html.ActionLink($"and {@skillsHidden} more", "Details", "Projects", new { id = project.Id })
                                     }
-                                    @{
-                                        if (skillsHidden > 3)
-                                        {
-                                            @Html.ActionLink($"and {@skillsHidden} more", "Details", "Projects", new { id = project.Id })
-                                        }
-                                    }
-                                </div>
-                            </td>
+                                }
+                            </div>
+                        </td>
 
-                            @*DATE ADDED*@
+                        @*DATE ADDED*@
 
-                            <td class="d-none d-lg-table-cell" style="white-space: nowrap;">@project.DateAdded.ToString("yyyy-MM-dd")</td>
+                        <td class="d-none d-lg-table-cell" style="white-space: nowrap;">@project.DateAdded.ToString("yyyy-MM-dd")</td>
 
-                            @*ACTIONS*@
+                        @*ACTIONS*@
 
-                            <td>
-                                <div class="d-grid gap-2">
-                                    @if (project?.RepositoryUrl.IsEmpty() == false)
-                                    {
-                                        <a href=@project.RepositoryUrl
-                                           class="btn btn-primary"
-                                           data-bs-toggle="tooltip"
-                                           data-bs-placement="top"
-                                           title="Repo">
-                                            <img src="~/Content/Icons/github.svg" alt="github" />
-                                        </a>
-                                    }
-                                    @if (project?.DeploymentUrl.IsEmpty() == false)
-                                    {
-                                        <a href=@project.DeploymentUrl class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Website">
-                                            <img src="~/Content/Icons/globe.svg" alt="website" />
-
-                                        </a>
-                                    }
-                                    <a href="@Url.Action("Edit", "Projects", new { id = project.Id })"
+                        <td>
+                            <div class="d-grid gap-2">
+                                @if (project?.RepositoryUrl.IsEmpty() == false)
+                                {
+                                    <a href=@project.RepositoryUrl
                                        class="btn btn-primary"
-                                       title=@($"Edit {project.Title}")
                                        data-bs-toggle="tooltip"
                                        data-bs-placement="top"
-                                       style="text-decoration: none">
-                                        <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
+                                       title="Repo">
+                                        <img src="~/Content/Icons/github.svg" alt="github" />
                                     </a>
-                                    <a href="@Url.Action("Delete", "Projects", new { id = project.Id })"
-                                       class="btn btn-danger"
-                                       title=@($"Delete {project.Title}")
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       style="text-decoration: none">
-                                        <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
+                                }
+                                @if (project?.DeploymentUrl.IsEmpty() == false)
+                                {
+                                    <a href=@project.DeploymentUrl class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Website">
+                                        <img src="~/Content/Icons/globe.svg" alt="website" />
+
                                     </a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            </div>
-        </div>
+                                }
+                                <a href="@Url.Action("Edit", "Projects", new { id = project.Id })"
+                                   class="btn btn-primary"
+                                   title=@($"Edit {project.Title}")
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   style="text-decoration: none">
+                                    <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
+                                </a>
+                                <a href="@Url.Action("Delete", "Projects", new { id = project.Id })"
+                                   class="btn btn-danger"
+                                   title=@($"Delete {project.Title}")
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   style="text-decoration: none">
+                                    <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
             }
 

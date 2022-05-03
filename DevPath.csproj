@@ -443,7 +443,6 @@
     <Content Include="Views\EmploymentListings\EmploymentListingForm.cshtml" />
     <Content Include="Views\Skills\ListReadOnly.cshtml" />
     <Content Include="Views\Projects\ListReadOnly.cshtml" />
-    <Content Include="Views\Companies\ListReadOnly.cshtml" />
     <Content Include="Views\Companies\ListAnonymous.cshtml" />
     <Content Include="Views\EmploymentListings\Details.cshtml" />
     <Content Include="Views\EmploymentListings\_ActionButtons.cshtml" />
@@ -453,6 +452,7 @@
     <Content Include="Views\Shared\_Layout - Riga.cshtml" />
     <Content Include="Views\Projects\Showcase.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Companies\_ActionButtons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

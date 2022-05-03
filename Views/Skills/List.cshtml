@@ -1,199 +1,188 @@
 ﻿@model IEnumerable<DevPath.Models.Skill>
 @{
-    ViewBag.Title = "Skills";
+    ViewBag.ViewTitle = "Skills";
+    ViewBag.Message = $"Dyno currently has {@Model.Count()} skills.";
 }
 
-<!-- Header -->
-<header class="ex-header bg-black">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-10">
-                <h1>Skills</h1>
-                <p>Dyno currently has @Model.Count() skills.</p>
-                <p>@Html.ActionLink("Add Skill", "New", "Skills", new { @class = "btn btn-primary" })</p>
-            </div> <!-- end of col -->
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-</header> <!-- end of ex-header -->
-<!-- end of header -->
-
+@Html.Partial("_Header")
 
 @if (Model.Any())
 {
+<div class="ex-basic-1 bg-black pb-4">
+    <div class="container">
+    <p>@Html.ActionLink("Add Skill", "New", "Skills", new { @class = "btn btn-primary" })</p>
     <!-- Table -->
-    <div class="ex-basic-1 bg-black pb-4">
-        <div class="container">
-            <table class="table table-bordered table-hover table-dark">
-                <thead>
+        <table class="table table-bordered table-hover table-dark">
+            <thead>
+                <tr>
+                    <th class="d-none d-md-table-cell">Icon</th>
+                    @*<th>Description</th>*@
+                    <th>Title</th>
+                    <th class="d-none d-sm-table-cell">Projects</th>
+                    <th class="d-none d-lg-table-cell">Development</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var skill in Model)
+                {
                     <tr>
-                        <th class="d-none d-md-table-cell">Icon</th>
-                        @*<th>Description</th>*@
-                        <th>Title</th>
-                        <th class="d-none d-sm-table-cell">Projects</th>
-                        <th class="d-none d-lg-table-cell">Development</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var skill in Model)
-                    {
-                        <tr>
 
-                            @*ICON*@
+                        @*ICON*@
 
-                            <td class="d-none d-md-table-cell">
-                                @*<div style="
-                                    width: 100%;
-                                    display: flex;
-                                    flex-direction: row;
-                                    flex-wrap: wrap;
-                                    justify-content: space-evenly;">*@
-                                @if (skill.Icon != null && skill.Icon != "")
-                                {
-                                    <a href="@Url.Action(
+                        <td class="d-none d-md-table-cell">
+                            @*<div style="
+                                width: 100%;
+                                display: flex;
+                                flex-direction: row;
+                                flex-wrap: wrap;
+                                justify-content: space-evenly;">*@
+                            @if (skill.Icon != null && skill.Icon != "")
+                            {
+                                <a href="@Url.Action(
                                                 "Details",
                                                 "Skills",
                                                 new { id = skill.Id })"
-                                       title=@($"{skill.Title} Details")
-                                       @*style="
+                                   title=@($"{skill.Title} Details")
+                                   @*style="
                                                 display: flex;
                                                 width: 100%;"*@>
-                                        <img src="@Url.Content(skill.Icon)"
-                                             alt=@($"{skill.Title} Icon")
-                                             class="img-fluid"
-                                             style="
+                                    <img src="@Url.Content(skill.Icon)"
+                                         alt=@($"{skill.Title} Icon")
+                                         class="img-fluid"
+                                         style="
                                                     width: 50px;
                                                     /*height: 100px;*/
                                                     margin: 0 auto;
                                                     object-fit: scale-down;" />
+                                </a>
+                            }
+                            @*</div>*@
+                        </td>
+
+                        @*DESCRIPTION*@
+
+                        @*<td>
+                                @if (skill.Icon != null && skill.Icon != "")
+                                {
+                                    <a href="@Url.Action("Details", "Skills", new { id = skill.Id })" title=@($"{skill.Title} Details") style="display: flex; width: 100%;">
+                                        <img src="@Url.Content(skill.Icon)" alt=@($"{skill.Title} Icon") class="d-md-none d-sm-block" style="width: 150px; height: 100px; margin: 0 auto; object-fit: scale-down;" />
                                     </a>
                                 }
-                                @*</div>*@
-                            </td>
-
-                            @*DESCRIPTION*@
-
-                            @*<td>
-                                    @if (skill.Icon != null && skill.Icon != "")
-                                    {
-                                        <a href="@Url.Action("Details", "Skills", new { id = skill.Id })" title=@($"{skill.Title} Details") style="display: flex; width: 100%;">
-                                            <img src="@Url.Content(skill.Icon)" alt=@($"{skill.Title} Icon") class="d-md-none d-sm-block" style="width: 150px; height: 100px; margin: 0 auto; object-fit: scale-down;" />
-                                        </a>
-                                    }
+                                <p>
+                                    @Html.ActionLink(skill.Title, "Details", "Skills", new { id = skill.Id }, new { style = "text-decoration: none;" })
+                                </p>
+                                @if (!skill.Description.IsEmpty())
+                                {
                                     <p>
-                                        @Html.ActionLink(skill.Title, "Details", "Skills", new { id = skill.Id }, new { style = "text-decoration: none;" })
+                                        @skill.Description
                                     </p>
-                                    @if (!skill.Description.IsEmpty())
+                                    <p class="d-lg-none d-md-block">Added to database on @skill.DateAdded.Value.Date.ToShortDateString()</p>
+                                }
+                            </td>*@
+
+                        <td>
+                            <p>@skill.Title</p>
+                        </td>
+
+                        @*PROJECTS*@
+
+                        <td class="d-none d-sm-table-cell">
+                            <div class="overlapping-avatars">
+                                @{
+                                    var projectCount = skill.ProjectSkills.Count;
+                                    var projectsCapacity = 5;
+                                    var projectsToDisplay = projectCount <= projectsCapacity ? projectCount : projectsCapacity;
+                                    var projectsHidden = projectCount - projectsToDisplay;
+                                }
+                                @for (int i = 0; i < projectsToDisplay; i++)
+                                {
+                                    if (!skill.ProjectSkills[i].Project.Icon.IsEmpty())
                                     {
-                                        <p>
-                                            @skill.Description
-                                        </p>
-                                        <p class="d-lg-none d-md-block">Added to database on @skill.DateAdded.Value.Date.ToShortDateString()</p>
-                                    }
-                                </td>*@
-
-                            <td>
-                                <p>@skill.Title</p>
-                            </td>
-
-                            @*PROJECTS*@
-
-                            <td class="d-none d-sm-table-cell">
-                                <div class="overlapping-avatars">
-                                    @{
-                                        var projectCount = skill.ProjectSkills.Count;
-                                        var projectsCapacity = 5;
-                                        var projectsToDisplay = projectCount <= projectsCapacity ? projectCount : projectsCapacity;
-                                        var projectsHidden = projectCount - projectsToDisplay;
-                                    }
-                                    @for (int i = 0; i < projectsToDisplay; i++)
-                                    {
-                                        if (!skill.ProjectSkills[i].Project.Icon.IsEmpty())
-                                        {
-                                            <span class="overlapping-avatar">
-                                                <a href="@Url.Action(
+                                        <span class="overlapping-avatar">
+                                            <a href="@Url.Action(
                                                         "Details",
                                                         "Projects",
                                                         new { id = skill.ProjectSkills[i].Project.Id })"
-                                                   title=@($"{skill.ProjectSkills[i].Project.Title} Details")
-                                                   data-bs-toggle="tooltip"
-                                                   data-bs-placement="top"
-                                                   style="text-decoration: none">
-                                                    <img src="@Url.Content(skill.ProjectSkills[i].Project.Icon)">
-                                                </a>
-                                            </span>
-                                        }
+                                               title=@($"{skill.ProjectSkills[i].Project.Title} Details")
+                                               data-bs-toggle="tooltip"
+                                               data-bs-placement="top"
+                                               style="text-decoration: none">
+                                                <img src="@Url.Content(skill.ProjectSkills[i].Project.Icon)">
+                                            </a>
+                                        </span>
                                     }
-                                    @{
-                                        if (projectsHidden > 3)
-                                        {
-                                            @Html.ActionLink($"and {@projectsHidden} more", "Details", "Projects", new { id = skill.Id })
-                                        }
-                                    }
-                                </div>
-                                @if (projectsHidden > 3)
-                                {
-                                    <p style="margin: 0;">@projectCount Projects </p>
                                 }
-                            </td>
-
-                            @*DEVELOPMENT*@
-
-                            <td class="d-none d-lg-table-cell">
-                                <p>
-                                    @skill.Developer
-                                </p>
-                                <p>
-                                    @(skill.ReleaseDate.HasValue ? skill.ReleaseDate.Value.Date.ToString("dd MMM yyyy") : "")
-                                </p>
-                            </td>
-
-
-                            @*ACTIONS*@
-
-                            <td>
-                                <div style="display: flex; flex-direction: row-reverse;">
-                                    @*DELETE*@
-                                    <a href="@Url.Action("Delete", "Skills", new { id = skill.Id })"
-                                       class="btn btn-danger"
-                                       title=@($"Delete {skill.Title}")
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       style="text-decoration: none">
-                                        <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
-                                    </a>
-                                    @*EDIT*@
-                                    <a href="@Url.Action("Edit", "Skills", new { id = skill.Id })"
-                                       class="btn btn-primary"
-                                       title=@($"Edit {skill.Title}")
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       style="text-decoration: none">
-                                        <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
-                                    </a>
-                                    @*DOCUMENTATION*@
-                                    @if (skill.DocumentationUrl != null)
+                                @{
+                                    if (projectsHidden > 3)
                                     {
-                                        <a href=@skill.DocumentationUrl class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Repo">
-                                            <img src="~/Content/Icons/book-solid.svg" alt="website" style="width: 16px;" />
-                                        </a>
+                                        @Html.ActionLink($"and {@projectsHidden} more", "Details", "Projects", new { id = skill.Id })
                                     }
-                                    @*REPO*@
-                                    @if (skill?.RepositoryUrl.IsEmpty() == false)
-                                    {
-                                        <a href=@skill.RepositoryUrl class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Repo">
-                                            <img src="~/Content/Icons/github.svg" alt="github" />
-                                        </a>
-                                    }
+                                }
+                            </div>
+                            @if (projectsHidden > 3)
+                            {
+                                <p style="margin: 0;">@projectCount Projects </p>
+                            }
+                        </td>
 
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div> <!-- end of container -->
-    </div> <!-- end of ex-basic-1 -->
+                        @*DEVELOPMENT*@
+
+                        <td class="d-none d-lg-table-cell">
+                            <p>
+                                @skill.Developer
+                            </p>
+                            <p>
+                                @(skill.ReleaseDate.HasValue ? skill.ReleaseDate.Value.Date.ToString("dd MMM yyyy") : "")
+                            </p>
+                        </td>
+
+
+                        @*ACTIONS*@
+
+                        <td>
+                            <div style="display: flex; flex-direction: row-reverse;">
+                                @*DELETE*@
+                                <a href="@Url.Action("Delete", "Skills", new { id = skill.Id })"
+                                   class="btn btn-danger"
+                                   title=@($"Delete {skill.Title}")
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   style="text-decoration: none">
+                                    <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
+                                </a>
+                                @*EDIT*@
+                                <a href="@Url.Action("Edit", "Skills", new { id = skill.Id })"
+                                   class="btn btn-primary"
+                                   title=@($"Edit {skill.Title}")
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   style="text-decoration: none">
+                                    <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
+                                </a>
+                                @*DOCUMENTATION*@
+                                @if (skill.DocumentationUrl != null)
+                                {
+                                    <a href=@skill.DocumentationUrl class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Repo">
+                                        <img src="~/Content/Icons/book-solid.svg" alt="website" style="width: 16px;" />
+                                    </a>
+                                }
+                                @*REPO*@
+                                @if (skill?.RepositoryUrl.IsEmpty() == false)
+                                {
+                                    <a href=@skill.RepositoryUrl class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Repo">
+                                        <img src="~/Content/Icons/github.svg" alt="github" />
+                                    </a>
+                                }
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div> <!-- end of container -->
+</div> <!-- end of ex-basic-1 -->
     <!-- end of table -->
 }
 
