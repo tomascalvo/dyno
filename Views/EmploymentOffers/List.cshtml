@@ -8,11 +8,11 @@
 @Html.Partial("_Header")
 
 
-@if (Model.Any())
-{
-    <div class="ex-basic-1 bg-black pb-4">
-        <div class="container">
-            <p>@Html.ActionLink("Add Offer", "New", "EmploymentOffers", new { @class = "btn btn-primary" })</p>
+<div class="ex-basic-1 bg-black pb-4">
+    <div class="container">
+        <p>@Html.ActionLink("Add Offer", "New", "EmploymentOffers", new { @class = "btn btn-primary" })</p>
+        @if (Model.Any())
+        {
             <!-- Table -->
             <table class="table table-bordered table-hover table-dark">
                 <thead>
@@ -65,7 +65,7 @@
                     }
                 </tbody>
             </table>
-        </div>
+        }
     </div>
-}
+    </div>
 
