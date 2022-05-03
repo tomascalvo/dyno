@@ -48,9 +48,9 @@ namespace DevPath.ViewModels.Projects
         public IEnumerable<SelectListItem> SkillOptions { get; set; }
         public List<int> SelectedSkillIds { get; set; } = new List<int>();
 
-        // PAGE TITLE
+        // VIEW TITLE
 
-        public string PageTitle
+        public string ViewTitle
         {
             get
             {

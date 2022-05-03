@@ -452,6 +452,7 @@
     <Content Include="Views\Home\index_htmlrev_riga.cshtml" />
     <Content Include="Views\Shared\_Layout - Riga.cshtml" />
     <Content Include="Views\Projects\Showcase.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

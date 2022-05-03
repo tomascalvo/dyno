@@ -77,8 +77,8 @@ namespace DevPath.ViewModels.EmploymentListings
 
         public int? SelectedRecruiterId { get; set; }
 
-        // PAGE TITLE
-        public string PageTitle
+        // VIEW TITLE
+        public string ViewTitle
         {
             get
             {

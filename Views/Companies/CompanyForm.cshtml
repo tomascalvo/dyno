@@ -1,33 +1,39 @@
 ﻿@model DevPath.ViewModels.Companies.CompanyFormViewModel
 @{
-    ViewBag.Title = "CompanyForm";
+    ViewBag.Title = @Model.ViewTitle;
 }
 
-<h2>@Model.PageTitle</h2>
+@Html.Partial("_Header")
 
-@using (Html.BeginForm("Save", "Companies"))
-{
-    <div class="mb-3">
-        @Html.LabelFor(c => c.Title)
-        @Html.TextBoxFor(c => c.Title, new { @class = "form-control" })
+<div class="ex-basic-1 bg-black pb-4">
+    <div class="container">
+        <p>@Html.ActionLink("Company List", "Index", "Companies", new { @class = "btn btn-primary" })</p>
+        @using (Html.BeginForm("Save", "Companies"))
+        {
+            <div class="mb-3">
+                @Html.LabelFor(c => c.Title)
+                @Html.TextBoxFor(c => c.Title, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                <label>
+                    @Html.CheckBoxFor(c => c.IsStaffingCompany) Staffing Company
+                </label>
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(c => c.Description)
+                @Html.TextBoxFor(c => c.Description, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(c => c.WebsiteUrl)
+                @Html.TextBoxFor(c => c.WebsiteUrl, new { @class = "form-control" })
+            </div>
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(p => p.DateAdded)
+            <button type="submit" class="btn btn-primary">Save</button>
+        }
+
     </div>
-    <div class="mb-3">
-        <label>
-            @Html.CheckBoxFor(c => c.IsStaffingCompany) Staffing Company
-        </label>
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(c => c.Description)
-        @Html.TextBoxFor(c => c.Description, new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(c => c.WebsiteUrl)
-        @Html.TextBoxFor(c => c.WebsiteUrl, new { @class = "form-control" })
-    </div>
-    @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(p => p.DateAdded)
-    <button type="submit" class="btn btn-primary">Save</button>
-}
+</div>
 
 @*COUNTRY/STATE/CITY FORM TUTORIAL:*@
 @*https://tutorialslink.com/Articles/Bind-Country-State-and-City-Dropdownlist-in-Aspnet-MVC-using-ajax/21*@

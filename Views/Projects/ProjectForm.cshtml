@@ -1,42 +1,48 @@
 ﻿@model DevPath.ViewModels.Projects.ProjectFormViewModel
 @{
-    ViewBag.Title = @Model.PageTitle;
+    ViewBag.Title = @Model.ViewTitle;
 }
 
-<h2>@Model.PageTitle</h2>
+@Html.Partial("_Header")
 
-@using (Html.BeginForm("Save", "Projects"))
-{
-    <div class="mb-3">
-        @Html.LabelFor(p => p.Title)
-        @Html.TextBoxFor(p => p.Title, new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(p => p.Description)
-        @Html.TextAreaFor(p => p.Description, new { @class = "form-control" })
-    </div>
-    if (Model.Icon != null)
-    {
-        <img src="@Url.Content(Model.Icon)" alt=@($"{Model.Title} Icon") class="rounded-circle mb-3" style="width: 150px; height: 150px; margin: 0 auto; object-fit: cover;" />
-    }
-    <div class="mb-3">
-        @Html.LabelFor(p => p.Icon)
-        @Html.TextBoxFor(p => p.Icon, new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(p => p.SelectedSkillIds)
-        @Html.ListBoxFor(p => p.SelectedSkillIds, Model.SkillOptions, new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(p => p.RepositoryUrl)
-        @Html.TextBoxFor(p => p.RepositoryUrl, new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(p => p.DeploymentUrl)
-        @Html.TextBoxFor(p => p.DeploymentUrl, new { @class = "form-control" })
-    </div>
-    @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(p => p.DateAdded)
-    <button type="submit" class="btn btn-primary">Save</button>
-}
+<div class="ex-basic-1 bg-black pb-4">
+    <div class="container">
+        <p>@Html.ActionLink("Project List", "Index", "Project", new { @class = "btn btn-primary" })</p>
 
+        @using (Html.BeginForm("Save", "Projects"))
+        {
+            <div class="mb-3">
+                @Html.LabelFor(p => p.Title)
+                @Html.TextBoxFor(p => p.Title, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(p => p.Description)
+                @Html.TextAreaFor(p => p.Description, new { @class = "form-control" })
+            </div>
+            if (Model.Icon != null)
+            {
+                <img src="@Url.Content(Model.Icon)" alt=@($"{Model.Title} Icon") class="rounded-circle mb-3" style="width: 150px; height: 150px; margin: 0 auto; object-fit: cover;" />
+            }
+            <div class="mb-3">
+                @Html.LabelFor(p => p.Icon)
+                @Html.TextBoxFor(p => p.Icon, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(p => p.SelectedSkillIds)
+                @Html.ListBoxFor(p => p.SelectedSkillIds, Model.SkillOptions, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(p => p.RepositoryUrl)
+                @Html.TextBoxFor(p => p.RepositoryUrl, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(p => p.DeploymentUrl)
+                @Html.TextBoxFor(p => p.DeploymentUrl, new { @class = "form-control" })
+            </div>
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(p => p.DateAdded)
+            <button type="submit" class="btn btn-primary">Save</button>
+        }
+
+    </div>
+</div>

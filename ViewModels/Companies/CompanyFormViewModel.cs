@@ -55,9 +55,9 @@ namespace DevPath.ViewModels.Companies
         //public string OrganizationLookupId { get; set; }
 
 
-        // Page Title
+        // View Title
 
-        public string PageTitle
+        public string ViewTitle
         {
             get
             {

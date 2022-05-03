@@ -1,75 +1,81 @@
 ﻿@model DevPath.ViewModels.EmploymentListings.EmploymentListingFormViewModel
 @{
-    ViewBag.Title = @Model.PageTitle;
+    ViewBag.Title = @Model.ViewTitle;
 }
 
-<h2>@Model.PageTitle</h2>
+@Html.Partial("_Header")
 
-@using (Html.BeginForm("Save", "EmploymentListings"))
-{
-    <div class="mb-3">
-        @Html.LabelFor(el => el.Url)
-        @Html.TextBoxFor(el => el.Url, new { @class = "form-control" })
+<div class="ex-basic-1 bg-black pb-4">
+    <div class="container">
+                <p>@Html.ActionLink("Job List", "Index", "EmploymentListings", new { @class = "btn btn-primary" })</p>
+
+        @using (Html.BeginForm("Save", "EmploymentListings"))
+        {
+            <div class="mb-3">
+                @Html.LabelFor(el => el.Url)
+                @Html.TextBoxFor(el => el.Url, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(el => el.Title)
+                @Html.TextBoxFor(el => el.Title, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(el => el.SelectedClientCompanyId)
+                @Html.DropDownListFor(
+                    el => el.SelectedClientCompanyId,
+                    new SelectList(Model.ClientCompanyOptions, "Id", "Title"),
+                    "Select Company",
+                    new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(el => el.SelectedStaffingCompanyId)
+                @Html.DropDownListFor(
+                    el => el.SelectedStaffingCompanyId,
+                    new SelectList(Model.StaffingCompanyOptions, "Id", "Title"),
+                    "Select Company",
+                    new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(el => el.SelectedRecruiterId)
+                @Html.DropDownListFor(
+                    el => el.SelectedRecruiterId,
+                    new SelectList(Model.RecruiterOptions, "Id", "FullName"),
+                    "Select Recruiter",
+                    new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(el => el.PayQuantity)
+                @Html.EditorFor(el => el.PayQuantity, new { htmlAttributes = new { @class = "form-control", step = "1000" } })
+            </div>
+            <div class="mb-3">
+                <div>
+                    @Html.LabelFor(el => el.WorkLocation)
+                    @Html.EnumDropDownListFor(el => el.WorkLocation,
+                   "Select Work Arrangement",
+                    new { @class = "form-control" }
+                   )
+                </div>
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(p => p.SelectedSkillIds)
+                @Html.ListBoxFor(p => p.SelectedSkillIds, Model.SkillOptions, new { @class = "form-control" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(el => el.FullText)
+                @Html.TextAreaFor(el => el.FullText, new { @class = "form-control" })
+            </div>
+            if (Model.ViewTitle != "Edit Job Listing")
+            {
+                <div class="mb-3">
+                    <label>
+                        @Html.CheckBoxFor(c => c.ApplicationSubmitted) Application Submitted
+                    </label>
+                </div>
+            }
+            @Html.HiddenFor(el => el.Id)
+            @Html.HiddenFor(el => el.DateAdded)
+            @Html.HiddenFor(el => el.EmploymentApplicationIds)
+            <button type="submit" class="btn btn-primary">Save</button>
+        }
     </div>
-    <div class="mb-3">
-        @Html.LabelFor(el => el.Title)
-        @Html.TextBoxFor(el => el.Title, new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(el => el.SelectedClientCompanyId)
-        @Html.DropDownListFor(
-            el => el.SelectedClientCompanyId,
-            new SelectList(Model.ClientCompanyOptions, "Id", "Title"),
-            "Select Company",
-            new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(el => el.SelectedStaffingCompanyId)
-        @Html.DropDownListFor(
-            el => el.SelectedStaffingCompanyId,
-            new SelectList(Model.StaffingCompanyOptions, "Id", "Title"),
-            "Select Company",
-            new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(el => el.SelectedRecruiterId)
-        @Html.DropDownListFor(
-            el => el.SelectedRecruiterId,
-            new SelectList(Model.RecruiterOptions, "Id", "FullName"),
-            "Select Recruiter",
-            new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(el => el.PayQuantity)
-        @Html.EditorFor(el => el.PayQuantity, new { htmlAttributes = new { @class = "form-control", step = "1000" } })
-    </div>
-    <div class="mb-3">
-        <div>
-            @Html.LabelFor(el => el.WorkLocation)
-            @Html.EnumDropDownListFor(el => el.WorkLocation,
-           "Select Work Arrangement",
-            new { @class = "form-control" }
-           )
-        </div>
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(p => p.SelectedSkillIds)
-        @Html.ListBoxFor(p => p.SelectedSkillIds, Model.SkillOptions, new { @class = "form-control" })
-    </div>
-    <div class="mb-3">
-        @Html.LabelFor(el => el.FullText)
-        @Html.TextAreaFor(el => el.FullText, new { @class = "form-control" })
-    </div>
-    if (Model.PageTitle != "Edit Job Listing")
-    {
-        <div class="mb-3">
-            <label>
-                @Html.CheckBoxFor(c => c.ApplicationSubmitted) Application Submitted
-            </label>
-        </div>
-    }
-    @Html.HiddenFor(el => el.Id)
-    @Html.HiddenFor(el => el.DateAdded)
-    @Html.HiddenFor(el => el.EmploymentApplicationIds)
-    <button type="submit" class="btn btn-primary">Save</button>
-}
+</div>
