@@ -31,6 +31,9 @@ namespace DevPath.Models
         public DbSet<EmploymentListingAccess> EmploymentListingAccesses { get; set; }
         public DbSet<Recruiter> Recruiters { get; set; }
         public DbSet<EmploymentOffer> EmploymentOffers { get; set; }
+        public DbSet<Employment> Employments { get; set; }
+        public DbSet<EmploymentSkill> EmploymentSkills { get; set; }
+        public DbSet<SkillHierarchy> Prerequisites { get; set; }
 
 
         public static ApplicationDbContext Create()
@@ -164,6 +167,65 @@ namespace DevPath.Models
                 .HasMany(au => au.EmploymentOffers)
                 .WithRequired(eo => eo.Recipient)
                 .HasForeignKey(eo => eo.RecipientId);
+
+            // ApplicationUser to Employment: 1 TO MANY
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(user => user.Employments)
+                .WithRequired(employment => employment.Employee)
+                .HasForeignKey(employment => employment.EmployeeId);
+
+            // Employment to Skill: Many to Many
+            modelBuilder.Entity<EmploymentSkill>()
+                .HasKey(es => new { es.EmploymentId, es.SkillId });
+            modelBuilder.Entity<EmploymentSkill>()
+                .HasRequired(es => es.Employment)
+                .WithMany(e => e.EmploymentSkills)
+                .HasForeignKey(es => es.EmploymentId);
+            modelBuilder.Entity<EmploymentSkill>()
+                .HasRequired(es => es.Skill)
+                .WithMany(s => s.EmploymentSkills)
+                .HasForeignKey(es => es.SkillId);
+
+            // Employment to Project: Many to Many
+            modelBuilder.Entity<EmploymentProject>()
+                .HasKey(ep => new { ep.EmploymentId, ep.ProjectId });
+            modelBuilder.Entity<EmploymentProject>()
+                .HasRequired(ep => ep.Employment)
+                .WithMany(e => e.EmploymentProjects)
+                .HasForeignKey(ep => ep.EmploymentId);
+            modelBuilder.Entity<EmploymentProject>()
+                .HasRequired(ep => ep.Project)
+                .WithMany(p => p.EmploymentProjects)
+                .HasForeignKey(ep => ep.ProjectId);
+
+            // SkillHierarchy to Principal: Many to One Relationship
+            modelBuilder.Entity<SkillHierarchy>()
+                .HasKey(sh => sh.Id);
+            modelBuilder.Entity<SkillHierarchy>()
+                .HasRequired(sh => sh.Principal)
+                .WithMany(principal => principal.Prerequisites)
+                .HasForeignKey(sh => sh.PrincipalId)
+                .WillCascadeOnDelete(false);
+
+            // SkillHierarchy to Prerequisite: Many to Many Relationship
+
+            modelBuilder.Entity<SkillHierarchyPrerequisite>()
+                .HasKey(shp => new { shp.SkillHierarchyId, shp.PrerequisiteId });
+            modelBuilder.Entity<SkillHierarchyPrerequisite>()
+                .HasRequired(shp => shp.SkillHierarchy)
+                .WithMany(sh => sh.Prerequisites)
+                .HasForeignKey(shp => shp.SkillHierarchyId);
+            modelBuilder.Entity<SkillHierarchyPrerequisite>()
+                .HasRequired(shp => shp.Prerequisite)
+                .WithMany(p => p.Principals)
+                .HasForeignKey(shp => shp.PrerequisiteId);
+
+            // SkillHierarchy to Creator: Many to One or Zero Relationship
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(au => au.SkillHierarchies)
+                .WithOptional(el => el.Creator)
+                .HasForeignKey(el => el.CreatorId);
+
 
             // This method is necessary because this MVC app is using Identity Framework and the DbContext needs to include the built-in identity models as datasets.
 

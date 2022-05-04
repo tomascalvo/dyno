@@ -14,6 +14,8 @@ namespace DevPath.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string Icon { get; set; }
+
+        // Url Properties
         [Display(Name = "Repo Url")]
 
         [DataType(DataType.Url)]
@@ -21,23 +23,17 @@ namespace DevPath.Models
         [Display(Name = "Deployment Url")]
         [DataType(DataType.Url)]
         public string DeploymentUrl { get; set; }
+
+        // DateTime Properties
         [Display(Name = "Date Added")]
         [DataType(DataType.DateTime)]
 
-        public DateTime DateAdded
-        {
-            get
-            {
-                return this.dateAdded ?? DateTime.Now;
-            }
-
-            set { this.dateAdded = value; }
-        }
-        private DateTime? dateAdded = null;
+        public DateTime DateAdded { get; set; } = DateTime.Now;
 
         // NAVIGATION PROPERTIES
         public List<ProjectSkill> ProjectSkills { get; set; }
         public List<ApplicationUserProject> ApplicationUserProjects { get; set; }
+        public List<EmploymentProject> EmploymentProjects { get; set; }
 
         //public int? OwnerID { get; set; }
         //public virtual ApplicationUser Owner { get; set; }

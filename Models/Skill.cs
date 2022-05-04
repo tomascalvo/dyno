@@ -40,7 +40,9 @@ namespace DevPath.Models
         // NAVIGATION PROPERTIES
         public List<ProjectSkill> ProjectSkills { get; set; }
         public List<EmploymentListingSkill> EmploymentListingSkills { get; set; }
-
+        public List<EmploymentSkill> EmploymentSkills { get; set; }
+        public List<SkillHierarchy> Prerequisites { get; set; }
+        public List<SkillHierarchyPrerequisite> Principals { get; set; }
 
         //public int? CompanyID { get; set; }
         //public virtual Company Company { get; set; }

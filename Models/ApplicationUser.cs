@@ -26,26 +26,19 @@ namespace DevPath.Models
         public string Avatar { get; set; }
         [Display(Name = "GitHub Username")]
         public string GitHubUsername { get; set; }
-        private DateTime? signupDate = null;
-        [Display(Name = "Signup Date")]
-        [DataType(DataType.DateTime), Required]
-        public DateTime SignupDate
-        {
-            get
-            {
-                return this.signupDate ?? DateTime.Now;
-            }
-
-            set { this.signupDate = value; }
-        }
         [Display(Name = "Color Preference")]
         public ColorPreference? ColorPreference { get; set; }
-
-        // NAVIGATION PROPERTIES
         [Display(Name = "Current Role")]
         public int? CurrentRoleId { get; set; }
         [Display(Name = "Desired Role")]
         public int? DesiredRoleId { get; set; }
+
+        // DateTime Properties
+        [Display(Name = "Signup Date")]
+        [DataType(DataType.DateTime), Required]
+        public DateTime SignupDate { get; set; } = DateTime.Now;
+
+        // NAVIGATION PROPERTIES
         [Display(Name = "Accessible Job Listings")]
 
         public List<EmploymentListingAccess> EmploymentListingAccesses { get; set; }
@@ -56,6 +49,10 @@ namespace DevPath.Models
         public List<RecruiterClient> RecruiterClientsCreated { get; set; }
         [Display(Name = "Job Offers")]
         public List<EmploymentOffer> EmploymentOffers { get; set; }
+        [Display(Name = "Employment History")]
+        public List<Employment> Employments { get; set; }
+        [Display(Name = "Prerequisites Added")]
+        public List<SkillHierarchy> SkillHierarchies { get; set; }
         //public List<ApplicationUserCompany> ApplicationUserCompanies { get; set; }
         //public List<ApplicationUserSkill> ApplicationUserSkills { get; set; }
         //public List<ApplicationUserAward> ApplicationUserAwards { get; set; }
