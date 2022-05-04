@@ -20,9 +20,10 @@ namespace DevPath.Models
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public List<EmploymentListing> EmploymentListings { get; set; }
-        //public List<CertificationType> Certifications { get; set; }
+        [Display(Name = "Certifications Offered")]
+        public List<CertificationType> CertificationTypes { get; set; }
+        public List<Course> Courses { get; set; }
         //public List<AwardType> Awards { get; set; }
-        //public List<CourseType> Courses { get; set; }
         //public List<TutorialType> Tutorials { get; set; }
     }
 }

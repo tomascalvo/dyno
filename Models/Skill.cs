@@ -43,10 +43,9 @@ namespace DevPath.Models
         public List<EmploymentSkill> EmploymentSkills { get; set; }
         public List<SkillHierarchy> Prerequisites { get; set; }
         public List<SkillHierarchyPrerequisite> Principals { get; set; }
+        public List<Course> Courses { get; set; }
+        public List<Goal> Goals { get; set; }
 
-        //public int? CompanyID { get; set; }
-        //public virtual Company Company { get; set; }
-        //public virtual ICollection<Course> Courses { get; set; }
         //public virtual ICollection<DocCompletion> DocCompletions { get; set; }
         //public virtual ICollection<Flashcard> Flashcards { get; set; }
     }

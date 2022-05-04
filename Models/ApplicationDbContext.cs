@@ -35,6 +35,12 @@ namespace DevPath.Models
         public DbSet<EmploymentSkill> EmploymentSkills { get; set; }
         public DbSet<SkillHierarchy> Prerequisites { get; set; }
         public DbSet<Platform> Platforms { get; set; }
+        public DbSet<CertificationType> CertificationTypes { get; set; }
+        public DbSet<Certification> Certifications { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseCompletion> CourseCompletions { get; set; }
+        public DbSet<Goal> Goals { get; set; }
+
 
 
         public static ApplicationDbContext Create()
@@ -243,6 +249,89 @@ namespace DevPath.Models
                 .HasMany(au => au.PlatformsAdded)
                 .WithOptional(p => p.AddedBy)
                 .HasForeignKey(p => p.AddedById);
+
+            // CertificationType to Platform: Many to One
+            modelBuilder.Entity<Platform>()
+                .HasMany(p => p.CertificationTypes)
+                .WithRequired(ct => ct.Platform)
+                .HasForeignKey(ct => ct.PlatformId);
+
+            // Certification to CertificationType: Many to One
+            modelBuilder.Entity<CertificationType>()
+                .HasMany(type => type.CertificationsAwarded)
+                .WithRequired(award => award.CertificationType)
+                .HasForeignKey(award => award.CertificationTypeId);
+
+            // CertificationType to AddedBy: Many to One or Zero
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(user => user.CertificationTypesAdded)
+                .WithOptional(type => type.AddedBy)
+                .HasForeignKey(type => type.AddedById);
+
+            // Certification to Recipient: Many to One
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(user => user.Certifications)
+                .WithRequired(award => award.Recipient)
+                .HasForeignKey(award => award.RecipientId);
+
+            //!!!!!!!!!!!!!!!!!!!!!!!!
+            // CertificationType to Course: One or Zero to One or Zero
+            modelBuilder.Entity<CertificationType>()
+                .HasOptional(ct => ct.Course);
+
+            // Course to CourseCompletions: One to Many
+            modelBuilder.Entity<Course>()
+                .HasMany(course => course.Completions)
+                .WithRequired(completion => completion.Course)
+                .HasForeignKey(completion => completion.CourseId);
+
+            // Course to User: One or Zero to Many
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(user => user.CoursesAdded)
+                .WithOptional(course => course.AddedBy)
+                .HasForeignKey(course => course.AddedById);
+
+            // Platform to Courses: One or Zero to Many
+            modelBuilder.Entity<Platform>()
+                .HasMany(p => p.Courses)
+                .WithOptional(c => c.Platform)
+                .HasForeignKey(c => c.PlatformId);
+
+            // Course to Skills: Many to Many
+            modelBuilder.Entity<Course>()
+                .HasMany(c => c.Skills)
+                .WithMany(s => s.Courses)
+                .Map(cs =>
+                {
+                    cs.MapLeftKey("CourseRefId");
+                    cs.MapRightKey("SkillRefId");
+                    cs.ToTable("CourseSkills");
+                });
+
+            // CourseCompletion to User: Many to One
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.CourseCompletions)
+                .WithRequired(cc => cc.User)
+                .HasForeignKey(cc => cc.UserId);
+
+            // Users to Goals: One to Many
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Goals)
+                .WithRequired(g => g.User)
+                .HasForeignKey(g => g.UserId);
+
+            // Goals to Skills: Many to Many
+            modelBuilder.Entity<Goal>()
+                .HasMany(g => g.Skills)
+                .WithMany(s => s.Goals)
+                .Map(sg =>
+                {
+                    sg.MapLeftKey("GoalRefId");
+                    sg.MapRightKey("SkillRefId");
+                    sg.ToTable("GoalSkills");
+                });
+
+
 
             // This method is necessary because this MVC app is using Identity Framework and the DbContext needs to include the built-in identity models as datasets.
 

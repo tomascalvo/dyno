@@ -53,13 +53,20 @@ namespace DevPath.Models
         public List<Employment> Employments { get; set; }
         [Display(Name = "Prerequisites Added")]
         public List<SkillHierarchy> SkillHierarchies { get; set; }
+        [Display(Name = "Platforms Added")]
         public List<Platform> PlatformsAdded { get; set; }
+        [Display(Name = "Certifications Added")]
+        public List<CertificationType> CertificationTypesAdded { get; set; }
+        [Display(Name = "Certifications Earned")]
+        public List<Certification> Certifications { get; set; }
+        [Display(Name = "Courses Added")]
+        public List<Course> CoursesAdded { get; set; }
+        [Display(Name = "Courses Completed")]
+        public List<CourseCompletion> CourseCompletions { get; set; }
+        public List<Goal> Goals { get; set; }
         //public List<ApplicationUserCompany> ApplicationUserCompanies { get; set; }
         //public List<ApplicationUserSkill> ApplicationUserSkills { get; set; }
         //public List<ApplicationUserAward> ApplicationUserAwards { get; set; }
-        //public List<ApplicationUserCourse> ApplicationUserCourses { get; set; }
-        //public List<int> EmploymentListingsAuthoredIds { get; set; }
-        //[Display(Name = "Employment Listings Submitted")]
         //public List<EmploymentListing> EmploymentListingsSubmitted { get; set }
         //public List<EmploymentListingSave> EmploymentListingsSaved { get; set; }
         //public List<int> EmploymentApplicationIds { get; set; }
