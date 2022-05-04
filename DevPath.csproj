@@ -247,6 +247,14 @@
     <Compile Include="Migrations\202205041658560_SkillHierarchy.designer.cs">
       <DependentUpon>202205041658560_SkillHierarchy.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205041703391_VincitCompanyTitle.cs" />
+    <Compile Include="Migrations\202205041703391_VincitCompanyTitle.designer.cs">
+      <DependentUpon>202205041703391_VincitCompanyTitle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205041706585_CompanyTitleRequired.cs" />
+    <Compile Include="Migrations\202205041706585_CompanyTitleRequired.designer.cs">
+      <DependentUpon>202205041706585_CompanyTitleRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -538,6 +546,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205041658560_SkillHierarchy.resx">
       <DependentUpon>202205041658560_SkillHierarchy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205041703391_VincitCompanyTitle.resx">
+      <DependentUpon>202205041703391_VincitCompanyTitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205041706585_CompanyTitleRequired.resx">
+      <DependentUpon>202205041706585_CompanyTitleRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -8,6 +8,7 @@ namespace DevPath.Models
     {
         // PROPERTIES
         public int Id { get; set; }
+        [Required]
         [StringLength(50, ErrorMessage = "Title name cannot be longer than 50 characters.")]
         public string Title { get; set; }
         [DataType(DataType.MultilineText)]
