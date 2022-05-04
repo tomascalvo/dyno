@@ -79,8 +79,8 @@ namespace DevPath.Models
         public Recruiter Recruiter { get; set; }
         [Display(Name = "Offers")]
         public List<EmploymentOffer> EmploymentOffers { get; set; }
-        //public int? PlatformID { get; set; }
-        //public virtual Platform Platform { get; set; }
+        public int? PlatformId { get; set; }
+        public Platform Platform { get; set; }
         //[Display(Name = "Ratings")]
         //public virtual ICollection<EmploymentRating> EmploymentRatings { get; set; }
     }

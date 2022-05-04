@@ -226,6 +226,22 @@ namespace DevPath.Models
                 .WithOptional(el => el.Creator)
                 .HasForeignKey(el => el.CreatorId);
 
+            // Company to Platform: One to One or Zero
+            modelBuilder.Entity<Company>()
+                .HasOptional(c => c.Platform)
+                .WithRequired(p => p.Company);
+
+            // Platform to EmploymentListings: One to Many
+            modelBuilder.Entity<Platform>()
+                .HasMany(p => p.EmploymentListings)
+                .WithOptional(el => el.Platform)
+                .HasForeignKey(el => el.PlatformId);
+
+            // Platform to ApplicationUser: Many to One or Zero
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(au => au.PlatformsAdded)
+                .WithOptional(p => p.AddedBy)
+                .HasForeignKey(p => p.AddedById);
 
             // This method is necessary because this MVC app is using Identity Framework and the DbContext needs to include the built-in identity models as datasets.
 

@@ -60,15 +60,9 @@ namespace DevPath.Models
 
         public List<Recruiter> RecruitersEmployed { get; set; }
         public List<RecruiterClient> RecruitersConsulting { get; set; }
+        public Platform Platform { get; set; }
 
         //public string CEOId { get; set; }
         //public virtual ICollection<Social> Socials { get; set; }
-        //[Display(Name = "Employment Offers")]
-        //public virtual ICollection<EmploymentOffer> EmploymentOffers { get; set; }
-        //[Display(Name = "Certifications Offered")]
-
-        //public virtual ICollection<Certification> Certifications { get; set; }
-        //[Display(Name = "Awards Offered")]
-        //public virtual ICollection<Award> Awards { get; set; }
     }
 }

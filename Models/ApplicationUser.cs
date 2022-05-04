@@ -53,6 +53,7 @@ namespace DevPath.Models
         public List<Employment> Employments { get; set; }
         [Display(Name = "Prerequisites Added")]
         public List<SkillHierarchy> SkillHierarchies { get; set; }
+        public List<Platform> PlatformsAdded { get; set; }
         //public List<ApplicationUserCompany> ApplicationUserCompanies { get; set; }
         //public List<ApplicationUserSkill> ApplicationUserSkills { get; set; }
         //public List<ApplicationUserAward> ApplicationUserAwards { get; set; }

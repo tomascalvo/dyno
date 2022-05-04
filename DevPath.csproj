@@ -255,6 +255,10 @@
     <Compile Include="Migrations\202205041706585_CompanyTitleRequired.designer.cs">
       <DependentUpon>202205041706585_CompanyTitleRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205041800534_Platform.cs" />
+    <Compile Include="Migrations\202205041800534_Platform.designer.cs">
+      <DependentUpon>202205041800534_Platform.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -269,6 +273,7 @@
     <Compile Include="Models\EmploymentProject.cs" />
     <Compile Include="Models\EmploymentSkill.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Platform.cs" />
     <Compile Include="Models\SkillHierarchy.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectSkill.cs" />
@@ -552,6 +557,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205041706585_CompanyTitleRequired.resx">
       <DependentUpon>202205041706585_CompanyTitleRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205041800534_Platform.resx">
+      <DependentUpon>202205041800534_Platform.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
