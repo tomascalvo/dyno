@@ -64,6 +64,8 @@ namespace DevPath.Models
         [Display(Name = "Courses Completed")]
         public List<CourseCompletion> CourseCompletions { get; set; }
         public List<Goal> Goals { get; set; }
+        [Display(Name = "Documentation Read")]
+        public List<DocumentationRead> DocumentationRead { get; set; }
         //public List<ApplicationUserCompany> ApplicationUserCompanies { get; set; }
         //public List<ApplicationUserSkill> ApplicationUserSkills { get; set; }
         //public List<ApplicationUserAward> ApplicationUserAwards { get; set; }

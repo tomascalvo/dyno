@@ -45,6 +45,9 @@ namespace DevPath.Models
         public List<SkillHierarchyPrerequisite> Principals { get; set; }
         public List<Course> Courses { get; set; }
         public List<Goal> Goals { get; set; }
+        [Display(Name = "Documentation Read")]
+
+        public List<DocumentationRead> DocumentationRead { get; set; }
 
         //public virtual ICollection<DocCompletion> DocCompletions { get; set; }
         //public virtual ICollection<Flashcard> Flashcards { get; set; }

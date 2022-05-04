@@ -40,6 +40,7 @@ namespace DevPath.Models
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseCompletion> CourseCompletions { get; set; }
         public DbSet<Goal> Goals { get; set; }
+        public DbSet<DocumentationRead> DocumentationRead { get; set; }
 
 
 
@@ -331,6 +332,18 @@ namespace DevPath.Models
                     sg.ToTable("GoalSkills");
                 });
 
+            // DocumentationRead to User : One or zero to One
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.DocumentationRead)
+                .WithRequired(d => d.User)
+                .HasForeignKey(d => d.UserId);
+
+
+            // DocumentationRead to Skill: One or zero to One
+            modelBuilder.Entity<Skill>()
+                .HasMany(s => s.DocumentationRead)
+                .WithRequired(d => d.Skill)
+                .HasForeignKey(d => d.SkillId);
 
 
             // This method is necessary because this MVC app is using Identity Framework and the DbContext needs to include the built-in identity models as datasets.

@@ -271,6 +271,10 @@
     <Compile Include="Migrations\202205042019050_GoalEntity.designer.cs">
       <DependentUpon>202205042019050_GoalEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205042033352_DocumentationRead.cs" />
+    <Compile Include="Migrations\202205042033352_DocumentationRead.designer.cs">
+      <DependentUpon>202205042033352_DocumentationRead.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -278,6 +282,7 @@
     <Compile Include="Models\CertificationType.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseCompletion.cs" />
+    <Compile Include="Models\DocumentationRead.cs" />
     <Compile Include="Models\Employment.cs" />
     <Compile Include="Models\EmploymentListingAccess.cs" />
     <Compile Include="Models\ApplicationUserProject.cs" />
@@ -586,6 +591,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205042019050_GoalEntity.resx">
       <DependentUpon>202205042019050_GoalEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205042033352_DocumentationRead.resx">
+      <DependentUpon>202205042033352_DocumentationRead.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
