@@ -34,6 +34,7 @@ namespace DevPath.Models
         public DbSet<Employment> Employments { get; set; }
         public DbSet<EmploymentSkill> EmploymentSkills { get; set; }
         public DbSet<SkillHierarchy> Prerequisites { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
 
 
         public static ApplicationDbContext Create()
