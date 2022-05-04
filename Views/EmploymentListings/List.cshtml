@@ -29,14 +29,14 @@
                 {
                     <tr>
                         @*TITLE*@
-                        @if (!job.Title.IsEmpty())
-                        {
-                            <td class="d-none d-md-table-cell">
+                        <td class="d-none d-md-table-cell">
+                            @if (!job.Title.IsEmpty())
+                            {
                                 <p>
                                     @job.Title
                                 </p>
-                            </td>
-                        }
+                            }
+                        </td>
 
                         @*COMPANY*@
                         <td class="d-none d-md-table-cell">
