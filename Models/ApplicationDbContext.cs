@@ -121,6 +121,12 @@ namespace DevPath.Models
                 .WithOptional(el => el.Creator)
                 .HasForeignKey(el => el.CreatorId);
 
+            // User and EmploymentApplication: One to Many
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(user => user.EmploymentApplications)
+                .WithRequired(application => application.Applicant)
+                .HasForeignKey(application => application.ApplicantId);
+
             // Customize M2M relationship between ApplicationUser and Project
 
             modelBuilder.Entity<ApplicationUserProject>()

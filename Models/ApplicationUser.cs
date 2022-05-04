@@ -39,41 +39,42 @@ namespace DevPath.Models
         public DateTime SignupDate { get; set; } = DateTime.Now;
 
         // NAVIGATION PROPERTIES
-        [Display(Name = "Accessible Job Listings")]
 
-        public List<EmploymentListingAccess> EmploymentListingAccesses { get; set; }
+        // Db Contributions
         [Display(Name = "Job Listings Posted")]
 
         public List<EmploymentListing> EmploymentListingsCreated { get; set; }
-        public List<ApplicationUserProject> ApplicationUserProjects { get; set; }
         public List<RecruiterClient> RecruiterClientsCreated { get; set; }
-        [Display(Name = "Job Offers")]
-        public List<EmploymentOffer> EmploymentOffers { get; set; }
-        [Display(Name = "Employment History")]
-        public List<Employment> Employments { get; set; }
         [Display(Name = "Prerequisites Added")]
         public List<SkillHierarchy> SkillHierarchies { get; set; }
         [Display(Name = "Platforms Added")]
         public List<Platform> PlatformsAdded { get; set; }
         [Display(Name = "Certifications Added")]
         public List<CertificationType> CertificationTypesAdded { get; set; }
-        [Display(Name = "Certifications Earned")]
-        public List<Certification> Certifications { get; set; }
         [Display(Name = "Courses Added")]
         public List<Course> CoursesAdded { get; set; }
+
+        // Employment
+        [Display(Name = "Accessible Job Listings")]
+
+        public List<EmploymentListingAccess> EmploymentListingAccesses { get; set; }
+        public List<EmploymentApplication> EmploymentApplications { get; set; }
+        [Display(Name = "Job Offers")]
+        public List<EmploymentOffer> EmploymentOffers { get; set; }
+        [Display(Name = "Employment History")]
+        public List<Employment> Employments { get; set; }
+
+        // Achievements
+        public List<ApplicationUserProject> ApplicationUserProjects { get; set; }
+        [Display(Name = "Certifications Earned")]
+        public List<Certification> Certifications { get; set; }
         [Display(Name = "Courses Completed")]
         public List<CourseCompletion> CourseCompletions { get; set; }
         public List<Goal> Goals { get; set; }
         [Display(Name = "Documentation Read")]
         public List<DocumentationRead> DocumentationRead { get; set; }
-        //public List<ApplicationUserCompany> ApplicationUserCompanies { get; set; }
-        //public List<ApplicationUserSkill> ApplicationUserSkills { get; set; }
-        //public List<ApplicationUserAward> ApplicationUserAwards { get; set; }
-        //public List<EmploymentListing> EmploymentListingsSubmitted { get; set }
-        //public List<EmploymentListingSave> EmploymentListingsSaved { get; set; }
-        //public List<int> EmploymentApplicationIds { get; set; }
-        //public List<EmploymentApplication> EmploymentApplications { get; set; }
-        //public List<EmploymentRating> EmploymentRatings { get; set; }
+        //public List<UserCompany> OwnedCompanies { get; set; }
+        //public List<Award> Awards { get; set; }
 
 
         // IDENTITY FRAMEWORK

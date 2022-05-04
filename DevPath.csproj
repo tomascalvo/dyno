@@ -275,6 +275,10 @@
     <Compile Include="Migrations\202205042033352_DocumentationRead.designer.cs">
       <DependentUpon>202205042033352_DocumentationRead.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205042044354_RefactorUserEmploymentApplications.cs" />
+    <Compile Include="Migrations\202205042044354_RefactorUserEmploymentApplications.designer.cs">
+      <DependentUpon>202205042044354_RefactorUserEmploymentApplications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -594,6 +598,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205042033352_DocumentationRead.resx">
       <DependentUpon>202205042033352_DocumentationRead.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205042044354_RefactorUserEmploymentApplications.resx">
+      <DependentUpon>202205042044354_RefactorUserEmploymentApplications.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
