@@ -65,6 +65,7 @@ namespace DevPath.Models
         public List<Employment> Employments { get; set; }
 
         // Achievements
+        [Display(Name = "Projects")]
         public List<ApplicationUserProject> ApplicationUserProjects { get; set; }
         [Display(Name = "Certifications Earned")]
         public List<Certification> Certifications { get; set; }
@@ -73,8 +74,7 @@ namespace DevPath.Models
         public List<Goal> Goals { get; set; }
         [Display(Name = "Documentation Read")]
         public List<DocumentationRead> DocumentationRead { get; set; }
-        //public List<UserCompany> OwnedCompanies { get; set; }
-        //public List<Award> Awards { get; set; }
+        //public List<UserCompany> CompaniesOwned { get; set; }
 
 
         // IDENTITY FRAMEWORK

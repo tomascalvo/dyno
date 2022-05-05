@@ -283,6 +283,10 @@
     <Compile Include="Migrations\202205051534162_AddedIsAwardPropertyToCertificationType.designer.cs">
       <DependentUpon>202205051534162_AddedIsAwardPropertyToCertificationType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205051547329_AddedCourseCompletionsToProjectEntity.cs" />
+    <Compile Include="Migrations\202205051547329_AddedCourseCompletionsToProjectEntity.designer.cs">
+      <DependentUpon>202205051547329_AddedCourseCompletionsToProjectEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -608,6 +612,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205051534162_AddedIsAwardPropertyToCertificationType.resx">
       <DependentUpon>202205051534162_AddedIsAwardPropertyToCertificationType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205051547329_AddedCourseCompletionsToProjectEntity.resx">
+      <DependentUpon>202205051547329_AddedCourseCompletionsToProjectEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

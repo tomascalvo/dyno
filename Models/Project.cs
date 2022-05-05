@@ -31,18 +31,18 @@ namespace DevPath.Models
         public DateTime DateAdded { get; set; } = DateTime.Now;
 
         // NAVIGATION PROPERTIES
+        public string AddedById { get; set; }
+        public ApplicationUser AddedBy { get; set; }
         public List<ProjectSkill> ProjectSkills { get; set; }
+        [Display(Name = "Developers")]
         public List<ApplicationUserProject> ApplicationUserProjects { get; set; }
         public List<EmploymentProject> EmploymentProjects { get; set; }
         public List<Certification> Certifications { get; set; }
+        public List<CourseCompletion> CourseCompletions { get; set; }
 
         //public int? OwnerID { get; set; }
         //public virtual ApplicationUser Owner { get; set; }
-        //public virtual ICollection<ApplicationUser> Developers { get; set; }
-        //public virtual ICollection<Skill> Skills { get; set; }
-        //public virtual ICollection<Project> Projects { get; set; }
 
-        //public virtual ICollection<Tutorial> Tutorials { get; set; }
         //public virtual ICollection<Workflow> Workflows { get; set; }
         //public int? CompanyID { get; set; }
         //public virtual Company Company { get; set; }
