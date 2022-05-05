@@ -287,11 +287,16 @@
     <Compile Include="Migrations\202205051547329_AddedCourseCompletionsToProjectEntity.designer.cs">
       <DependentUpon>202205051547329_AddedCourseCompletionsToProjectEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205051602087_AddClientEntity.cs" />
+    <Compile Include="Migrations\202205051602087_AddClientEntity.designer.cs">
+      <DependentUpon>202205051602087_AddClientEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Certification.cs" />
     <Compile Include="Models\CertificationType.cs" />
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseCompletion.cs" />
     <Compile Include="Models\DocumentationRead.cs" />
@@ -615,6 +620,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205051547329_AddedCourseCompletionsToProjectEntity.resx">
       <DependentUpon>202205051547329_AddedCourseCompletionsToProjectEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205051602087_AddClientEntity.resx">
+      <DependentUpon>202205051602087_AddClientEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

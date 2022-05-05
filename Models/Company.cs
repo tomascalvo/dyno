@@ -18,6 +18,7 @@ namespace DevPath.Models
         public string WebsiteUrl { get; set; }
         public bool IsStaffingCompany { get; set; } = false;
         public string OrganizationLookupId { get; set; }
+
         // LOCATION PROPERTIES
         public string Country { get; set; }
         [Display(Name = "State/Province")]
@@ -36,6 +37,7 @@ namespace DevPath.Models
                 return locationString;
             }
         }
+
         //DATETIME PROPERTIES
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyy-MM-dd", ApplyFormatInEditMode = true)]

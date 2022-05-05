@@ -2,16 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace DevPath.Models
 {
-    public class Recruiter
+    public class Client
     {
-        // PROPERTIES
         public int Id { get; set; }
         [DataType(DataType.EmailAddress)]
         [StringLength(50, ErrorMessage = "Email address cannot be longer than 50 characters.")]
         public string Email { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string Details { get; set; }
 
         // NAME PROPERTIES
         [Required]
@@ -28,15 +28,16 @@ namespace DevPath.Models
         [Display(Name = "Name")]
         public string FullName { get { return FirstMidName + " " + LastName; } }
 
-
         // NAVIGATION PROPERTIES
-        public int? StaffingCompanyId { get; set; }
+        public int? CurrentCompanyId { get; set; }
         [Display(Name = "Company")]
-        public Company StaffingCompany { get; set; }
-        [Display(Name = "Listings")]
-        public List<EmploymentListing> EmploymentListings { get; set; }
-        public List<RecruiterClient> RecruiterClients { get; set; }
-        [Display(Name = "Offers")]
-        public List<EmploymentOffer> EmploymentOffers { get; set; }
+        public Company CurrentCompany { get; set; }
+        [Display(Name = "Contracts")]
+        public List<Company> FormerCompanies { get; set; }
+        //public List<ContractListing> ContractListings { get; set; }
+        //public List<ContractListing> Contracts { get; set; }
+        //public List<Quote> Quotes { get; set; }
+        //public List<Social> Socials { get; set; }
+
     }
 }

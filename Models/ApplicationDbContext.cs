@@ -41,7 +41,7 @@ namespace DevPath.Models
         public DbSet<CourseCompletion> CourseCompletions { get; set; }
         public DbSet<Goal> Goals { get; set; }
         public DbSet<DocumentationRead> DocumentationRead { get; set; }
-
+        public DbSet<Client> Clients { get; set; }
 
 
         public static ApplicationDbContext Create()
