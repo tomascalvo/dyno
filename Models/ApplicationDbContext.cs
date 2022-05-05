@@ -281,6 +281,12 @@ namespace DevPath.Models
                 .WithRequired(award => award.Recipient)
                 .HasForeignKey(award => award.RecipientId);
 
+            // Certification to Project: Many to One/Zero
+            modelBuilder.Entity<Project>()
+                .HasMany(project => project.Certifications)
+                .WithOptional(cert => cert.Project)
+                .HasForeignKey(cert => cert.ProjectId);
+
             //!!!!!!!!!!!!!!!!!!!!!!!!
             // CertificationType to Course: One or Zero to One or Zero
             modelBuilder.Entity<CertificationType>()

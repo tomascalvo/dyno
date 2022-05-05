@@ -34,6 +34,7 @@ namespace DevPath.Models
         public List<ProjectSkill> ProjectSkills { get; set; }
         public List<ApplicationUserProject> ApplicationUserProjects { get; set; }
         public List<EmploymentProject> EmploymentProjects { get; set; }
+        public List<Certification> Certifications { get; set; }
 
         //public int? OwnerID { get; set; }
         //public virtual ApplicationUser Owner { get; set; }
