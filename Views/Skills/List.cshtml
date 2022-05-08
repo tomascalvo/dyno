@@ -18,7 +18,7 @@
                         <th class="d-none d-md-table-cell">Icon</th>
                         @*<th>Description</th>*@
                         <th>Title</th>
-                        <th class="d-none d-sm-table-cell">Projects</th>
+                        <th class="d-none d-sm-table-cell">@(User.Identity.IsAuthenticated ? "My Projects" : "Projects")</th>
                         <th class="d-none d-lg-table-cell">Development</th>
                         <th></th>
                     </tr>
@@ -141,8 +141,7 @@
                             @*ACTIONS*@
 
                             <td>
-                                <div 
-                                     @*class="btn-group"*@
+                                <div @*class="btn-group"*@
                                      role="group"
                                      style="
                                     display: flex;
@@ -155,7 +154,7 @@
                                     @*REPO*@
                                     @if (skill?.RepositoryUrl.IsEmpty() == false)
                                     {<a href=@skill.RepositoryUrl
-                                        class="btn btn-primary btn-action" 
+                                        class="btn btn-primary btn-action"
                                         data-bs-toggle="tooltip"
                                         data-bs-placement="top"
                                         title="Repo">
@@ -167,7 +166,7 @@
                                     @if (skill.DocumentationUrl != null)
                                     {
                                         <a href=@skill.DocumentationUrl
-                                        class="btn btn-primary btn-action" 
+                                           class="btn btn-primary btn-action"
                                            data-bs-toggle="tooltip"
                                            data-bs-placement="top"
                                            title="Repo">
@@ -176,25 +175,25 @@
                                                  style="width: 16px;" />
                                         </a>
                                     }
-                                    @*EDIT*@
-                                    <a href="@Url.Action("Edit", "Skills", new { id = skill.Id })"
-                                        class="btn btn-primary btn-action" 
-                                       title=@($"Edit {skill.Title}")
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       >
-                                        <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
-                                    </a>
-                                    @*DELETE*@
-                                    <a href="@Url.Action("Delete", "Skills", new { id = skill.Id })"
-                                       class="btn btn-danger btn-action"
-                                       title=@($"Delete {skill.Title}")
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       >
-                                        <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
-                                    </a>
-
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        @*EDIT*@
+                                        <a href="@Url.Action("Edit", "Skills", new { id = skill.Id })"
+                                           class="btn btn-primary btn-action"
+                                           title=@($"Edit {skill.Title}")
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top">
+                                            <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
+                                        </a>
+                                        @*DELETE*@
+                                        <a href="@Url.Action("Delete", "Skills", new { id = skill.Id })"
+                                           class="btn btn-danger btn-action"
+                                           title=@($"Delete {skill.Title}")
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top">
+                                            <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
+                                        </a>
+                                    }
                                 </div>
                             </td>
                         </tr>
