@@ -64,14 +64,7 @@ namespace DevPath.Controllers
         public ActionResult Index()
         {
             var skills = _context.Skills.Include(s => s.ProjectSkills.Select(ps => ps.Project)).ToList();
-            if (User.IsInRole(RoleName.CanManageAll) || User.IsInRole(RoleName.CanManageSkills))
-            {
-                return View("List", skills);
-            }
-            else
-            {
-                return View("ListReadOnly", skills);
-            }
+            return View("List", skills);
         }
 
         [AllowAnonymous]
