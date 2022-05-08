@@ -291,12 +291,19 @@
     <Compile Include="Migrations\202205051602087_AddClientEntity.designer.cs">
       <DependentUpon>202205051602087_AddClientEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205081318192_ContractEntities.cs" />
+    <Compile Include="Migrations\202205081318192_ContractEntities.designer.cs">
+      <DependentUpon>202205081318192_ContractEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\ContractBid.cs" />
     <Compile Include="Models\Certification.cs" />
     <Compile Include="Models\CertificationType.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\Contract.cs" />
+    <Compile Include="Models\ContractListing.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseCompletion.cs" />
     <Compile Include="Models\DocumentationRead.cs" />
@@ -623,6 +630,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205051602087_AddClientEntity.resx">
       <DependentUpon>202205051602087_AddClientEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205081318192_ContractEntities.resx">
+      <DependentUpon>202205081318192_ContractEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -48,8 +48,8 @@ namespace DevPath.Models
         [Display(Name = "Documentation Read")]
 
         public List<DocumentationRead> DocumentationRead { get; set; }
+        public List<WorkflowStep> Workflows { get; set; }
 
-        //public virtual ICollection<DocCompletion> DocCompletions { get; set; }
         //public virtual ICollection<Flashcard> Flashcards { get; set; }
     }
 }

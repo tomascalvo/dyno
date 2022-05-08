@@ -39,14 +39,12 @@ namespace DevPath.Models
         public List<EmploymentProject> EmploymentProjects { get; set; }
         public List<Certification> Certifications { get; set; }
         public List<CourseCompletion> CourseCompletions { get; set; }
-
-        //public int? OwnerID { get; set; }
-        //public virtual ApplicationUser Owner { get; set; }
-
-        //public virtual ICollection<Workflow> Workflows { get; set; }
-        //public int? CompanyID { get; set; }
-        //public virtual Company Company { get; set; }
-        //public virtual ICollection<Quote> Quotes { get; set; }
+        public int? ContractBidId { get; set; }
+        public ContractBid ContractBid { get; set; }
+        public int? EmploymentId { get; set; }
+        public Employment Employment { get; set; }
+        public int? WorkflowId { get; set; }
+        public Workflow Workflow { get; set; }
 
     }
 }

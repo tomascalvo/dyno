@@ -34,10 +34,8 @@ namespace DevPath.Models
         public Company CurrentCompany { get; set; }
         [Display(Name = "Contracts")]
         public List<Company> FormerCompanies { get; set; }
-        //public List<ContractListing> ContractListings { get; set; }
-        //public List<ContractListing> Contracts { get; set; }
-        //public List<Quote> Quotes { get; set; }
+        public List<ContractListing> ContractListings { get; set; }
+        public List<ContractListing> Contracts { get; set; }
         //public List<Social> Socials { get; set; }
-
     }
 }

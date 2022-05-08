@@ -42,6 +42,10 @@ namespace DevPath.Models
         public DbSet<Goal> Goals { get; set; }
         public DbSet<DocumentationRead> DocumentationRead { get; set; }
         public DbSet<Client> Clients { get; set; }
+        public DbSet<ContractListing> ContractListings { get; set; }
+        public DbSet<ContractBid> ContractBid { get; set; }
+        public DbSet<Contract> Contract { get; set; }
+        public DbSet<WorkflowStep> Workflows { get; set; }
 
 
         public static ApplicationDbContext Create()
@@ -344,19 +348,33 @@ namespace DevPath.Models
                     sg.ToTable("GoalSkills");
                 });
 
-            // DocumentationRead to User : One or zero to One
+            // DocumentationRead to User : Many to One
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.DocumentationRead)
                 .WithRequired(d => d.User)
                 .HasForeignKey(d => d.UserId);
 
 
-            // DocumentationRead to Skill: One or zero to One
+            // DocumentationRead to Skill: Many to One
             modelBuilder.Entity<Skill>()
                 .HasMany(s => s.DocumentationRead)
                 .WithRequired(d => d.Skill)
                 .HasForeignKey(d => d.SkillId);
 
+            // Contract to ContractBid: One or Zero to One
+            modelBuilder.Entity<ContractBid>()
+                .HasOptional(bid => bid.Contract)
+                .WithRequired(contract => contract.ContractBid);
+
+            // Project to Contract Bid: One to One or Zero
+            modelBuilder.Entity<Project>()
+                .HasOptional(project => project.ContractBid)
+                .WithRequired(bid => bid.Project);
+
+            // Workflow to Workflow Steps: Many to Many
+            modelBuilder.Entity<WorkflowStep>()
+                .HasMany(workflow => workflow.SubSteps)
+                .WithMany(step => step.SuperSteps);
 
             // This method is necessary because this MVC app is using Identity Framework and the DbContext needs to include the built-in identity models as datasets.
 
