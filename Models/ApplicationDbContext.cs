@@ -45,7 +45,7 @@ namespace DevPath.Models
         public DbSet<ContractListing> ContractListings { get; set; }
         public DbSet<ContractBid> ContractBid { get; set; }
         public DbSet<Contract> Contract { get; set; }
-        public DbSet<WorkflowStep> Workflows { get; set; }
+        //public DbSet<WorkflowStep> Workflows { get; set; }
 
 
         public static ApplicationDbContext Create()
@@ -371,10 +371,10 @@ namespace DevPath.Models
                 .HasOptional(project => project.ContractBid)
                 .WithRequired(bid => bid.Project);
 
-            // Workflow to Workflow Steps: Many to Many
-            modelBuilder.Entity<WorkflowStep>()
-                .HasMany(workflow => workflow.SubSteps)
-                .WithMany(step => step.SuperSteps);
+            //// Workflow to Workflow Steps: Many to Many
+            //modelBuilder.Entity<WorkflowStep>()
+            //    .HasMany(workflow => workflow.SubSteps)
+            //    .WithMany(step => step.SuperSteps);
 
             // This method is necessary because this MVC app is using Identity Framework and the DbContext needs to include the built-in identity models as datasets.
 

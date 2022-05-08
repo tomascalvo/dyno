@@ -43,8 +43,8 @@ namespace DevPath.Models
         public ContractBid ContractBid { get; set; }
         public int? EmploymentId { get; set; }
         public Employment Employment { get; set; }
-        public int? WorkflowId { get; set; }
-        public Workflow Workflow { get; set; }
+        //public int? WorkflowId { get; set; }
+        //public Workflow Workflow { get; set; }
 
     }
 }
