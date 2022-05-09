@@ -27,13 +27,17 @@ namespace DevPath.Controllers
             var viewModel = new EmploymentListingFormViewModel()
             {
                 ClientCompanyOptions = _context.Companies.ToList(),
-                StaffingCompanyOptions = _context.Companies.Where(c => c.IsStaffingCompany == true).ToList(),
+                StaffingCompanyOptions = _context.Companies
+                .Where(c => c.IsStaffingCompany == true)
+                .ToList(),
                 RecruiterOptions = _context.Recruiters.ToList(),
-                SkillOptions = _context.Skills.ToList().Select(skill => new SelectListItem
-                {
-                    Text = skill.Title,
-                    Value = skill.Id.ToString()
-                }),
+                SkillOptions = _context.Skills
+                    .ToList()
+                    .Select(skill => new SelectListItem
+                    {
+                        Text = skill.Title,
+                        Value = skill.Id.ToString()
+                    }),
             };
             return View("EmploymentListingForm", viewModel);
         }

@@ -81,9 +81,17 @@
                                     }
                                 </td>*@
 
-                            <td>
+                        <td>
+                            <a href="@Url.Action(
+                                                "Details",
+                                                "Skills",
+                                                new { id = skill.Id })"
+                               title=@($"{skill.Title} Details")
+                               style="text-decoration: none;"
+                            >
                                 <p>@skill.Title</p>
-                            </td>
+                            </a>
+                        </td>
 
                             @*PROJECTS*@
 

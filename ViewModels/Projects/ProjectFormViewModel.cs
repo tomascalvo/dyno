@@ -22,10 +22,18 @@ namespace DevPath.ViewModels.Projects
             Title = project.Title;
             Description = project.Description;
             Icon = project.Icon;
+
+            // Url Properties
             RepositoryUrl = project.RepositoryUrl;
             DeploymentUrl = project.DeploymentUrl;
+
+            // DateTime Properties
             DateAdded = project.DateAdded;
-            SelectedSkillIds = project.ProjectSkills.Select(ps => ps.Skill.Id).ToList();
+
+            // Entity Relationships
+            SelectedSkillIds = project.ProjectSkills
+                .Select(ps => ps.Skill.Id)
+                .ToList();
         }
 
         // DOMAIN MODEL PROPERTIES

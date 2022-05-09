@@ -18,6 +18,8 @@ namespace DevPath.Models
         [Display(Name = "Developer(s)")]
         [StringLength(250, ErrorMessage = "Developer property cannot be longer than 250 characters.")]
         public string Developer { get; set; }
+        [Display(Name = "Approved")]
+        public bool IsApproved { get; set; } = false;
 
         // URL PROPERTIES
         [DataType(DataType.Url)]
@@ -35,13 +37,18 @@ namespace DevPath.Models
         public DateTime? ReleaseDate { get; set; }
         [DataType(DataType.DateTime)]
         [Display(Name = "Date Added")]
+        [DisplayFormat(DataFormatString = "{0:yyy-MM-dd HH':'mm}", ApplyFormatInEditMode = true)]
         public DateTime? DateAdded { get; set; } = DateTime.Now;
 
         // NAVIGATION PROPERTIES
+        public string AddedById { get; set; }
+        [Display(Name = "Added by")]
+        public ApplicationUser AddedBy { get; set; }
+        [Display(Name = "Projects")]
         public List<ProjectSkill> ProjectSkills { get; set; }
+        public List<SkillHierarchy> Prerequisites { get; set; }
         public List<EmploymentListingSkill> EmploymentListingSkills { get; set; }
         public List<EmploymentSkill> EmploymentSkills { get; set; }
-        public List<SkillHierarchy> Prerequisites { get; set; }
         public List<SkillHierarchyPrerequisite> Principals { get; set; }
         public List<Course> Courses { get; set; }
         public List<Goal> Goals { get; set; }

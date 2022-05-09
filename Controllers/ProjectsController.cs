@@ -27,11 +27,14 @@ namespace DevPath.Controllers
         {
             var viewModel = new ProjectFormViewModel()
             {
-                SkillOptions = _context.Skills.ToList().Select(skillOption => new SelectListItem
-                {
-                    Text = skillOption.Title,
-                    Value = skillOption.Id.ToString()
-                })
+                SkillOptions = _context.Skills
+                    .ToList()
+                    .Select(skillOption => new SelectListItem
+                    {
+                        Text = skillOption.Title,
+                        Value = skillOption.Id.ToString()
+                    }
+                    )
             };
             return View("ProjectForm", viewModel);
         }
@@ -42,19 +45,23 @@ namespace DevPath.Controllers
 
         public ActionResult Save(ProjectFormViewModel formData)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) // Data Validation
             {
                 return View("ProjectForm", formData);
             }
 
             if (formData.Id == 0) // CREATE NEW PROJECT
             {
-                formData.DateAdded = DateTime.Now;
                 var newProject = new Project
                 {
                     Title = formData.Title,
                     Description = formData.Description,
                     Icon = formData.Icon,
+
+                    // DateTime Properties
+                    DateAdded = DateTime.Now,
+
+                    // Url Properties
                     RepositoryUrl = formData.RepositoryUrl,
                     DeploymentUrl = formData.DeploymentUrl,
                 };
@@ -83,7 +90,7 @@ namespace DevPath.Controllers
                 // QUERY DB FOR RECORD TO UPDATE
                 var projectInDb = _context.Projects
                     .Include(p => p.ProjectSkills
-                    .Select(ps => ps.Skill))
+                        .Select(ps => ps.Skill))
                     .Single(p => p.Id == formData.Id);
 
                 // CHANGE PROPERTY VALUES
@@ -115,6 +122,7 @@ namespace DevPath.Controllers
                 {
                     // CHECK TO SEE IF RELATED ENTITIES ARE CHOSEN FOR REMOVAL IN FORM
                     if (formData.SelectedSkillIds.Contains(priorProjectSkill.SkillId)) continue;
+                    // Remove related entity.
                     _context.ProjectSkills.Remove(priorProjectSkill);
                 }
             }
@@ -189,9 +197,10 @@ namespace DevPath.Controllers
         [Authorize(Roles = RoleName.CanManageAll)]
         public ActionResult Edit(int id)
         {
+            // Query db for record to edit.
             var projectInDb = _context.Projects
                 .Include(p => p.ProjectSkills
-                .Select(ps => ps.Skill))
+                    .Select(ps => ps.Skill))
                 .SingleOrDefault(p => p.Id == id);
 
             if (projectInDb == null)

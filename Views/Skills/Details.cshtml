@@ -1,9 +1,143 @@
 ﻿@model DevPath.Models.Skill
 @{
-    ViewBag.Title = "Details";
+    ViewBag.ViewTitle = $"Skill: {Model.Title}";
 }
 
-<h2>@Model.Title</h2>
+@Html.Partial("_Header")
 
-<p>Id: @Model.Id</p>
-<p>@Model.Description</p>
+<div class="ex-basic-1 bg-black pb-4">
+    <div class="container">
+        <div class="row">
+            <div class="
+                 col-12
+                 col-md-6
+                 ">
+                <div class="mb-3">
+                    @if (Model.Icon != null)
+                    {
+                        <img src=@(Url.Content(Model.Icon ?? "#"))
+                             alt=@Model.Title
+                             class="img-fluid"
+                             style="
+                         max-width: 100px;
+                         max-height: 100px;
+                         float: left;
+                         padding-right: 1rem;
+                         " />
+                    }
+                    <p>@Model.Description</p>
+                </div>
+                <div class="mb-3">
+                    <p>
+                        @Html.LabelFor(s => s.Developer,
+                new { style = "margin: 0;" }): @(Model.Developer ?? "Unknown")
+                        <br />
+                        @Html.LabelFor(s => s.ReleaseDate,
+                new { style = "margin: 0;" }): @(Model.ReleaseDate != null ? Model.ReleaseDate.ToString() : "Unknown")
+                    </p>
+                    @if (Model.RepositoryUrl != null || Model.DocumentationUrl != null)
+                    {
+                        <div class="btn-group" role="group" aria-label="button group">
+                            @if (Model.RepositoryUrl != null)
+                            {
+                                <a href=@Model.RepositoryUrl
+                                   class="btn btn-primary"
+                                   role="button">
+                                    @Html.LabelFor(
+                                       s => s.RepositoryUrl,
+                                       new { style = "margin: 0;" }
+                                    )
+                                </a>
+                            }
+                            @if (Model.DocumentationUrl != null)
+                            {
+                                <a href=@Model.DocumentationUrl
+                                   class="btn btn-primary"
+                                   role="button">
+                                    @Html.LabelFor(
+                                        s => s.DocumentationUrl,
+                                       new { style = "margin: 0;" }
+
+                                    )
+                                </a>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-3">
+                    <p>
+                        @Html.LabelFor(s => s.AddedBy)
+                        @Model.AddedBy.UserName on @Model.DateAdded.ToString()
+                        <br />
+                        @Html.LabelFor(s => s.IsApproved): @(Model.IsApproved ? "Yes" : "No")
+                        <br />
+                        Id: @Model.Id
+                    </p>
+                </div>
+            </div>
+            <div class="col-12
+                 col-md-6">
+                <div class="mb-3">
+                    <h3>
+                        @Html.LabelFor(s => s.ProjectSkills):
+                    </h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        @foreach (var ps in Model.ProjectSkills)
+                        {
+                            <li>
+                                @if (ps.Project.Icon != null)
+                                {
+                                    <img src=@(Url.Content(ps.Project.Icon ?? "#"))
+                                         alt=@Model.Title
+                                         class="img-fluid"
+                                         style="
+                                             max-width: 100px;
+                                             max-height: 100px;
+                                             float: left;
+                                             padding-right: 1rem;
+                                             "
+                                         />
+                                } else
+                                {
+                                    <p>ps.Project.Title</p>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="
+                 col-12
+                 ">
+                <div class="mb-3">
+                    <div class="btn-group" role="group" aria-label="button group">
+                        @Html.ActionLink(
+                          "Edit Skill",
+                          "Edit",
+                          "Skills",
+                          new { id = Model.Id },
+                          new
+                               {
+                                   @class = "btn btn-primary",
+                                style = "text-decoration: none"
+                                }
+                          )
+                        @Html.ActionLink(
+                        "Skill List",
+                        "Index",
+                        "Skills",
+                        new
+                             {
+                                 @class = "btn btn-primary",
+                                 style = "text-decoration: none;"
+                            }
+                        )
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

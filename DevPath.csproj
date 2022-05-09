@@ -183,6 +183,10 @@
     <Compile Include="Migrations\202205081446342_init.designer.cs">
       <DependentUpon>202205081446342_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205091232374_AddedIsApprovedAndAddedByToSkillModel.cs" />
+    <Compile Include="Migrations\202205091232374_AddedIsApprovedAndAddedByToSkillModel.designer.cs">
+      <DependentUpon>202205091232374_AddedIsApprovedAndAddedByToSkillModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -437,6 +441,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202205081446342_init.resx">
       <DependentUpon>202205081446342_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205091232374_AddedIsApprovedAndAddedByToSkillModel.resx">
+      <DependentUpon>202205091232374_AddedIsApprovedAndAddedByToSkillModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
