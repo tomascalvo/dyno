@@ -10,6 +10,9 @@
         <p>@Html.ActionLink("Skill List", "Index", "Skill", new { @class = "btn btn-primary" })</p>
         @using (Html.BeginForm("Save", "Skills"))
         {
+    <div class="row">
+        <div class="col-12 col-sm-6">
+
             <div class="mb-3">
                 @Html.LabelFor(s => s.Title)
                 @Html.TextBoxFor(s => s.Title, new { @class = "form-control" })
@@ -20,15 +23,17 @@
             </div>
             <div class="mb-3">
                 @Html.LabelFor(s => s.Description)
-                @Html.TextBoxFor(s => s.Description, new { @class = "form-control" })
+                @Html.TextAreaFor(s => s.Description, new { rows = "5", @class = "form-control" })
             </div>
+        </div>
+        <div class="col-12 col-sm-6">
             <div class="mb-3">
                 @Html.LabelFor(s => s.Developer)
                 @Html.TextBoxFor(s => s.Developer, new { @class = "form-control" })
             </div>
             <div class="mb-3">
                 @Html.LabelFor(s => s.ReleaseDate)
-                @Html.TextBoxFor(s => s.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+                @Html.EditorFor(s => s.ReleaseDate, "{0:d MMM yyyy}", new { htmlAttributes = new { @class = "form-control" } })
             </div>
             <div class="mb-3">
                 @Html.LabelFor(s => s.RepositoryUrl)
@@ -38,9 +43,15 @@
                 @Html.LabelFor(s => s.DocumentationUrl)
                 @Html.TextBoxFor(s => s.DocumentationUrl, new { @class = "form-control" })
             </div>
-            @Html.HiddenFor(s => s.Id)
-            @Html.HiddenFor(s => s.DateAdded)
-            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+            <div class="row">
+                <div class="col">
+                    @Html.HiddenFor(s => s.Id)
+                    @Html.HiddenFor(s => s.DateAdded)
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
         }
     </div>
-</div>
+</div>¶

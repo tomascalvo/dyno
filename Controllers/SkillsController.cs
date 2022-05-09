@@ -31,7 +31,7 @@ namespace DevPath.Controllers
 
         public ActionResult Save(Skill skill)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) // DATA VALIDATION
             {
                 var viewModel = new SkillFormViewModel(skill);
                 return View("SkillForm", viewModel);

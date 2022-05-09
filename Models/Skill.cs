@@ -8,13 +8,13 @@ namespace DevPath.Models
     public class Skill
     {
         public int Id { get; set; }
-        public string Icon { get; set; }
         [Required]
 
         [StringLength(50, ErrorMessage = "Skill title cannot be longer than 50 characters.")]
         public string Title { get; set; }
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        public string Icon { get; set; }
         [Display(Name = "Developer(s)")]
         [StringLength(250, ErrorMessage = "Developer property cannot be longer than 250 characters.")]
         public string Developer { get; set; }
