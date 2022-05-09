@@ -10,12 +10,12 @@ namespace DevPath.ViewModels.Skills
     public class SkillFormViewModel
     {
         public int? Id { get; set; } // Id is nullable in the ViewModel because this form can be used to edit existing Skill records (which have an Id) as well as to create new Skill records (in which case there is no Id to send to the view).
-        public string Icon { get; set; }
         [Required(ErrorMessage = "Enter skill title.")]
         public string Title { get; set; }
         [StringLength(1000, ErrorMessage = "Skill description cannot exceed 1000 characters in length.")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        public string Icon { get; set; }
         [StringLength(250, ErrorMessage = "Developer property cannot be longer than 250 characters.")]
         public string Developer { get; set; }
 
@@ -42,7 +42,7 @@ namespace DevPath.ViewModels.Skills
         public ApplicationUser AddedBy { get; set; }
         public IEnumerable<SelectListItem> ProjectOptions { get; set; }
         [Display(Name = "Projects")]
-        public List<int> SelectedProjectIds { get; set; }
+        public List<int> SelectedProjectIds { get; set; } = new List<int>(); // If this property isn't initialized, validation will throw an exception.
 
         // View Properties
         public string ViewTitle

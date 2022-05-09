@@ -427,6 +427,7 @@
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Companies\_ActionButtons.cshtml" />
     <Content Include="Views\EmploymentOffers\EmploymentOfferForm.cshtml" />
+    <Content Include="Views\Skills\_ActionButtons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

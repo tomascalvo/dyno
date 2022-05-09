@@ -1,0 +1,59 @@
+﻿
+@using Microsoft.AspNet.Identity;
+@using DevPath.Models;
+@model DevPath.Models.Skill
+<div @*class="btn-group"*@
+     role="group"
+     style="
+            display: flex;
+            /*flex-direction: row-reverse;*/
+            justify-content: flex-end;
+            align-items: center;
+            align-content: center;
+            gap: 4px;
+        ">
+    @*REPO*@
+    @if (Model?.RepositoryUrl.IsEmpty() == false)
+    {
+        <a href=@Model.RepositoryUrl
+        class="btn btn-primary btn-action btn-flexgrow"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Repo">
+            <img src="~/Content/Icons/github.svg"
+                 alt="github" />
+        </a>
+    }
+    @*DOCUMENTATION*@
+    @if (Model.DocumentationUrl != null)
+    {
+        <a href=@Model.DocumentationUrl
+           class="btn btn-primary btn-action btn-flexgrow"
+           data-bs-toggle="tooltip"
+           data-bs-placement="top"
+           title="Repo">
+            <img src="~/Content/Icons/book-solid.svg"
+                 alt="website"
+                 style="width: 16px;" />
+        </a>
+    }
+    @if (User.Identity.IsAuthenticated)
+    {
+        @*EDIT*@
+        <a href="@Url.Action("Edit", "Skills", new { id = Model.Id })"
+           class="btn btn-primary btn-action"
+           title=@($"Edit {Model.Title}")
+           data-bs-toggle="tooltip"
+           data-bs-placement="top">
+            <img src="~/Content/Icons/pencil-solid.svg" alt="edit" style="width: 16px;" />
+        </a>
+        @*DELETE*@
+        <a href="@Url.Action("Delete", "Skills", new { id = Model.Id })"
+           class="btn btn-danger btn-action"
+           title=@($"Delete {Model.Title}")
+           data-bs-toggle="tooltip"
+           data-bs-placement="top">
+            <img src="~/Content/Icons/trash-solid.svg" alt="delete" style="width: 16px;" />
+        </a>
+    }
+</div>

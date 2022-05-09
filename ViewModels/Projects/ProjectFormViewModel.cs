@@ -54,7 +54,7 @@ namespace DevPath.ViewModels.Projects
 
         // SKILL OPTIONS
         public IEnumerable<SelectListItem> SkillOptions { get; set; }
-        public List<int> SelectedSkillIds { get; set; } = new List<int>();
+        public List<int> SelectedSkillIds { get; set; } = new List<int>();  // If this property isn't initialized, validation will throw an exception.
 
         // VIEW TITLE
 

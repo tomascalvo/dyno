@@ -9,7 +9,6 @@ namespace DevPath.Models
     {
         public int Id { get; set; }
         [Required]
-
         [StringLength(50, ErrorMessage = "Skill title cannot be longer than 50 characters.")]
         public string Title { get; set; }
         [DataType(DataType.MultilineText)]

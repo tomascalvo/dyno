@@ -47,6 +47,7 @@ namespace DevPath.Controllers
         {
             if (!ModelState.IsValid) // Data Validation
             {
+                formData.SkillOptions = new SelectList(_context.Skills, "Id", "Title");
                 return View("ProjectForm", formData);
             }
 
@@ -65,6 +66,7 @@ namespace DevPath.Controllers
                     RepositoryUrl = formData.RepositoryUrl,
                     DeploymentUrl = formData.DeploymentUrl,
                 };
+
                 _context.Projects.Add(newProject);
                 _context.SaveChanges();
 

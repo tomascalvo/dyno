@@ -71,6 +71,14 @@ namespace DevPath.Controllers
             string userId = User.Identity.GetUserId();
             if (!ModelState.IsValid) // DATA VALIDATION
             {
+                formData.ProjectOptions = new SelectList(
+                    _context.Projects
+                        .Include(p => p.ApplicationUserProjects.Select(aup => aup.ApplicationUser))
+                        .Where(p => p.AddedById == userId || p.ApplicationUserProjects
+                            .Any(aup => aup.ApplicationUserId == userId)
+                    ),
+                    "Id",
+                    "Title");
                 return View("SkillForm", formData);
             }
 

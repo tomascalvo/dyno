@@ -56,3 +56,17 @@ textarea {
     text-decoration: none;
     width: 4rem;
 }
+
+.btn-flexgrow {
+    flex-grow: 1;
+}
+
+/*Validation Errors*/
+
+.field-validation-error, .validation-summary-errors {
+    color: red;
+}
+
+.input-validation-error.form-control {
+    border: 2px solid red;
+}

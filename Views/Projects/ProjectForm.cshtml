@@ -11,9 +11,11 @@
 
         @using (Html.BeginForm("Save", "Projects"))
         {
+            @Html.ValidationSummary(true, "Please fix the following errors.")
             <div class="mb-3">
                 @Html.LabelFor(p => p.Title)
                 @Html.TextBoxFor(p => p.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(p => p.Title)
             </div>
             <div class="mb-3">
                 @Html.LabelFor(p => p.Description)

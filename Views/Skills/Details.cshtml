@@ -75,37 +75,40 @@
                     </p>
                 </div>
             </div>
-            <div class="col-12
-                 col-md-6">
-                <div class="mb-3">
-                    <h3>
-                        @Html.LabelFor(s => s.ProjectSkills):
-                    </h3>
-                    <ul style="list-style-type: none; padding: 0;">
-                        @foreach (var ps in Model.ProjectSkills)
-                        {
-                            <li>
-                                @if (ps.Project.Icon != null)
-                                {
-                                    <img src=@(Url.Content(ps.Project.Icon ?? "#"))
-                                         alt=@Model.Title
-                                         class="img-fluid"
-                                         style="
-                                             max-width: 100px;
-                                             max-height: 100px;
-                                             float: left;
-                                             padding-right: 1rem;
-                                             "
-                                         />
-                                } else
-                                {
-                                    <p>ps.Project.Title</p>
-                                }
-                            </li>
-                        }
-                    </ul>
+            @if (Model.ProjectSkills.Count > 0)
+            {
+                <div class="col-12
+                     col-md-6">
+                    <div class="mb-3">
+                        <h3>
+                            @Html.LabelFor(s => s.ProjectSkills):
+                        </h3>
+                        <ul style="list-style-type: none; padding: 0;">
+                            @foreach (var ps in Model.ProjectSkills)
+                            {
+                                <li>
+                                    @if (ps.Project.Icon != null)
+                                    {
+                                        <img src=@(Url.Content(ps.Project.Icon ?? "#"))
+                                             alt=@Model.Title
+                                             class="img-fluid"
+                                             style="
+                                                 max-width: 100px;
+                                                 max-height: 100px;
+                                                 float: left;
+                                                 padding-right: 1rem;
+                                                 " />
+                                    }
+                                    else
+                                    {
+                                        <p>ps.Project.Title</p>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
 
         <div class="row">
